@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: { default: "Star of AI · AI 자동화 전문 컨설팅", template: "%s · Star of AI" },
   description:
-    "클로드 코드 스터디 과외, 개인 자동화 워크플로우 셋팅 대행, 기업 AX 강의·컨설팅. 2026년 7개 기관 239명이 들은 AI 자동화 강의, Star of AI.",
+    "클로드 코드 스터디 과외, 개인 자동화 워크플로우 셋팅 대행, 기업 AX 강의·컨설팅. 누적 260명 이상이 들은 AI 자동화 강의, Star of AI.",
   openGraph: {
     title: "Star of AI · AI 자동화 전문 컨설팅",
     description: "반복 업무는 AI에게, 당신은 더 중요한 일에. 클로드 코드 스터디 · 자동화 셋팅 대행 · 기업 AX",

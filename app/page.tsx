@@ -11,13 +11,13 @@ import ReviewMarquee from "@/components/ReviewMarquee";
 import CoffeeChat from "@/components/CoffeeChat";
 import OtherProjects from "@/components/OtherProjects";
 import TrackRecord from "@/components/TrackRecord";
-import { STATS, CAREER } from "@/lib/proof";
+import { STATS, CAREER, AWARDS, COMMUNITY } from "@/lib/proof";
 
 const PILLARS = [
   {
     en: "AI Lecture",
     ko: "AI 강의",
-    desc: "설치에서 막히는 비개발자도 끝까지 따라오는 실습형 강의. 대학·기업·커뮤니티에서 239명이 들었습니다.",
+    desc: "설치에서 막히는 비개발자도 끝까지 따라오는 실습형 강의. 대학·기업·커뮤니티에서 260명 넘게 들었습니다.",
   },
   {
     en: "AI Builder",
@@ -146,11 +146,12 @@ export default function Home() {
             <Reveal delay={120}>
               <div className="mt-7 space-y-4 text-[16px] leading-[1.85] text-brown/80">
                 <p>
-                  안녕하세요, Star of AI 대표 이경서(Winter)입니다. 디자인을 전공하고 카카오게임즈 계열사에서 서비스 기획을 하면서,
+                  안녕하세요, Star of AI 대표 이경서(Winter)입니다. 시각디자인을 전공하고 카카오게임즈 계열사에서 글로벌 서비스를 기획하면서,
                   매주 같은 보고서를 만들고 같은 표를 옮기는 데 시간을 쓰는 동료들을 많이 봤어요.
                 </p>
                 <p>
-                  그래서 직접 자동화를 만들기 시작했고, 지금은 기업의 AX 컨설턴트이자 AI 강사로 일합니다.
+                  그래서 직접 자동화를 만들기 시작했고, 지금은 IT 개발 에이전시를 운영하며 기업의 반복 업무를 AI로 자동화하는 AX 컨설팅과 강의를 합니다.
+                  사내 AI 에이전트로 6시간 걸리던 업무를 1시간으로 줄인 경험을 그대로 나눠요.
                   코드를 몰라도 괜찮아요. <b className="font-semibold text-brown-dark">“어떤 일을 줄이고 싶은지”만 말해주시면</b>, 나머지는 같이 설계합니다.
                 </p>
               </div>
@@ -167,6 +168,21 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+            </Reveal>
+            <Reveal delay={300}>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                {COMMUNITY.map((c) => (
+                  <div key={c.label} className="rounded-2xl bg-white/80 px-5 py-4">
+                    <p className="text-[13px] text-brown/60">{c.label}</p>
+                    <p className="mt-1 font-semibold text-brown-dark">{c.value}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {AWARDS.map((a) => (
+                  <span key={a} className="chip !bg-white/80">🏆 {a}</span>
+                ))}
+              </div>
             </Reveal>
           </div>
         </div>
