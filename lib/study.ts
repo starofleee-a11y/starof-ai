@@ -20,6 +20,7 @@ export const STUDY = {
       title: "클로드 코드 설치 & 기본기 학습 강의",
       image: "/images/study/ep1-deck.jpg",
       imageAlt: "1회차 교안 — 클로드 코드 설치와 기본기",
+      outcome: "내 노트북에 클로드 코드가 설치되고, 내가 만든 사이트가 실제 주소에 올라가요.",
       items: ["설치 · 터미널 · 권한 초기 셋팅", "스킬 / 토큰 사용 / 커넥터 / 모델 개념 잡기", "클로드 코드로 나만의 사이트 만들어보기"],
     },
     {
@@ -29,6 +30,7 @@ export const STUDY = {
       title: "실무 자동화 사례 해부 & 샘플 데이터 실습 강의",
       image: "/images/study/ep2-deck.jpg",
       imageAlt: "2회차 교안 — 실무 자동화 사례 해부",
+      outcome: "샘플 데이터로 자동화 한 개를 끝까지 돌려보고, 내 업무 중 자동화할 것을 고릅니다.",
       items: ["실습: 나만의 AI 팀 만들어서 전사적 자동화하기", "샘플 데이터 제공 예정", "자동화가 되는 업무 vs 안 되는 업무 구분법"],
     },
     {
@@ -38,6 +40,7 @@ export const STUDY = {
       title: "내 업무 자동화 기획 발표 & 피드백",
       image: "/images/study/ep3-flow.jpg",
       imageAlt: "3회차 자료 — 자동화 기획 플로우",
+      outcome: "내 업무 자동화 기획안에 피드백을 받고, 남은 5일 작업 플랜이 정해져요.",
       items: ["기획안은 전날(11/17)까지 제출 (세션은 피드백 중심으로 진행)", "필요한 데이터 · 권한 체크리스트 정리", "최종 발표까지 남은 5일 작업 플랜 짜기"],
     },
     {
@@ -47,6 +50,7 @@ export const STUDY = {
       title: "최종 자동화 발표 & 네트워킹",
       image: "/images/study/ep4-deck.jpg",
       imageAlt: "4회차 교안 — 최종 발표와 운영 팁",
+      outcome: "내 업무 자동화가 실제로 돌아가는 걸 시연하고, 수료증과 3만원 환급을 받아요.",
       items: ["각 팀원별 완성한 자동화 라이브 시연", "운영 · 유지보수 · 확장 팁", "네트워킹 회식 (이후 자유)"],
     },
   ],
@@ -112,4 +116,45 @@ export const STUDENT_PROJECTS = [
   { title: "제약 영업 교수 CRM", desc: "담당 교수 66명+의 논문·반응 기록을 시트 하나로. 매주 일요일 방문 우선순위와 영업 스크립트 자동 제안.", image: "/images/students/pip-os.jpg", alt: "발표 자료 표지 — 교수님별 최신 논문 모니터링 & 관심사·제품 연계 DB 자동화" },
   { title: "인스타그램 카드뉴스 파이프라인", desc: "노션에 주제만 적으면 리서치 → 원고 → 캔바 템플릿 → 승인 후 게시까지 이어지는 흐름.", image: "/images/students/cardnews.jpg", alt: "발표 자료 표지 — 카드뉴스 업로드, 승인 한 번으로 끝내기" },
   { title: "팀 업무일지 슬랙 취합 자동화", desc: "매일 6시, 8명의 업무일지가 슬랙에 알아서 모여요. 퇴근 전 40분 걸리던 취합이 확인 5분으로.", image: "/images/students/daily-log.jpg", alt: "발표 자료 표지 — 매일 6시, 팀 업무일지가 슬랙에 알아서 모입니다" },
+];
+
+// 이런 분에게 추천 / 맞지 않는 분
+export const FIT_FOR = [
+  "매주 같은 정리·보고·취합을 반복하고 있는 분",
+  "클로드 코드를 설치는 했는데 실무에 어떻게 쓰는지 모르는 분",
+  "코딩 경험 없이도 내 업무 자동화를 직접 만들어 보고 싶은 분",
+  "혼자 하다 에러에서 막혀서 포기해 본 분",
+];
+export const NOT_FOR = [
+  "AI 소식만 가볍게 듣고 싶은 분 (실습 중심이에요)",
+  "자동화를 대신 만들어 주길 바라는 분 (그건 1:1 컨설팅이 맞아요)",
+  "4회 중 한 번이라도 참석이 어려운 분",
+  "노트북 기본 조작과 파일·폴더 개념이 낯선 분",
+];
+
+// 참가비에 포함되는 것
+export const INCLUDED = [
+  { t: "설치 · 셋팅 동행", d: "1회차에 터미널 설치부터 권한, 커넥터까지 화면을 같이 보며 끝내요." },
+  { t: "회차별 교안 PDF", d: "4회 교안과 실습 스킬 파일을 매 회차 후 드려요." },
+  { t: "샘플 데이터 · 실습 스킬", d: "2회차에 바로 돌려볼 수 있는 샘플 데이터와 스킬을 제공해요." },
+  { t: "기획안 1:1 피드백", d: "3회차에 내 업무 자동화 기획안을 한 명씩 봐드려요." },
+  { t: "오픈채팅 질문", d: "수업 없는 날에도 막히면 오픈채팅에서 바로 물어보세요." },
+  { t: "수료증 + 3만원 환급", d: "4회 전부 참석하면 수료증과 함께 3만원을 돌려드려요." },
+];
+
+// 강의 현장 갤러리 (불규칙 레이아웃). span: 그리드에서 차지하는 칸
+export const GALLERY = [
+  { src: "/images/lectures/study1-class.jpg", alt: "1기 1회차 강의 현장", caption: "1회차 · 설치부터 같이 하는 첫 수업", span: "md:col-span-2 md:row-span-2" },
+  { src: "/images/lectures/study1-lead2.jpg", alt: "스터디장이 슬라이드를 보며 강의하는 모습", caption: "1회차 · 스터디장 강의", span: "" },
+  { src: "/images/lectures/study1-class2.jpg", alt: "수강생들이 노트북으로 실습하는 모습", caption: "2회차 · 실습", span: "" },
+  { src: "/images/lectures/study1-present-a.jpg", alt: "1기 수강생 발표 현장", caption: "4회차 · 내 자동화 발표", span: "md:col-span-2" },
+  { src: "/images/lectures/study1-lead.jpg", alt: "스터디장이 화면을 보며 진행하는 모습", caption: "3회차 · 기획안 피드백", span: "" },
+  { src: "/images/lectures/study1-present-b.jpg", alt: "1기 수강생이 자동화를 시연하는 모습", caption: "4회차 · 라이브 시연", span: "" },
+];
+
+// 수강생이 보낸 메시지 (이름은 가렸어요)
+export const MESSAGES = [
+  { src: "/images/lectures/msg-kakao.jpg", alt: "수강생이 보낸 카카오톡 메시지", w: 740, h: 282, caption: "1회차 직후 · 카카오톡" },
+  { src: "/images/lectures/msg-notion-a.jpg", alt: "수강생이 노션에 남긴 한 줄 회고", w: 1179, h: 363, caption: "노션 회고 · 1회차" },
+  { src: "/images/lectures/msg-notion-b.jpg", alt: "수강생이 노션에 남긴 한 줄 회고", w: 1179, h: 289, caption: "노션 회고 · 2회차" },
 ];

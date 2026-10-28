@@ -9,7 +9,7 @@ export default function CaseStudies({ limit }: { limit?: number }) {
     <div className="space-y-6">
       {list.map((c, i) => (
         <Reveal key={c.id} delay={60}>
-          <article className="grid overflow-hidden rounded-2xl border border-brown/10 bg-white md:grid-cols-[1.05fr_1fr]">
+          <article className={`grid overflow-hidden rounded-2xl border md:grid-cols-[1.05fr_1fr] ${i % 2 ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
             <div className={`relative aspect-[4/3] md:aspect-auto md:min-h-[420px] ${i % 2 ? "md:order-2" : ""}`}>
               {c.image ? (
                 <Image src={c.image} alt={c.title} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover object-left-top" />
@@ -27,10 +27,10 @@ export default function CaseStudies({ limit }: { limit?: number }) {
               )}
             </div>
             <div className="p-7 md:p-9">
-              <p className="text-[12px] text-brown/65">
+              <p className={`text-[12px] font-semibold ${i % 2 ? "text-butter/80" : "text-brown/70"}`}>
                 사례 {String(i + 1).padStart(2, "0")} · {c.org}
               </p>
-              <h3 className="mt-2 text-[21px] font-bold leading-snug text-brown-dark md:text-[24px]">{c.title}</h3>
+              <h3 className={`mt-2 text-[22px] font-extrabold leading-snug md:text-[26px] ${i % 2 ? "text-white" : "text-brown-dark"}`}>{c.title}</h3>
               <dl className="mt-6 space-y-5">
                 {[
                   ["문제", c.problem],
@@ -38,8 +38,8 @@ export default function CaseStudies({ limit }: { limit?: number }) {
                   ["성과", c.result],
                 ].map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[48px_1fr] gap-3">
-                    <dt className="pt-0.5 text-[12px] font-semibold uppercase tracking-[0.15em] text-olive">{k}</dt>
-                    <dd className={`text-[15px] leading-relaxed ${k === "성과" ? "font-semibold text-brown-dark" : "text-brown/85"}`}>{v}</dd>
+                    <dt className={`pt-0.5 text-[12px] font-bold uppercase tracking-[0.15em] ${i % 2 ? "text-butter" : "text-brown"}`}>{k}</dt>
+                    <dd className={`text-[15px] leading-relaxed ${k === "성과" ? (i % 2 ? "font-bold text-butter" : "font-bold text-brown-dark") : i % 2 ? "text-butter-pale/85" : "text-brown/90"}`}>{v}</dd>
                   </div>
                 ))}
               </dl>

@@ -6,5 +6,5 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   const data = await getAvailability();
-  return NextResponse.json(data, { headers: { "Cache-Control": "s-maxage=120, stale-while-revalidate=300" } });
+  return NextResponse.json(data, { headers: { "Cache-Control": "no-store" } });
 }

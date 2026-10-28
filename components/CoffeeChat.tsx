@@ -15,7 +15,7 @@ export default function CoffeeChat() {
   const [result, setResult] = useState<{ when: string; link?: string; confirmed: boolean } | null>(null);
 
   useEffect(() => {
-    fetch("/api/availability")
+    fetch("/api/availability", { cache: "no-store" })
       .then((r) => r.json())
       .then((d: { live: boolean; days: DaySlots[] }) => {
         setDays(d.days);
@@ -51,7 +51,7 @@ export default function CoffeeChat() {
       setMsg(data.error || "전송에 실패했어요. 잠시 후 다시 시도해 주세요.");
       if (res?.status === 409) {
         setTime("");
-        fetch("/api/availability").then((r) => r.json()).then((d) => setDays(d.days)).catch(() => {});
+        fetch("/api/availability", { cache: "no-store" }).then((r) => r.json()).then((d) => setDays(d.days)).catch(() => {});
       }
     }
   }

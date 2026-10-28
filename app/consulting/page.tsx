@@ -10,9 +10,8 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import { PRODUCTS } from "@/lib/products";
 import { DeliverableGallery, Voices } from "@/components/Deliverables";
-import Quote from "@/components/Quote";
-import { EDGE } from "@/lib/proof";
 import ProjectMarquee from "@/components/ProjectMarquee";
+import EdgeDiagram from "@/components/EdgeDiagram";
 import ImageBand from "@/components/ImageBand";
 import Hl from "@/components/Hl";
 
@@ -146,20 +145,10 @@ export default function ConsultingPage() {
             <h2 className="mt-4 max-w-3xl break-keep font-kserif text-[30px] font-bold leading-[1.25] text-butter-pale md:text-[44px]">
               우리 AX 컨설팅의 <span className="text-butter">차별점 3가지</span>
             </h2>
-            <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-butter-pale/75">산출물 하나하나를 어떤 기준으로 만드는지, 세 가지로 정리했어요.</p>
+            <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-butter-pale/75">산출물 하나하나를 어떤 기준으로 만드는지, 세 가지로 정리했어요. 세 가지가 겹치는 자리가 저희가 만드는 결과물이에요. 원이나 항목을 눌러보세요.</p>
           </Reveal>
-          <div className="mt-14 grid gap-4 md:grid-cols-3">
-            {EDGE.map((e, i) => (
-              <Reveal key={e.n} delay={i * 110}>
-                <div className="flex h-full flex-col rounded-2xl border border-butter/20 bg-white/[0.06] p-8 backdrop-blur-sm">
-                  <p className="font-serif text-[40px] font-semibold leading-none text-butter">{e.n}</p>
-                  <h3 className="mt-6 break-keep text-[19px] font-bold leading-snug text-white md:text-[21px]">{e.title}</h3>
-                  <p className="mt-4 text-[15px] leading-[1.8] text-butter-pale/80">
-                    <Quote text={e.desc} className="!text-butter" />
-                  </p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="mt-14">
+            <EdgeDiagram />
           </div>
         </div>
       </section>

@@ -11,7 +11,7 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
-import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS } from "@/lib/study";
+import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
 import ImageBand from "@/components/ImageBand";
 import Hl from "@/components/Hl";
@@ -23,11 +23,16 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
-  { q: "코딩을 전혀 몰라도 되나요?", a: "네. 수강생의 64%가 클로드 코드를 처음 접한 분들이었어요. 터미널 설치부터 화면을 같이 보며 진행하고, 막히는 부분은 그 자리에서 해결합니다." },
-  { q: "준비물이 있나요?", a: "클로드 Pro 구독과 개인 노트북이 필요해요. 회사 노트북은 설치·터미널 권한이 막혀 있는 경우가 많아 개인 노트북을 권장합니다." },
+  { q: "코딩을 전혀 몰라도 되나요?", a: "네. 1기 수강생의 64%가 클로드 코드를 처음 접한 분들이었어요. 터미널 설치부터 화면을 같이 보며 진행하고, 막히는 부분은 그 자리에서 해결합니다." },
+  { q: "무엇을 배우나요?", a: "클로드 코드 설치·셋팅, 스킬·커넥터·토큰 개념, 실무 자동화 사례 해부, 그리고 내 업무 하나를 직접 자동화해서 발표하는 것까지예요. 이론보다 실습 비중이 큽니다." },
+  { q: "유튜브나 온라인 강의와 뭐가 다른가요?", a: "에러에서 멈추지 않는다는 점이에요. 소수 정원이라 막힌 화면을 한 명씩 같이 보고, 내 업무에 맞춰 기획안 피드백까지 받습니다." },
+  { q: "수업은 어디서 하나요?", a: `오프라인 2회(1·4회차)는 ${STUDY.place.offline}, 온라인 2회(2·3회차)는 ${STUDY.place.online}에서 진행해요.` },
+  { q: "준비물이 있나요?", a: "클로드 Pro 구독과 개인 노트북이 필요해요. 회사 노트북은 설치·터미널 권한이 막혀 있는 경우가 많아 개인 노트북을 권장합니다. 윈도우·맥 모두 가능해요." },
   { q: "자동화할 주제가 아직 없어요.", a: "매주 반복하는 일 중 ‘입력이 있고 결과물이 있는 일’ 하나면 충분해요. 신청서에 적어주시면 1회차 전에 같이 다듬어 드립니다." },
-  { q: "환급은 어떻게 받나요?", a: `4회 전부 참석하시면 ${won(STUDY.refund)}을 4회차 당일 계좌이체로 보내드려요. 한 번이라도 빠지면 환급 대상에서 제외됩니다.` },
-  { q: "결제와 환불은 어떻게 되나요?", a: `신청서를 보내면 바로 결제할 수 있고, ${STUDY.resultDate} 선정 안내를 받은 뒤 결제하셔도 돼요. 선정 안내 및 입금 후에는 환불이 불가하니 4회 일정을 꼭 확인하고 신청해 주세요.` },
+  { q: "수업에 빠지면 어떻게 하나요?", a: "교안과 실습 파일은 드리지만, 한 번이라도 빠지면 3만원 환급 대상에서는 제외돼요. 4회 일정을 꼭 확인하고 신청해 주세요." },
+  { q: "수료증을 받을 수 있나요?", a: "네. 4회 전부 참석하시면 4회차 당일 수료증을 드리고, 3만원 환급도 같은 날 계좌이체로 보내드려요." },
+  { q: "결제와 환불은 어떻게 되나요?", a: `신청서를 보내면 바로 결제할 수 있고, ${STUDY.resultDate} 선정 안내를 받은 뒤 결제하셔도 돼요. 선정 안내 및 입금 후에는 환불이 불가합니다.` },
+  { q: "일정이 안 맞거나, 회사 단위로 듣고 싶어요.", a: "일정이 안 맞으면 1:1 AX 컨설팅으로 내 업무 자동화를 같이 만들 수 있고, 팀·회사 단위는 기업 AX 강의로 진행해요. 무료 커피챗에서 어떤 쪽이 맞는지 같이 정해드립니다." },
 ];
 
 export default function StudyPage() {
@@ -44,7 +49,7 @@ export default function StudyPage() {
           </>
         }
         desc={<>설치와 셋팅을 같이 해보고, 마지막엔 본인 업무 자동화를 실제로 만들어 발표합니다. <b className="font-semibold text-brown-dark">{STUDY.people} 소수 정원</b>으로 한 분씩 막히는 곳을 바로 풀어드려요.</>}
-        chips={[STUDY.weeks, "회당 2~2.5시간", `${STUDY.people} 소수 정원`, won(STUDY.price), `신청 마감 ${STUDY.deadline}`]}
+        chips={["강남 오프라인 2회 + 줌 2회", STUDY.weeks, `${STUDY.people} 소수 정원`, won(STUDY.price), `신청 마감 ${STUDY.deadline}`]}
         aside={
           <div className="grid grid-cols-[1.25fr_1fr] gap-3">
             {LECTURE_PHOTOS.slice(0, 2).map((ph, i) => (
@@ -58,6 +63,14 @@ export default function StudyPage() {
         <Link href="#apply" className="btn-primary">스터디 신청하기</Link>
         <Link href="#free-pdf" className="btn-ghost">1화 교안 무료로 받기</Link>
       </ProductHero>
+
+      {/* ANCHOR NAV */}
+      <div className="wrap -mt-6 mb-10 flex flex-wrap items-center gap-2 md:-mt-10">
+        {[["일정", "#schedule"], ["결과물", "#results"], ["현장", "#gallery"], ["커리큘럼", "#curriculum"], ["포함 사항", "#included"], ["강사", "#host"], ["후기", "#reviews"], ["신청", "#apply"], ["질문", "#faq"]].map(([t, h]) => (
+          <a key={h} href={h} className="rounded-full border border-brown/20 bg-white px-4 py-2 text-[13px] font-bold text-brown-dark transition hover:border-brown-dark hover:bg-brown-dark hover:text-butter">{t}</a>
+        ))}
+        <span className="ml-auto rounded-full bg-brown-dark px-4 py-2 text-[13px] font-bold text-butter">4회 전부 참석하면 {won(STUDY.refund)} 환급</span>
+      </div>
 
       {/* PROOF NUMBERS */}
       <section className="border-y border-brown/10">
@@ -73,51 +86,121 @@ export default function StudyPage() {
                 <CountUp value={x.v} decimals={x.d} />
                 <span className="text-[20px]">{x.s}</span>
               </p>
-              <p className="mt-2 text-[13px] text-brown/75">{x.l}</p>
+              <p className="mt-2 text-[13px] font-semibold text-brown">{x.l}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* HOST */}
-      <section className="wrap py-24 md:py-32">
-        <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-20">
+      {/* SCHEDULE */}
+      <section id="schedule" className="wrap scroll-mt-20 py-24 md:py-32">
+        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 2회는 {STUDY.place.offline}, 온라인 2회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">신청 마감 {STUDY.deadline}, 선정 안내 {STUDY.resultDate}.</b></>} />
+        <div className="grid gap-3 md:grid-cols-4">
+          {STUDY.sessions.map((x, i) => {
+            const dark = x.mode === "오프라인";
+            return (
+              <Reveal key={x.no} delay={i * 70}>
+                <div className={`h-full rounded-2xl border p-6 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[13px] font-extrabold ${dark ? "text-butter" : "text-brown"}`}>{x.no}</span>
+                    <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-sage-pale text-brown-dark"}`}>{x.mode}</span>
+                  </div>
+                  <p className={`mt-5 font-serif text-[24px] font-bold leading-tight ${dark ? "text-butter" : "text-brown-dark"}`}>{x.date.split(" ")[0]}</p>
+                  <p className={`mt-1 text-[15px] font-semibold ${dark ? "text-butter-pale" : "text-brown-dark"}`}>{x.date.split(" ").slice(1).join(" ")}</p>
+                  <p className={`mt-4 text-[14px] leading-relaxed ${dark ? "text-butter-pale/80" : "text-brown/85"}`}>{x.title}</p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+        <Reveal>
+          <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-brown/20 bg-white p-6 md:flex-row md:items-center">
+            <p className="text-[16px] text-brown-dark"><b className="font-extrabold">참가비 {won(STUDY.price)}</b> · 4회 전부 참석하면 {won(STUDY.refund)} 환급 · {STUDY.people} 소수 정원</p>
+            <Link href="#apply" className="btn-primary shrink-0">신청하기</Link>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* 1기 결과물 */}
+      <section id="results" className="wrap scroll-mt-20 py-24 md:py-32">
+        <SectionHead eyebrow="3주 뒤 내 모습" title={<>3주 뒤, <Hl>수강생들이 직접 만든</Hl> 자동화</>} desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 발표한 자동화예요. 발표 자료 기준으로 정리했습니다." />
+        <div className="grid gap-4 md:grid-cols-2">
+          {STUDENT_PROJECTS.map((pr, i) => (
+            <Reveal key={pr.title} delay={i * 80}>
+              <div className="card h-full overflow-hidden">
+                <div className="relative aspect-[16/9] border-b border-brown/10 bg-paper">
+                  <Image src={pr.image} alt={pr.alt} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
+                </div>
+                <div className="p-7">
+                  <p className="font-serif text-[15px] italic text-olive">0{i + 1} · 4회차 발표 자료</p>
+                  <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
+                  <p className="mt-2 text-[14.5px] leading-relaxed text-brown/85">{pr.desc}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* GALLERY */}
+      <section id="gallery" className="scroll-mt-20 bg-paper py-24 md:py-32">
+        <div className="wrap">
+          <SectionHead eyebrow="강의 현장" title={<>1기 <Hl>현장 사진</Hl></>} desc="1회차 설치 수업부터 4회차 발표까지, 1기 수업 현장이에요. 수강생 얼굴과 이름은 가렸습니다." />
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:auto-rows-[220px] md:gap-4">
+            {GALLERY.map((g, i) => (
+              <Reveal key={g.src} delay={i * 70} className={`${g.span} min-h-[160px]`}>
+                <figure className="relative h-full overflow-hidden rounded-2xl border border-brown/20 bg-white">
+                  <Image src={g.src} alt={g.alt} fill sizes="(min-width:768px) 50vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-[1.03]" />
+                  <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brown-dark/85 to-transparent px-4 pb-3 pt-10 text-[12.5px] font-bold text-butter-pale">{g.caption}</figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
           <Reveal>
-            <p className="eyebrow">Host</p>
-            <h2 className="h-display mt-4 text-[28px] md:text-[38px]">현업에서 매일 자동화를 만드는 사람이 가르쳐요</h2>
-            <p className="mt-6 text-[16px] leading-[1.8] text-brown/90">
-              스터디장은 현재 기업에서 <b className="font-semibold text-brown-dark">AX 실무와 AI 컨설팅</b>을 진행하고 있으며, 업무 관리 자동화, 업계 리서치 자동화, 바이브 코딩 대시보드 개발, 마케팅 릴스 제작 자동화 등{" "}
-              <b className="font-semibold text-brown-dark">실제 기업 전사 자동화 경험</b>이 있습니다.
-            </p>
+            <p className="mt-14 mb-5 text-[12px] font-bold uppercase tracking-[0.2em] text-brown">수강생이 보낸 메시지</p>
           </Reveal>
-          <Reveal delay={120}>
-            <ul className="divide-y divide-brown/10 border-y border-brown/10">
-              {STUDY.hostCareer.map((c) => (
-                <li key={c} className="py-3.5 text-[15px] text-brown/85">{c}</li>
-              ))}
-            </ul>
-            <p className="mt-6 text-[15px] text-brown/85">함께 일잘러가 될 수 있는 자동화 스터디하면서 AI 노마드가 되어봐요.</p>
+          <div className="grid gap-3 md:grid-cols-3 md:gap-4">
+            {MESSAGES.map((m, i) => (
+              <Reveal key={m.src} delay={i * 90}>
+                <figure className="overflow-hidden rounded-2xl border border-brown/20 bg-[#1a1a1a]">
+                  <Image src={m.src} alt={m.alt} width={m.w} height={m.h} className="w-full object-contain" />
+                  <figcaption className="bg-white px-4 py-2.5 text-[12.5px] font-semibold text-brown-dark">{m.caption}</figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FIT */}
+      <section className="wrap py-24 md:py-32">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Reveal>
+            <div className="h-full rounded-2xl border border-butter-deep bg-butter p-8">
+              <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-brown">이런 분에게 추천해요</p>
+              <ul className="mt-6 space-y-4">
+                {FIT_FOR.map((t) => (
+                  <li key={t} className="flex gap-3 text-[16px] font-bold leading-snug text-brown-dark"><span className="text-brown">✓</span>{t}</li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+          <Reveal delay={100}>
+            <div className="h-full rounded-2xl border border-brown/20 bg-white p-8">
+              <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-brown/70">이 수업과 맞지 않는 분</p>
+              <ul className="mt-6 space-y-4">
+                {NOT_FOR.map((t) => (
+                  <li key={t} className="flex gap-3 text-[16px] font-medium leading-snug text-brown/85"><span className="text-brown/50">✕</span>{t}</li>
+                ))}
+              </ul>
+            </div>
           </Reveal>
         </div>
       </section>
 
-      {/* CURRICULUM */}
-      {/* 중간 자료 — 강의 현장 */}
-      <section className="wrap pb-24 md:pb-32">
-        <ImageBand
-          eyebrow="강의 현장"
-          images={[
-            { src: "/images/lectures/study1-class.jpg", alt: "1기 1회차 강의 현장", caption: "1회차 · 설치부터 같이 하는 첫 수업" },
-            { src: "/images/lectures/study1-lead.jpg", alt: "스터디장 Winter의 강의 모습", caption: "스터디장이 직접 화면을 보며 진행" },
-            { src: "/images/lectures/study1-present-a.jpg", alt: "1기 수강생 발표 현장", caption: "4회차 · 내 자동화 발표" },
-            { src: "/images/lectures/study1-present-b.jpg", alt: "1기 수강생이 자동화를 발표하는 모습", caption: "4회차 · 수강생 발표" },
-          ]}
-        />
-      </section>
-
-      <section className="bg-paper py-24 md:py-32">
+      <section id="curriculum" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="Curriculum" title={`${STUDY.weeks} 커리큘럼`} desc={`오프라인 2회는 ${STUDY.place.offline}, 온라인 2회는 ${STUDY.place.online}.`} />
+          <SectionHead eyebrow="Curriculum" title={`${STUDY.weeks} 커리큘럼`} desc="회차마다 ‘끝나면 손에 남는 것’이 분명해요. 1회차에 설치, 2회차에 샘플 실습, 3회차에 내 기획안 피드백, 4회차에 발표." />
           <div className="grid gap-4 md:grid-cols-2">
             {STUDY.sessions.map((s, i) => (
               <Reveal key={s.no} delay={i * 80}>
@@ -143,6 +226,11 @@ export default function StudyPage() {
                         </li>
                       ))}
                     </ul>
+                    {s.outcome && (
+                      <div className={`mt-5 rounded-xl px-4 py-3 text-[14px] leading-relaxed ${i % 2 === 0 ? "bg-butter text-brown-dark" : "bg-butter text-brown-dark"}`}>
+                        <b className="font-extrabold">회차가 끝나면</b> · {s.outcome}
+                      </div>
+                    )}
                   </div>
                 </div>
               </Reveal>
@@ -160,29 +248,47 @@ export default function StudyPage() {
         />
       </section>
 
-      {/* 1기 결과물 */}
-      <section className="wrap py-24 md:py-32">
-        <SectionHead eyebrow="1기 결과물" title={<>3주 뒤, <Hl>수강생들이 직접 만든</Hl> 자동화</>} desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 발표한 자동화예요. 발표 자료 기준으로 정리했습니다." />
-        <div className="grid gap-4 md:grid-cols-2">
-          {STUDENT_PROJECTS.map((pr, i) => (
-            <Reveal key={pr.title} delay={i * 80}>
-              <div className="card h-full overflow-hidden">
-                <div className="relative aspect-[16/9] border-b border-brown/10 bg-paper">
-                  <Image src={pr.image} alt={pr.alt} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
-                </div>
-                <div className="p-7">
-                  <p className="font-serif text-[15px] italic text-olive">0{i + 1} · 4회차 발표 자료</p>
-                  <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
-                  <p className="mt-2 text-[14.5px] leading-relaxed text-brown/85">{pr.desc}</p>
-                </div>
+      {/* INCLUDED */}
+      <section id="included" className="wrap scroll-mt-20 py-24 md:py-32">
+        <SectionHead eyebrow="What's included" title={<>참가비 {won(STUDY.price)}에<br /><Hl>포함되는 것</Hl></>} desc="강의만 듣고 끝나지 않도록, 설치부터 수료까지 같이 가요." />
+        <div className="grid gap-3 md:grid-cols-3 md:gap-4">
+          {INCLUDED.map((x, i) => (
+            <Reveal key={x.t} delay={i * 60}>
+              <div className={`h-full rounded-2xl border p-6 ${i === 5 ? "border-brown-dark bg-brown-dark" : "border-brown/20 bg-white"}`}>
+                <p className={`font-serif text-[22px] font-bold ${i === 5 ? "text-butter" : "text-brown"}`}>0{i + 1}</p>
+                <h3 className={`mt-3 text-[17px] font-extrabold ${i === 5 ? "text-white" : "text-brown-dark"}`}>{x.t}</h3>
+                <p className={`mt-2 text-[14.5px] leading-relaxed ${i === 5 ? "text-butter-pale/85" : "text-brown/85"}`}>{x.d}</p>
               </div>
             </Reveal>
           ))}
         </div>
       </section>
 
+      {/* HOST */}
+      <section id="host" className="wrap scroll-mt-20 py-24 md:py-32">
+        <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-20">
+          <Reveal>
+            <p className="eyebrow">Host</p>
+            <h2 className="h-display mt-4 text-[28px] md:text-[38px]">현업에서 매일 자동화를 만드는 사람이 가르쳐요</h2>
+            <p className="mt-6 text-[16px] leading-[1.8] text-brown/90">
+              스터디장은 현재 기업에서 <b className="font-semibold text-brown-dark">AX 실무와 AI 컨설팅</b>을 진행하고 있으며, 업무 관리 자동화, 업계 리서치 자동화, 바이브 코딩 대시보드 개발, 마케팅 릴스 제작 자동화 등{" "}
+              <b className="font-semibold text-brown-dark">실제 기업 전사 자동화 경험</b>이 있습니다.
+            </p>
+          </Reveal>
+          <Reveal delay={120}>
+            <ul className="divide-y divide-brown/10 border-y border-brown/10">
+              {STUDY.hostCareer.map((c) => (
+                <li key={c} className="py-3.5 text-[15px] text-brown/85">{c}</li>
+              ))}
+            </ul>
+            <p className="mt-6 text-[15px] text-brown/85">함께 일잘러가 될 수 있는 자동화 스터디하면서 AI 노마드가 되어봐요.</p>
+          </Reveal>
+        </div>
+      </section>
+
+
       {/* REVIEWS */}
-      <section className="overflow-hidden bg-paper py-24 md:py-32">
+      <section id="reviews" className="scroll-mt-20 overflow-hidden bg-paper py-24 md:py-32">
         <div className="wrap">
           <SectionHead eyebrow="Reviews" title={<><Hl>먼저 들은 분들</Hl>의 이야기</>} desc="1기 수강생이 스터디 페이지에 직접 남긴 후기예요." />
           <Voices />
@@ -213,7 +319,7 @@ export default function StudyPage() {
           <div>
             <SectionHead eyebrow="Apply" title={<>참가비 {won(STUDY.price)}<br />4회 전부 참석하면 {won(STUDY.refund)} 환급</>} desc={`환급은 4회차 당일 계좌이체로 보내드려요. 모집 인원 ${STUDY.people}, 선정 결과는 ${STUDY.resultDate} 카카오톡으로 안내합니다.`} />
             <Reveal>
-              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/55">신청 전 꼭 확인해주세요</p>
+              <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-brown">신청 전 꼭 확인해주세요</p>
               <ol className="mt-3 space-y-3 text-[14.5px] leading-relaxed text-brown/90">
                 {STUDY.checks.map((c, i) => (
                   <li key={c} className="flex gap-3">
@@ -231,7 +337,7 @@ export default function StudyPage() {
       </section>
 
       {/* FAQ */}
-      <section className="wrap py-24 md:py-32">
+      <section id="faq" className="wrap scroll-mt-20 py-24 md:py-32">
         <SectionHead eyebrow="FAQ" title="자주 묻는 질문" />
         <FAQ items={FAQS} />
       </section>

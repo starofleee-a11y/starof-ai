@@ -65,7 +65,7 @@ export interface CaseStudy {
 export const CASES: CaseStudy[] = [
   {
     id: "agent",
-    image: "/images/cases/agent.jpg",
+    image: "/images/cases/agent-2.jpg",
     org: "(주)명심릿츠 · AX팀",
     tag: "사내 AI 에이전트",
     title: "6시간 걸리던 반복 업무를 1시간으로",
@@ -77,7 +77,7 @@ export const CASES: CaseStudy[] = [
   },
   {
     id: "bid",
-    image: "/images/cases/bid.jpg",
+    image: "/images/cases/bid-2.jpg",
     org: "(주)명심릿츠 · 입찰",
     tag: "입찰 자동화",
     title: "월 100건 넘는 입찰 검토를 자동으로",
@@ -89,7 +89,7 @@ export const CASES: CaseStudy[] = [
   },
   {
     id: "sales",
-    image: "/images/cases/sales.jpg",
+    image: "/images/cases/sales-2.jpg",
     org: "(주)이노텍",
     tag: "마케팅 · 영업",
     title: "영업 보고서와 스크립트 작성 자동화",
@@ -101,7 +101,7 @@ export const CASES: CaseStudy[] = [
   },
   {
     id: "hr",
-    image: "/images/cases/hr.jpg",
+    image: "/images/cases/hr-2.jpg",
     org: "삼영기업",
     tag: "HR 프로세스",
     title: "인사·근태 문서 흐름 자동화",
