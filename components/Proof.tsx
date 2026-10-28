@@ -34,13 +34,20 @@ export default function Proof() {
 
       <div className="space-y-4">
         {RESULTS.map((r, i) => (
-          <Reveal key={r.title} delay={i * 80}>
-            <article className={`rounded-2xl border p-7 md:p-9 ${i === 0 ? "border-brown bg-brown text-butter-pale" : "border-brown/10 bg-white"}`}>
+          <Reveal key={r.title} delay={i * 120}>
+            <article
+              className={`fillcard rounded-2xl border p-7 md:p-9 ${i === 0 ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-white/80 bg-white/70"}`}
+              style={{
+                ["--fd" as string]: `${i * 120 + 150}ms`,
+                ["--f1" as string]: i === 0 ? "rgba(122,74,20,.95)" : ["rgba(255,235,81,.7)", "rgba(255,176,80,.5)", "rgba(214,178,128,.6)"][(i - 1) % 3],
+                ["--f2" as string]: i === 0 ? "rgba(97,66,21,.6)" : "rgba(255,255,255,.3)",
+              }}
+            >
               <div className="flex items-center justify-between text-[12px]">
                 <span className={`font-semibold uppercase tracking-[0.18em] ${i === 0 ? "text-butter/80" : "text-olive"}`}>{r.kind}</span>
                 <span className={i === 0 ? "text-butter-pale/75" : "text-brown/65"}>{r.org}</span>
               </div>
-              <p className={`mt-6 text-[40px] font-extrabold leading-none tracking-[-0.03em] md:text-[54px] ${i === 0 ? "text-butter" : "text-brown"}`}>{r.big}</p>
+              <p className={`mt-6 font-serif text-[42px] font-bold leading-none tracking-[-0.03em] md:text-[58px] ${i === 0 ? "text-butter" : "text-brown"}`}>{r.big}</p>
               <p className={`mt-4 text-[18px] font-bold ${i === 0 ? "text-butter" : "text-brown-dark"}`}>{r.title}</p>
               <p className={`mt-2 text-[15px] leading-relaxed ${i === 0 ? "text-butter-pale/85" : "text-brown/85"}`}>{r.desc}</p>
             </article>

@@ -15,7 +15,7 @@ export default function PriceCards() {
           const t = TONES[TONE_OF[p.id]];
           return (
             <Reveal key={p.id} delay={i * 100}>
-              <div className={`flex h-full flex-col rounded-2xl border p-7 transition-transform duration-500 hover:-translate-y-1 md:p-8 ${t.bg} ${t.border}`}>
+              <div className={`gcard g-${TONE_OF[p.id]} flex h-full flex-col p-7 transition-transform duration-500 hover:-translate-y-1 md:p-8`}>
                 <p className={`text-[12px] font-semibold uppercase tracking-[0.2em] ${t.text}`}>
                   {p.audience} · {p.en}
                 </p>
@@ -44,12 +44,12 @@ export default function PriceCards() {
         })}
       </div>
       <Reveal delay={200}>
-        <div className="glass-card mt-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
-          <p className="text-[16px] text-brown-dark md:text-[17px]">
-            <b className="font-semibold">플랜 선택이 어렵다면 무료 커피챗을 신청해주세요.</b>
-            <span className="ml-2 text-brown/75">30분 안에 어떤 방법이 맞는지 같이 정해드려요.</span>
+        <div className="gcard-dark mt-6 flex flex-col items-start justify-between gap-5 p-7 md:flex-row md:items-center md:p-8">
+          <p className="text-[17px] leading-snug md:text-[19px]">
+            <b className="font-bold text-butter">플랜 선택이 어렵다면 무료 커피챗을 신청해주세요.</b>
+            <span className="mt-1 block text-[15px] text-butter-pale/85 md:text-[16px]">30분 안에 어떤 방법이 맞는지 같이 정해드려요.</span>
           </p>
-          <Link href="#coffee-chat" className="btn-primary shrink-0">무료 커피챗 신청</Link>
+          <Link href="#coffee-chat" className="btn-yellow shrink-0">무료 커피챗 신청</Link>
         </div>
       </Reveal>
     </>

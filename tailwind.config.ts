@@ -13,12 +13,15 @@ const config: Config = {
         olive: "#70631F",
         // Starters(노랑) · Workers(올리브) · Company(브라운) 구분용 연한 바탕
         sage: { DEFAULT: "#70631F", pale: "#EEF0DA", soft: "#DDE3B8" },
-        clay: { DEFAULT: "#8A5A1E", pale: "#F4E8D6", soft: "#E8D2B0" },
+        clay: { DEFAULT: "#7A4A14", pale: "#F4E8D6", soft: "#E8D2B0" },
+        amber: { DEFAULT: "#B4651A", pale: "#FFF1E0", soft: "#F6D3A8" },
       },
       fontFamily: {
-        sans: ["Pretendard Variable", "Pretendard", "system-ui", "sans-serif"],
-        serif: ["var(--font-cormorant)", "var(--font-noto-serif)", "serif"],
-        kserif: ["var(--font-noto-serif)", "serif"],
+        sans: ["var(--font-manrope)", "var(--font-plex-kr)", "Pretendard Variable", "Pretendard", "system-ui", "sans-serif"],
+        // 숫자·가격용 (이름은 유지, 실제로는 미니멀 산세리프)
+        serif: ["var(--font-manrope)", "var(--font-plex-kr)", "system-ui", "sans-serif"],
+        // 제목용 (이름은 유지, 실제로는 건축적인 산세리프)
+        kserif: ["var(--font-plex-kr)", "var(--font-manrope)", "Pretendard Variable", "system-ui", "sans-serif"],
       },
       maxWidth: { site: "1200px" },
       keyframes: {
