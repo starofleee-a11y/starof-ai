@@ -126,9 +126,19 @@ body {
 .hl-butter::before { background: rgba(255,235,81,.35); }
 @media (prefers-reduced-motion: reduce) { .hl::before { transform: scaleX(1); transition: none; } }
 
+/* 밑줄형 진단 입력 + 화살표 버튼 */
+.linefield { display: flex; align-items: center; gap: 12px; border-bottom: 1.5px solid rgba(97,66,21,.35); transition: border-color .3s; }
+.linefield:focus-within { border-color: #614215; }
+.linefield input { flex: 1; min-width: 0; background: transparent; padding: 14px 0; font-size: 18px; color: #3d2a0c; outline: none; }
+.linefield input::placeholder { color: rgba(97,66,21,.45); }
+@media (min-width: 768px) { .linefield input { font-size: 21px; padding: 18px 0; } }
+.arrowbtn { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; background: #614215; color: #ffeb51; flex: none; transition: transform .3s, background .3s; }
+.arrowbtn:hover { background: #3d2a0c; transform: translateX(3px); }
+.arrowbtn:disabled { opacity: .5; }
+
 /* 스크롤하면 고민이 지워지는 취소선 */
 .strike { position: relative; }
-.strike::after { content: ""; position: absolute; left: 0; top: 55%; height: 1.5px; width: 0; background: #614215; transition: width .5s cubic-bezier(.2,.7,.2,1); }
+.strike::after { content: ""; position: absolute; left: 0; top: 54%; height: 2px; width: 0; background: #614215; transition: width .5s cubic-bezier(.2,.7,.2,1); }
 .strike-on::after { width: 100%; }
 
 /* 글라스처럼 은은하게 빛나는 텍스트 */

@@ -40,7 +40,7 @@ export default function Proof() {
                 <span className={`font-semibold uppercase tracking-[0.18em] ${i === 0 ? "text-butter/80" : "text-olive"}`}>{r.kind}</span>
                 <span className={i === 0 ? "text-butter-pale/75" : "text-brown/65"}>{r.org}</span>
               </div>
-              <p className={`mt-6 text-[40px] font-extrabold leading-none tracking-[-0.03em] md:text-[54px] ${i === 0 ? "text-butter" : "text-brown"}`}>{r.big}</p>
+              <p className={`mt-6 font-serif text-[44px] font-semibold leading-none md:text-[60px] ${i === 0 ? "text-butter" : "text-brown"}`}>{r.big}</p>
               <p className={`mt-4 text-[18px] font-bold ${i === 0 ? "text-butter" : "text-brown-dark"}`}>{r.title}</p>
               <p className={`mt-2 text-[15px] leading-relaxed ${i === 0 ? "text-butter-pale/85" : "text-brown/85"}`}>{r.desc}</p>
             </article>

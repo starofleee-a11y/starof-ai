@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import GlassBg from "./GlassBg";
 import Diagnose from "./Diagnose";
@@ -39,15 +38,14 @@ export default function Hero() {
         <GlassBg />
       </div>
 
-      <div className="wrap relative pb-24 pt-32 text-center md:pt-36">
-        <p className="eyebrow animate-[fadeUp_.8s_cubic-bezier(.2,.7,.2,1)_both]">AX Agency · Star of AI</p>
-        <h1 className="glow-text mx-auto mt-6 max-w-4xl break-keep font-kserif text-[36px] font-bold leading-[1.15] tracking-[-0.02em] animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.1s_both] md:text-[84px]">
+      <div className="wrap relative pb-24 pt-32 md:pt-36">
+        <h1 className="glow-text max-w-4xl break-keep font-kserif text-[36px] font-bold leading-[1.15] tracking-[-0.02em] animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.1s_both] md:text-[84px]">
           AI 얼리어답터가 되는
           <br />
           <span className="catch">지름길</span>
           <span className="text-[0.55em] font-semibold text-brown/90">로 안내합니다.</span>
         </h1>
-        <p className="mx-auto mt-7 max-w-2xl text-[17px] leading-[1.7] text-brown/90 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.25s_both] md:text-[21px]">
+        <p className="mt-7 max-w-2xl text-[17px] leading-[1.7] text-brown/90 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.25s_both] md:text-[21px]">
           나의 업무가 자동으로 굴러갈 수 있도록,
           <br className="hidden md:block" />
           <b className="font-bold text-brown-dark">시간과 돈이 벌리는 시스템</b>을 설계해드립니다.
@@ -63,10 +61,6 @@ export default function Hero() {
           <PainMarquee />
         </div>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.65s_both]">
-          <Link href="#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
-          <Link href="#solve" className="btn-glass">어떻게 해결하나요? ↓</Link>
-        </div>
       </div>
 
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[11px] font-medium uppercase tracking-[0.3em] text-brown/65">
