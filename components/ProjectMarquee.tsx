@@ -1,17 +1,21 @@
 import Image from "next/image";
 import { PROJECTS } from "@/lib/projects";
 
-/** 프로젝트를 화면 캡처와 함께, 두 줄이 서로 반대 방향으로 천천히 흐르는 가로 모듈 */
-export default function ProjectMarquee() {
-  const half = Math.ceil(PROJECTS.length / 2);
-  const rows = [PROJECTS.slice(0, half), PROJECTS.slice(half)];
+/**
+ * 프로젝트를 화면 캡처와 함께 천천히 흐르는 가로 모듈.
+ * 기본은 두 줄이 서로 반대 방향으로, rows=1 이면 한 줄이 화면 가운데를 가로질러 흘러요 (기업 AX 페이지).
+ */
+export default function ProjectMarquee({ companyOnly = false, rows: rowCount = 2 }: { companyOnly?: boolean; rows?: 1 | 2 }) {
+  const items = companyOnly ? PROJECTS.filter((p) => p.forCompany) : PROJECTS;
+  const half = Math.ceil(items.length / 2);
+  const rows = rowCount === 1 ? [items] : [items.slice(0, half), items.slice(half)];
   return (
     <div className="space-y-4">
       {rows.map((row, r) => {
         const list = [...row, ...row];
         return (
-          <div key={r} className="marquee-mask group -mx-5 overflow-hidden md:mx-0">
-            <ul className={`flex w-max gap-4 group-hover:[animation-play-state:paused] ${r ? "animate-marquee [animation-direction:reverse] [animation-duration:70s]" : "animate-marquee [animation-duration:62s]"}`}>
+          <div key={r} className={`marquee-mask group overflow-hidden ${rowCount === 1 ? "" : "-mx-5 md:mx-0"}`}>
+            <ul className={`flex w-max items-stretch gap-4 group-hover:[animation-play-state:paused] ${r ? "animate-marquee [animation-direction:reverse] [animation-duration:70s]" : rowCount === 1 ? "animate-marquee [animation-duration:90s]" : "animate-marquee [animation-duration:62s]"}`}>
               {list.map((p, i) => (
                 <li key={`${p.id}-${i}`} aria-hidden={i >= row.length} className="flex w-[320px] shrink-0 flex-col overflow-hidden rounded-2xl border border-brown/20 bg-white md:w-[380px]">
                   <div className="relative aspect-[4/3] border-b border-brown/10 bg-paper">

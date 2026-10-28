@@ -113,7 +113,7 @@ export const CASES: CaseStudy[] = [
   },
   {
     id: "crm",
-    image: "/images/cases/crm.jpg",
+    image: "/images/cases/crm-2.jpg",
     org: "마케팅팀 · 컨설팅 고객사",
     tag: "마케팅 CRM 분석",
     title: "5시간 걸리던 CRM 분석을 10분으로",
@@ -125,7 +125,7 @@ export const CASES: CaseStudy[] = [
   },
   {
     id: "insta",
-    image: "/images/cases/insta.jpg",
+    image: "/images/cases/insta-2.jpg",
     org: "콘텐츠팀 · 컨설팅 고객사",
     tag: "인스타그램 콘텐츠 분석",
     title: "콘텐츠 CTA · 클릭률 · 조회수 자동 분석 대시보드",

@@ -107,7 +107,7 @@ export default function Home() {
         <div className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-20">
           <Reveal>
             <div className="overflow-hidden rounded-2xl">
-              <Image src="/images/winter-profile.jpg" alt="Star of AI 대표 이경서(Winter)" width={900} height={1020} className="h-auto w-full" />
+              <Image src="/images/winter-profile-2.jpg" alt="Star of AI 대표 이경서(Winter)" width={900} height={1020} className="h-auto w-full" />
             </div>
             <a href={SITE.instagram} target="_blank" rel="noreferrer" className="btn-ghost mt-5 w-full !py-3 !text-[14px]">
               Instagram {SITE.instagramHandle} ↗
