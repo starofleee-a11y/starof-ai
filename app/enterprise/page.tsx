@@ -117,9 +117,9 @@ export default function EnterprisePage() {
           eyebrow="교육과 구축 현장"
           images={[
             { src: "/images/lectures/gsb-2026-09.jpg", alt: "클로드 코드 워크샵 강의 현장", caption: "클로드 코드 워크샵 현장" },
-            { src: "/images/projects/edu.jpg", alt: "임직원 AI 전환 교육 설계서", caption: "부서별 시나리오가 담긴 교육 설계서" },
-            { src: "/images/projects/sales.jpg", alt: "영업 보고서 자동 생성 화면", caption: "영업팀이 쓰는 보고서·스크립트 생성" },
-            { src: "/images/projects/agent.jpg", alt: "사내 AI 에이전트 실행 화면", caption: "매주 자동 실행되는 사내 AI 에이전트" },
+            { src: "/images/projects/edu-2.jpg", alt: "임직원 AI 전환 교육 설계서", caption: "부서별 시나리오가 담긴 교육 설계서" },
+            { src: "/images/projects/sales-2.jpg", alt: "영업 보고서 자동 생성 화면", caption: "영업팀이 쓰는 보고서·스크립트 생성" },
+            { src: "/images/projects/agent-2.jpg", alt: "사내 AI 에이전트 실행 화면", caption: "매주 자동 실행되는 사내 AI 에이전트" },
           ]}
         />
       </section>

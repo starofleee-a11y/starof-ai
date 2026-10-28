@@ -110,9 +110,9 @@ export default function ConsultingPage() {
         <ImageBand
           eyebrow="컨설팅에서 실제로 만드는 화면"
           images={[
-            { src: "/images/projects/kpi.jpg", alt: "업무일지 KPI 리포트 자동 발행 화면", caption: "매주 자동 발행되는 KPI 리포트" },
-            { src: "/images/projects/slack.jpg", alt: "슬랙 리마인드 자동화 화면", caption: "정해진 시간에 나가는 슬랙 리마인드" },
-            { src: "/images/projects/research.jpg", alt: "리서치 자동화 스킬 실행 화면", caption: "10개 토픽을 한 번에 리서치하는 스킬" },
+            { src: "/images/projects/kpi-2.jpg", alt: "업무일지 KPI 리포트 자동 발행 화면", caption: "매주 자동 발행되는 KPI 리포트" },
+            { src: "/images/projects/slack-2.jpg", alt: "슬랙 리마인드 자동화 화면", caption: "정해진 시간에 나가는 슬랙 리마인드" },
+            { src: "/images/projects/research-2.jpg", alt: "리서치 자동화 스킬 실행 화면", caption: "10개 토픽을 한 번에 리서치하는 스킬" },
           ]}
           note="고객사 이름과 숫자는 블러 처리했고, 화면은 실제 구조를 바탕으로 재구성했어요."
         />

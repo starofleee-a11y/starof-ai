@@ -1,6 +1,7 @@
+import Image from "next/image";
 import { PROJECTS } from "@/lib/projects";
 
-/** 프로젝트를 이미지 없이, 두 줄이 서로 반대 방향으로 천천히 흐르는 가로 모듈 */
+/** 프로젝트를 화면 캡처와 함께, 두 줄이 서로 반대 방향으로 천천히 흐르는 가로 모듈 */
 export default function ProjectMarquee() {
   const half = Math.ceil(PROJECTS.length / 2);
   const rows = [PROJECTS.slice(0, half), PROJECTS.slice(half)];
@@ -12,14 +13,19 @@ export default function ProjectMarquee() {
           <div key={r} className="marquee-mask group -mx-5 overflow-hidden md:mx-0">
             <ul className={`flex w-max gap-4 group-hover:[animation-play-state:paused] ${r ? "animate-marquee [animation-direction:reverse] [animation-duration:70s]" : "animate-marquee [animation-duration:62s]"}`}>
               {list.map((p, i) => (
-                <li key={`${p.id}-${i}`} aria-hidden={i >= row.length} className="card flex w-[300px] shrink-0 flex-col p-6 md:w-[360px]">
-                  <div className="flex items-center justify-between gap-2 text-[12px]">
-                    <span className="font-semibold uppercase tracking-[0.15em] text-olive">{p.category}</span>
-                    <span className="truncate font-medium text-brown/65">{p.org}</span>
+                <li key={`${p.id}-${i}`} aria-hidden={i >= row.length} className="flex w-[320px] shrink-0 flex-col overflow-hidden rounded-2xl border border-brown/20 bg-white md:w-[380px]">
+                  <div className="relative aspect-[4/3] border-b border-brown/10 bg-paper">
+                    <Image src={p.image} alt={p.title} fill sizes="380px" className="object-cover" />
                   </div>
-                  <h3 className="mt-3 text-[15.5px] font-bold leading-snug text-brown-dark">{p.title}</h3>
-                  <p className="mt-3 break-keep text-[26px] font-extrabold leading-[1.1] tracking-[-0.02em] text-brown md:text-[28px]">{p.hook}</p>
-                  <p className="mt-3 text-[13.5px] leading-relaxed text-brown/85">{p.how}</p>
+                  <div className="flex flex-1 flex-col p-6">
+                    <div className="flex items-center justify-between gap-2 text-[12px]">
+                      <span className="font-bold uppercase tracking-[0.15em] text-brown">{p.category}</span>
+                      <span className="truncate font-medium text-brown/70">{p.org}</span>
+                    </div>
+                    <h3 className="mt-3 text-[15.5px] font-bold leading-snug text-brown-dark">{p.title}</h3>
+                    <p className="mt-3 break-keep text-[26px] font-extrabold leading-[1.1] tracking-[-0.02em] text-brown-dark md:text-[28px]">{p.hook}</p>
+                    <p className="mt-3 text-[13.5px] leading-relaxed text-brown/90">{p.how}</p>
+                  </div>
                 </li>
               ))}
             </ul>
