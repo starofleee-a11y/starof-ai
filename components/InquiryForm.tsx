@@ -31,7 +31,7 @@ export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = 
       <div className="card p-10">
         <p className="eyebrow">Received</p>
         <p className="mt-3 text-[22px] font-bold text-brown-dark">문의가 접수됐어요.</p>
-        <p className="mt-2 text-[15px] text-brown/70">영업일 기준 1일 안에 남겨주신 메일로 회신드릴게요.</p>
+        <p className="mt-2 text-[15px] text-brown/85">영업일 기준 1일 안에 남겨주신 메일로 회신드릴게요.</p>
       </div>
     );
 
@@ -89,7 +89,7 @@ export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = 
       <button disabled={state === "sending"} className="btn-primary w-full !py-4 text-[16px] disabled:opacity-60">
         {state === "sending" ? "보내는 중…" : "문의 보내기"}
       </button>
-      <p className="-mt-1 text-center text-[12px] text-brown/50">남겨주신 정보는 회신 목적으로만 사용해요.</p>
+      <p className="-mt-1 text-center text-[12px] text-brown/65">남겨주신 정보는 회신 목적으로만 사용해요.</p>
     </form>
   );
 }

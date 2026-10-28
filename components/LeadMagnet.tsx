@@ -42,7 +42,7 @@ export default function LeadMagnet({
         <div className="order-2 md:order-1">
           <p className="eyebrow">Free PDF</p>
           <h3 className="h-display mt-3 text-[26px] md:text-[32px]">{title}</h3>
-          <p className="mt-3 text-[15px] leading-relaxed text-brown/80">{desc}</p>
+          <p className="mt-3 text-[15px] leading-relaxed text-brown/90">{desc}</p>
           {state === "done" ? (
             <div className="mt-6 rounded-xl bg-white/80 p-5">
               <p className="font-semibold text-brown-dark">다운로드가 시작됐어요.</p>

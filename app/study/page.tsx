@@ -13,6 +13,8 @@ import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
 import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
+import ImageBand from "@/components/ImageBand";
+import Hl from "@/components/Hl";
 import { won } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -71,7 +73,7 @@ export default function StudyPage() {
                 <CountUp value={x.v} decimals={x.d} />
                 <span className="text-[20px]">{x.s}</span>
               </p>
-              <p className="mt-2 text-[13px] text-brown/60">{x.l}</p>
+              <p className="mt-2 text-[13px] text-brown/75">{x.l}</p>
             </Reveal>
           ))}
         </div>
@@ -83,7 +85,7 @@ export default function StudyPage() {
           <Reveal>
             <p className="eyebrow">Host</p>
             <h2 className="h-display mt-4 text-[28px] md:text-[38px]">현업에서 매일 자동화를 만드는 사람이 가르쳐요</h2>
-            <p className="mt-6 text-[16px] leading-[1.8] text-brown/80">
+            <p className="mt-6 text-[16px] leading-[1.8] text-brown/90">
               스터디장은 현재 기업에서 <b className="font-semibold text-brown-dark">AX 실무와 AI 컨설팅</b>을 진행하고 있으며, 업무 관리 자동화, 업계 리서치 자동화, 바이브 코딩 대시보드 개발, 마케팅 릴스 제작 자동화 등{" "}
               <b className="font-semibold text-brown-dark">실제 기업 전사 자동화 경험</b>이 있습니다.
             </p>
@@ -94,12 +96,25 @@ export default function StudyPage() {
                 <li key={c} className="py-3.5 text-[15px] text-brown/85">{c}</li>
               ))}
             </ul>
-            <p className="mt-6 text-[15px] text-brown/70">함께 일잘러가 될 수 있는 자동화 스터디하면서 AI 노마드가 되어봐요.</p>
+            <p className="mt-6 text-[15px] text-brown/85">함께 일잘러가 될 수 있는 자동화 스터디하면서 AI 노마드가 되어봐요.</p>
           </Reveal>
         </div>
       </section>
 
       {/* CURRICULUM */}
+      {/* 중간 자료 — 강의 현장 */}
+      <section className="wrap pb-24 md:pb-32">
+        <ImageBand
+          eyebrow="강의 현장"
+          images={[
+            { src: "/images/lectures/gsb-2026-09.jpg", alt: "클로드 코드 워크샵 강의 현장", caption: "설치부터 같이 하는 워크샵" },
+            { src: "/images/lecture-gsb.jpg", alt: "워크샵 참여자들", caption: "성균관대 GSB 워크샵" },
+            { src: "/images/gsb-poster-1.jpg", alt: "클로드 코드 강의 포스터", caption: "강의 포스터" },
+            { src: "/images/study-ep1-cover.jpg", alt: "1화 강의 교안 표지", caption: "1화 교안 (무료 PDF)" },
+          ]}
+        />
+      </section>
+
       <section className="bg-paper py-24 md:py-32">
         <div className="wrap">
           <SectionHead eyebrow="Curriculum" title={`${STUDY.weeks} 커리큘럼`} desc={`오프라인 2회는 ${STUDY.place.offline}, 온라인 2회는 ${STUDY.place.online}.`} />
@@ -113,7 +128,7 @@ export default function StudyPage() {
                   </div>
                   <p className="mt-4 font-serif text-[20px] font-semibold text-brown">{s.date}</p>
                   <h3 className="mt-2 text-[18px] font-bold text-brown-dark">{s.title}</h3>
-                  <ul className="mt-5 space-y-2 border-t border-brown/10 pt-5 text-[14.5px] text-brown/75">
+                  <ul className="mt-5 space-y-2 border-t border-brown/10 pt-5 text-[14.5px] text-brown/85">
                     {s.items.map((it) => (
                       <li key={it} className="flex gap-2.5">
                         <span className="text-olive">·</span>
@@ -130,14 +145,14 @@ export default function StudyPage() {
 
       {/* 1기 결과물 */}
       <section className="wrap py-24 md:py-32">
-        <SectionHead eyebrow="1기 결과물" title="3주 뒤, 수강생들이 직접 만든 자동화" desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 발표한 자동화예요. 발표 자료 기준으로 정리했습니다." />
+        <SectionHead eyebrow="1기 결과물" title={<>3주 뒤, <Hl>수강생들이 직접 만든</Hl> 자동화</>} desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 발표한 자동화예요. 발표 자료 기준으로 정리했습니다." />
         <div className="grid gap-4 md:grid-cols-2">
           {STUDENT_PROJECTS.map((pr, i) => (
             <Reveal key={pr.title} delay={i * 80}>
               <div className="card h-full p-7">
                 <p className="font-serif text-[15px] italic text-olive">0{i + 1}</p>
                 <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-brown/70">{pr.desc}</p>
+                <p className="mt-2 text-[14.5px] leading-relaxed text-brown/85">{pr.desc}</p>
               </div>
             </Reveal>
           ))}
@@ -147,9 +162,9 @@ export default function StudyPage() {
       {/* REVIEWS */}
       <section className="overflow-hidden bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="Reviews" title="먼저 들은 분들의 이야기" desc="1기 수강생이 스터디 페이지에 직접 남긴 후기예요." />
+          <SectionHead eyebrow="Reviews" title={<><Hl>먼저 들은 분들</Hl>의 이야기</>} desc="1기 수강생이 스터디 페이지에 직접 남긴 후기예요." />
           <Voices />
-          <p className="mt-16 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/40">{SURVEY.source} · 추천 의향 평균 {SURVEY.recommend}점</p>
+          <p className="mt-16 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/55">{SURVEY.source} · 추천 의향 평균 {SURVEY.recommend}점</p>
         </div>
         <div className="mt-6">
           <ReviewMarquee />
@@ -176,8 +191,8 @@ export default function StudyPage() {
           <div>
             <SectionHead eyebrow="Apply" title={<>참가비 {won(STUDY.price)}<br />4회 전부 참석하면 {won(STUDY.refund)} 환급</>} desc={`환급은 4회차 당일 계좌이체로 보내드려요. 모집 인원 ${STUDY.people}, 선정 결과는 ${STUDY.resultDate} 카카오톡으로 안내합니다.`} />
             <Reveal>
-              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/40">신청 전 꼭 확인해주세요</p>
-              <ol className="mt-3 space-y-3 text-[14.5px] leading-relaxed text-brown/80">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/55">신청 전 꼭 확인해주세요</p>
+              <ol className="mt-3 space-y-3 text-[14.5px] leading-relaxed text-brown/90">
                 {STUDY.checks.map((c, i) => (
                   <li key={c} className="flex gap-3">
                     <span className="font-serif italic text-olive">{i + 1}</span>

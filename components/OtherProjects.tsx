@@ -17,7 +17,7 @@ export default function OtherProjects() {
               <span className="chip">{p.tag}</span>
               <h3 className="mt-5 font-serif text-[36px] font-semibold leading-none text-brown">{p.name}</h3>
               <p className="mt-2 text-[15px] font-semibold text-brown-dark">{p.label}</p>
-              <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-brown/70">{p.desc}</p>
+              <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-brown/85">{p.desc}</p>
             </div>
             <span className="relative mt-8 inline-flex items-center gap-2 text-[14px] font-semibold text-brown">
               사이트 둘러보기

@@ -41,7 +41,7 @@ export default function StudyApply() {
       <div className="card p-8 md:p-10">
         <p className="eyebrow">Received</p>
         <p className="mt-3 text-[22px] font-bold text-brown-dark">신청이 접수됐어요.</p>
-        <p className="mt-2 text-[15px] leading-relaxed text-brown/70">
+        <p className="mt-2 text-[15px] leading-relaxed text-brown/85">
           선정 결과는 {STUDY.resultDate} 남겨주신 번호로 카카오톡 팀 채팅 초대와 함께 알려드려요.
           <br />
           참가비는 지금 결제하거나, 선정 안내를 받은 뒤 결제하셔도 돼요.
@@ -51,7 +51,7 @@ export default function StudyApply() {
             {won(STUDY.price)} 결제하기
           </Link>
           {BANK ? (
-            <div className="rounded-xl bg-paper px-4 py-3 text-[13.5px] text-brown/80">
+            <div className="rounded-xl bg-paper px-4 py-3 text-[13.5px] text-brown/90">
               <p className="font-semibold text-brown-dark">계좌이체</p>
               <p>{BANK}</p>
             </div>
@@ -67,7 +67,7 @@ export default function StudyApply() {
       <div>
         <p className="eyebrow">Apply</p>
         <p className="mt-2 text-[20px] font-bold text-brown-dark">{STUDY.cohort} 신청</p>
-        <p className="mt-1 text-[14px] text-brown/60">신청 마감 {STUDY.deadline} · 선정 결과 {STUDY.resultDate}</p>
+        <p className="mt-1 text-[14px] text-brown/75">신청 마감 {STUDY.deadline} · 선정 결과 {STUDY.resultDate}</p>
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -75,7 +75,7 @@ export default function StudyApply() {
           <input id="a-name" name="name" required className="field" placeholder="홍길동" />
         </div>
         <div>
-          <label className="label" htmlFor="a-phone">연락처 <span className="font-normal text-brown/45">· 카카오톡 초대용</span></label>
+          <label className="label" htmlFor="a-phone">연락처 <span className="font-normal text-brown/60">· 카카오톡 초대용</span></label>
           <input id="a-phone" name="phone" required className="field" placeholder="010-0000-0000" />
         </div>
         <div>
@@ -91,7 +91,7 @@ export default function StudyApply() {
           <textarea id="a-topic" name="topic" required rows={3} className="field resize-none" placeholder="예) 매주 월요일 영업 데이터를 엑셀로 정리해서 보고서로 만드는 일" />
         </div>
       </div>
-      <div className="space-y-2.5 rounded-xl bg-paper p-4 text-[14px] text-brown/80">
+      <div className="space-y-2.5 rounded-xl bg-paper p-4 text-[14px] text-brown/90">
         <label className="flex items-start gap-3">
           <input type="checkbox" name="pro" required className="mt-1 h-4 w-4 accent-brown" />
           클로드 Pro 구독을 첫 세션 전까지 준비할 수 있어요.
@@ -105,7 +105,7 @@ export default function StudyApply() {
       <button disabled={state === "sending"} className="btn-primary w-full !py-4 text-[16px] disabled:opacity-60">
         {state === "sending" ? "보내는 중…" : "스터디 신청하기"}
       </button>
-      <p className="-mt-1 text-center text-[12px] text-brown/50">참가비 {won(STUDY.price)} · 4회 전부 참석 시 {won(STUDY.refund)} 환급</p>
+      <p className="-mt-1 text-center text-[12px] text-brown/65">참가비 {won(STUDY.price)} · 4회 전부 참석 시 {won(STUDY.refund)} 환급</p>
     </form>
   );
 }

@@ -48,7 +48,7 @@ export default function Header() {
                 key={n.href}
                 href={n.href}
                 className={`relative rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors ${
-                  active ? "text-brown-dark" : "text-brown/70 hover:text-brown-dark"
+                  active ? "text-brown-dark" : "text-brown/85 hover:text-brown-dark"
                 }`}
               >
                 {active && <span className="absolute inset-0 -z-10 rounded-full bg-butter/70" />}

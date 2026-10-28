@@ -3,6 +3,7 @@ import { Cormorant_Garamond, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollTop from "@/components/ScrollTop";
 import { SITE } from "@/lib/site";
 
 const cormorant = Cormorant_Garamond({
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
+        <ScrollTop />
       </body>
     </html>
   );

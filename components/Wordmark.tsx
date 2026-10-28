@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Logo from "./Logo";
 import { PAINS, SOLVE } from "@/lib/pains";
+import Hl from "./Hl";
 
 /** 스크롤하면 고민들이 하나씩 지워지고, STAR OF AI 로고와 해결 문구가 떠올라요 */
 export default function Wordmark() {
@@ -37,11 +38,11 @@ export default function Wordmark() {
   return (
     <section id="solve" ref={ref} className="wrap scroll-mt-20 py-20 md:py-28">
       {/* 고민들이 차례로 지워져요 */}
-      <ul className="mx-auto flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-2 text-[14px] text-brown/60 md:text-[15px]">
+      <ul className="mx-auto flex max-w-3xl flex-wrap justify-center gap-x-5 gap-y-2 text-[14px] font-medium text-brown/85 md:text-[15px]">
         {PAINS.map((t, k) => {
           const done = ease > (k + 1) / (PAINS.length + 1);
           return (
-            <li key={t} className={`strike transition-all duration-500 ${done ? "strike-on text-brown/35" : ""}`}>
+            <li key={t} className={`strike transition-all duration-500 ${done ? "strike-on text-brown/55" : ""}`}>
               {t}
             </li>
           );
@@ -49,11 +50,13 @@ export default function Wordmark() {
       </ul>
 
       <div className="mt-12 will-change-transform md:mt-16" style={{ opacity: ease, transform: `translateY(${(1 - ease) * 40}px) scale(${0.94 + ease * 0.06})` }}>
-        <Logo className="mx-auto h-auto w-full max-w-4xl" />
+        <Logo className="mx-auto h-auto w-full max-w-[220px] md:max-w-[340px]" />
       </div>
-      <div className="mt-10 text-center md:mt-14" style={{ opacity: Math.max(0, (ease - 0.35) / 0.65), transform: `translateY(${(1 - ease) * 24}px)` }}>
+      <div className={`mt-8 text-center md:mt-10 ${ease > 0.6 ? "in" : ""}`} style={{ opacity: Math.max(0, (ease - 0.35) / 0.65), transform: `translateY(${(1 - ease) * 24}px)` }}>
         <h2 className="glow-text font-kserif text-[28px] font-bold leading-[1.25] text-brown-dark md:text-[46px]">{SOLVE.title}</h2>
-        <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-brown/80 md:text-[19px]">{SOLVE.desc}</p>
+        <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-brown/90 md:text-[19px]">
+          <Hl>AI 강의부터 AX 컨설팅까지</Hl>, AI를 활용한 자동화를 <Hl delay={350}>쉽고 체계적으로</Hl> 구축해드려요.
+        </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="#services" className="btn-primary">세 가지 방법 보기</Link>
           <Link href="#coffee-chat" className="btn-ghost">무료 커피챗</Link>

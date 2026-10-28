@@ -28,11 +28,11 @@ export default function ProjectGrid({ companyOnly = false }: { companyOnly?: boo
             <div className="flex flex-col p-6">
               <div className="flex items-center justify-between gap-2 text-[12px]">
                 <span className="font-semibold uppercase tracking-[0.15em] text-olive">{p.category}</span>
-                <span className="truncate text-brown/50">{p.org}</span>
+                <span className="truncate text-brown/65">{p.org}</span>
               </div>
               <h3 className="mt-3 text-[16px] font-bold leading-snug text-brown-dark">{p.title}</h3>
-              <p className="mt-3 break-keep font-serif text-[28px] font-semibold leading-[1.05] text-brown md:text-[32px]">{p.hook}</p>
-              <p className="mt-3 text-[13.5px] leading-relaxed text-brown/70">{p.how}</p>
+              <p className="mt-3 break-keep text-[26px] font-extrabold leading-[1.1] tracking-[-0.02em] text-brown md:text-[30px]">{p.hook}</p>
+              <p className="mt-3 text-[13.5px] leading-relaxed text-brown/85">{p.how}</p>
             </div>
           </article>
         ))}

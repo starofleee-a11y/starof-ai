@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import CountUp from "./CountUp";
+import Hl from "./Hl";
 import { RESULTS, REVIEWS, SURVEY, LECTURES } from "@/lib/proof";
 
 const PICKED = [REVIEWS[0], REVIEWS[2], REVIEWS[6]];
@@ -13,17 +14,17 @@ export default function Proof() {
         <Reveal>
           <p className="eyebrow">Results</p>
           <h2 className="h-display mt-4 text-[30px] md:text-[44px]">
-            자동화 구축도 전문가에게 맡겨야
+            자동화 구축도 <Hl>전문가에게 맡겨야</Hl>
             <br />
-            진정한 성과를 이룰 수 있습니다
+            <Hl delay={350}>진정한 성과</Hl>를 이룰 수 있습니다
           </h2>
-          <p className="mt-5 max-w-md text-[16px] leading-relaxed text-brown/75">
-            말보다 숫자로 먼저 보여드릴게요. 기업 AX 컨설팅에서 실제로 줄어든 시간과, 강의를 들은 분들이 남긴 점수예요.
+          <p className="mt-5 max-w-md text-[16px] leading-relaxed text-brown/85">
+            말보다 <b className="font-bold text-brown-dark">숫자로 먼저</b> 보여드릴게요. 기업 AX 컨설팅에서 실제로 줄어든 시간과, 강의를 들은 분들이 남긴 점수예요.
           </p>
         </Reveal>
         <Reveal delay={150} className="mt-10 hidden md:block">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/40">함께한 곳</p>
-          <ul className="mt-3 space-y-1.5 text-[14px] text-brown/70">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/55">함께한 곳</p>
+          <ul className="mt-3 space-y-1.5 text-[14px] text-brown/85">
             {orgs.map((o) => (
               <li key={o}>{o}</li>
             ))}
@@ -37,11 +38,11 @@ export default function Proof() {
             <article className={`rounded-2xl border p-7 md:p-9 ${i === 0 ? "border-brown bg-brown text-butter-pale" : "border-brown/10 bg-white"}`}>
               <div className="flex items-center justify-between text-[12px]">
                 <span className={`font-semibold uppercase tracking-[0.18em] ${i === 0 ? "text-butter/80" : "text-olive"}`}>{r.kind}</span>
-                <span className={i === 0 ? "text-butter-pale/60" : "text-brown/50"}>{r.org}</span>
+                <span className={i === 0 ? "text-butter-pale/75" : "text-brown/65"}>{r.org}</span>
               </div>
-              <p className={`mt-6 font-serif text-[44px] font-semibold leading-none md:text-[60px] ${i === 0 ? "text-butter" : "text-brown"}`}>{r.big}</p>
+              <p className={`mt-6 text-[40px] font-extrabold leading-none tracking-[-0.03em] md:text-[54px] ${i === 0 ? "text-butter" : "text-brown"}`}>{r.big}</p>
               <p className={`mt-4 text-[18px] font-bold ${i === 0 ? "text-butter" : "text-brown-dark"}`}>{r.title}</p>
-              <p className={`mt-2 text-[15px] leading-relaxed ${i === 0 ? "text-butter-pale/75" : "text-brown/70"}`}>{r.desc}</p>
+              <p className={`mt-2 text-[15px] leading-relaxed ${i === 0 ? "text-butter-pale/85" : "text-brown/85"}`}>{r.desc}</p>
             </article>
           </Reveal>
         ))}
@@ -59,7 +60,7 @@ export default function Proof() {
                     <CountUp value={x.v} decimals={x.d} />
                     <span className="text-[16px]">{x.s}</span>
                   </p>
-                  <p className="mt-2 text-[12px] text-brown/60 md:text-[13px]">{x.l}</p>
+                  <p className="mt-2 text-[12px] text-brown/75 md:text-[13px]">{x.l}</p>
                 </div>
               ))}
             </div>
@@ -67,11 +68,11 @@ export default function Proof() {
               {PICKED.map((r) => (
                 <li key={r.quote}>
                   <p className="text-[16px] font-medium leading-relaxed text-brown-dark md:text-[17px]">“{r.quote}”</p>
-                  <p className="mt-1.5 text-[12.5px] text-brown/50">{r.who}</p>
+                  <p className="mt-1.5 text-[12.5px] text-brown/65">{r.who}</p>
                 </li>
               ))}
             </ul>
-            <p className="mt-6 text-[12px] text-brown/45">출처: {SURVEY.source}</p>
+            <p className="mt-6 text-[12px] text-brown/60">출처: {SURVEY.source}</p>
           </div>
         </Reveal>
       </div>

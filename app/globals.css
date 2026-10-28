@@ -96,6 +96,36 @@ body {
 .catch::before { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: 0.08em; height: 0.34em; background: linear-gradient(90deg, rgba(255,235,81,.95), rgba(255,236,140,.7)); border-radius: 4px; z-index: -1; transform-origin: left; animation: hl 1s cubic-bezier(.2,.7,.2,1) .6s both; }
 @keyframes hl { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+/* 검색창처럼 생긴 진단 입력 바 */
+.searchbar {
+  display: flex; align-items: center;
+  border-radius: 999px; border: 1px solid rgba(255,255,255,.8);
+  background: rgba(255,255,255,.82);
+  backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 24px 60px -30px rgba(97,66,21,.5), 0 0 0 6px rgba(255,255,255,.35);
+  transition: box-shadow .3s, transform .3s;
+}
+.searchbar:focus-within { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 28px 60px -28px rgba(97,66,21,.55), 0 0 0 6px rgba(255,235,81,.55); }
+
+/* 고민 말풍선 */
+.bubble {
+  position: relative; flex: none; white-space: nowrap;
+  padding: 14px 22px; border-radius: 22px 22px 22px 6px;
+  font-size: 16px; font-weight: 600; color: #3d2a0c;
+  background: rgba(255,255,255,.78); border: 1px solid rgba(255,255,255,.85);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 16px 40px -28px rgba(97,66,21,.5);
+}
+.bubble-alt { border-radius: 22px 22px 6px 22px; background: rgba(255,246,199,.85); }
+@media (min-width: 768px) { .bubble { font-size: 19px; padding: 16px 26px; } }
+
+/* 스크롤하면 칠해지는 형광펜 키워드 — .in (Reveal) 안에서 작동 */
+.hl { background: none; color: inherit; position: relative; isolation: isolate; font-weight: 700; padding: 0 .06em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hl::before { content: ""; position: absolute; left: 0; right: 0; bottom: .04em; height: .45em; z-index: -1; border-radius: 3px; background: linear-gradient(90deg, rgba(255,235,81,.95), rgba(255,236,140,.8)); transform: scaleX(0); transform-origin: left; transition: transform .7s cubic-bezier(.2,.7,.2,1) var(--hd, 250ms); }
+.in .hl::before { transform: scaleX(1); }
+.hl-butter::before { background: rgba(255,235,81,.35); }
+@media (prefers-reduced-motion: reduce) { .hl::before { transform: scaleX(1); transition: none; } }
+
 /* 스크롤하면 고민이 지워지는 취소선 */
 .strike { position: relative; }
 .strike::after { content: ""; position: absolute; left: 0; top: 55%; height: 1.5px; width: 0; background: #614215; transition: width .5s cubic-bezier(.2,.7,.2,1); }

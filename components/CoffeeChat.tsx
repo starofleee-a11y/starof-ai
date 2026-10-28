@@ -61,7 +61,7 @@ export default function CoffeeChat() {
       <div className="card p-8 md:p-10">
         <p className="eyebrow">{result.confirmed ? "Confirmed" : "Received"}</p>
         <p className="mt-3 text-[22px] font-bold text-brown-dark">{result.confirmed ? "커피챗 예약이 확정됐어요." : "커피챗 신청이 접수됐어요."}</p>
-        <p className="mt-2 text-[15px] leading-relaxed text-brown/70">
+        <p className="mt-2 text-[15px] leading-relaxed text-brown/85">
           {result.when} · 30분 · 온라인
           <br />
           {result.confirmed ? "캘린더 초대와 미팅 링크를 메일로 보냈어요. 하루 전에 리마인드도 드릴게요." : "일정 확인 후 미팅 링크를 메일로 보내드릴게요."}
@@ -79,7 +79,7 @@ export default function CoffeeChat() {
       <div className="min-w-0">
         <div className="mb-2 flex items-baseline justify-between">
           <span className="label !mb-0">날짜</span>
-          <span className="text-[12px] text-brown/45">{live ? "캘린더 기준 실시간" : "오늘부터 2주"}</span>
+          <span className="text-[12px] text-brown/60">{live ? "캘린더 기준 실시간" : "오늘부터 2주"}</span>
         </div>
         {days === null ? (
           <div className="h-[62px] animate-pulse rounded-xl bg-paper" />
@@ -110,7 +110,7 @@ export default function CoffeeChat() {
       </div>
 
       <div>
-        <span className="label">시간 <span className="font-normal text-brown/45">· 30분</span></span>
+        <span className="label">시간 <span className="font-normal text-brown/60">· 30분</span></span>
         {current && current.slots.length ? (
           <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-5">
             {current.slots.map((t) => (
@@ -120,7 +120,7 @@ export default function CoffeeChat() {
             ))}
           </div>
         ) : (
-          <p className="rounded-xl bg-paper px-4 py-3 text-[14px] text-brown/60">{days ? "날짜를 먼저 골라주세요." : "가능한 시간을 불러오는 중…"}</p>
+          <p className="rounded-xl bg-paper px-4 py-3 text-[14px] text-brown/75">{days ? "날짜를 먼저 골라주세요." : "가능한 시간을 불러오는 중…"}</p>
         )}
       </div>
 
@@ -142,7 +142,7 @@ export default function CoffeeChat() {
           </select>
         </div>
         <div className="sm:col-span-2">
-          <label className="label" htmlFor="cc-concern">자동화 고민 <span className="font-normal text-brown/45">· 선택</span></label>
+          <label className="label" htmlFor="cc-concern">자동화 고민 <span className="font-normal text-brown/60">· 선택</span></label>
           <textarea id="cc-concern" name="concern" rows={3} className="field resize-none" placeholder="예) 매주 월요일마다 엑셀 3개를 합쳐서 보고서를 만드는데, 2시간씩 걸려요." />
         </div>
       </div>
@@ -151,7 +151,7 @@ export default function CoffeeChat() {
       <button disabled={state === "sending" || !days} className="btn-primary w-full !py-4 text-[16px] disabled:opacity-60">
         {state === "sending" ? "예약하는 중…" : day && time ? `${Number(day.slice(5, 7))}/${Number(day.slice(8))} ${time} 예약하기` : "무료 커피챗 예약하기"}
       </button>
-      <p className="-mt-3 text-center text-[12px] text-brown/50">온라인 미팅 링크가 메일로 가요 · 영업 전화는 하지 않아요</p>
+      <p className="-mt-3 text-center text-[12px] text-brown/65">온라인 미팅 링크가 메일로 가요 · 영업 전화는 하지 않아요</p>
     </form>
   );
 }

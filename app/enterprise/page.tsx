@@ -7,6 +7,8 @@ import Reveal from "@/components/Reveal";
 import InquiryForm from "@/components/InquiryForm";
 import CaseStudies from "@/components/CaseStudies";
 import ProjectGrid from "@/components/ProjectGrid";
+import ImageBand from "@/components/ImageBand";
+import Hl from "@/components/Hl";
 import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import CountUp from "@/components/CountUp";
@@ -76,7 +78,7 @@ export default function EnterprisePage() {
                 <CountUp value={s.value} decimals={s.decimals} />
                 <span className="text-[20px]">{s.suffix}</span>
               </p>
-              <p className="mt-2 text-[13px] text-brown/60">{s.label}</p>
+              <p className="mt-2 text-[13px] text-brown/75">{s.label}</p>
             </Reveal>
           ))}
         </div>
@@ -84,16 +86,16 @@ export default function EnterprisePage() {
 
       {/* PROGRAMS */}
       <section className="wrap py-24 md:py-32">
-        <SectionHead eyebrow="Programs" title="조직에 맞춰 고르는 세 가지 방식" desc="강의로 분위기를 만들고, 컨설팅으로 일하는 방식을 바꾸고, 필요하면 우리 회사만의 도구를 만듭니다. 묶어서 진행하면 더 효과적이에요." />
+        <SectionHead eyebrow="Programs" title={<>조직에 맞춰 고르는 <Hl>세 가지 방식</Hl></>} desc="강의로 분위기를 만들고, 컨설팅으로 일하는 방식을 바꾸고, 필요하면 우리 회사만의 도구를 만듭니다. 묶어서 진행하면 더 효과적이에요." />
         <div className="grid gap-4 md:grid-cols-3">
           {PROGRAMS.map((p, i) => (
             <Reveal key={p.name} delay={i * 100}>
               <div className={`flex h-full flex-col rounded-2xl border p-8 ${i === 1 ? "border-brown bg-brown text-butter-pale" : "border-brown/10 bg-white"}`}>
                 <p className={`text-[12px] font-semibold uppercase tracking-[0.2em] ${i === 1 ? "text-butter/80" : "text-olive"}`}>{p.en}</p>
                 <h3 className={`mt-4 font-kserif text-[24px] font-bold ${i === 1 ? "text-butter" : "text-brown-dark"}`}>{p.name}</h3>
-                <p className={`mt-1 text-[13px] ${i === 1 ? "text-butter-pale/60" : "text-brown/50"}`}>{p.target}</p>
-                <p className={`mt-5 text-[15px] leading-relaxed ${i === 1 ? "text-butter-pale/80" : "text-brown/75"}`}>{p.desc}</p>
-                <ul className={`mt-6 space-y-2 border-t pt-5 text-[14px] ${i === 1 ? "border-butter/15 text-butter-pale/90" : "border-brown/10 text-brown/80"}`}>
+                <p className={`mt-1 text-[13px] ${i === 1 ? "text-butter-pale/75" : "text-brown/65"}`}>{p.target}</p>
+                <p className={`mt-5 text-[15px] leading-relaxed ${i === 1 ? "text-butter-pale/90" : "text-brown/85"}`}>{p.desc}</p>
+                <ul className={`mt-6 space-y-2 border-t pt-5 text-[14px] ${i === 1 ? "border-butter/15 text-butter-pale/90" : "border-brown/10 text-brown/90"}`}>
                   {p.items.map((it) => (
                     <li key={it} className="flex gap-2.5">
                       <span className={i === 1 ? "text-butter" : "text-olive"}>·</span>
@@ -109,12 +111,25 @@ export default function EnterprisePage() {
       </section>
 
       {/* CASES */}
+      {/* 중간 자료 — 교육·구축 현장 */}
+      <section className="wrap pb-24 md:pb-32">
+        <ImageBand
+          eyebrow="교육과 구축 현장"
+          images={[
+            { src: "/images/lectures/gsb-2026-09.jpg", alt: "클로드 코드 워크샵 강의 현장", caption: "클로드 코드 워크샵 현장" },
+            { src: "/images/projects/edu.jpg", alt: "임직원 AI 전환 교육 설계서", caption: "부서별 시나리오가 담긴 교육 설계서" },
+            { src: "/images/projects/sales.jpg", alt: "영업 보고서 자동 생성 화면", caption: "영업팀이 쓰는 보고서·스크립트 생성" },
+            { src: "/images/projects/agent.jpg", alt: "사내 AI 에이전트 실행 화면", caption: "매주 자동 실행되는 사내 AI 에이전트" },
+          ]}
+        />
+      </section>
+
       <section id="cases" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="AX Projects" title="기업에서 실제로 일어난 변화" desc="사내 AX팀과 컨설팅 고객사에서 직접 만든 자동화예요. 큰 글씨는 어떻게 그 숫자를 만들었는지의 핵심이에요. 교육실시확인서 등 증빙 자료는 요청 시 제공해 드려요." />
+          <SectionHead eyebrow="AX Projects" title={<>기업에서 <Hl>실제로 일어난 변화</Hl></>} desc="사내 AX팀과 컨설팅 고객사에서 직접 만든 자동화예요. 큰 글씨는 어떻게 그 숫자를 만들었는지의 핵심이에요. 교육실시확인서 등 증빙 자료는 요청 시 제공해 드려요." />
           <ProjectGrid companyOnly />
           <div className="mt-16">
-            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/50">Case study · 네 건을 자세히</p>
+            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/65">Case study · 네 건을 자세히</p>
             <CaseStudies />
           </div>
         </div>
@@ -134,12 +149,12 @@ export default function EnterprisePage() {
             <ul className="mt-8 divide-y divide-brown/10 border-y border-brown/10">
               {LECTURES.map((l) => (
                 <li key={l.org + l.date} className="grid grid-cols-[64px_1fr_auto] gap-3 py-3 text-[14px]">
-                  <span className="text-brown/50">{l.date}</span>
+                  <span className="text-brown/65">{l.date}</span>
                   <span>
                     <b className="font-semibold text-brown-dark">{l.org}</b>
-                    <span className="block text-[13px] text-brown/60">{l.title}</span>
+                    <span className="block text-[13px] text-brown/75">{l.title}</span>
                   </span>
-                  <span className="text-brown/50">{l.people}명</span>
+                  <span className="text-brown/65">{l.people}명</span>
                 </li>
               ))}
             </ul>
@@ -153,8 +168,8 @@ export default function EnterprisePage() {
           <Reveal>
             <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-butter/80">Contact</p>
             <h2 className="mt-4 font-kserif text-[32px] font-bold leading-tight text-butter md:text-[44px]">기업 강의 · 컨설팅<br />문의하기</h2>
-            <p className="mt-6 text-[16px] leading-relaxed text-butter-pale/70">남겨주신 내용은 바로 대표 메일과 슬랙으로 전달돼요. 1영업일 안에 맞춤 제안서로 회신드립니다.</p>
-            <div className="mt-10 space-y-2 text-[14px] text-butter-pale/60">
+            <p className="mt-6 text-[16px] leading-relaxed text-butter-pale/85">남겨주신 내용은 바로 대표 메일과 슬랙으로 전달돼요. 1영업일 안에 맞춤 제안서로 회신드립니다.</p>
+            <div className="mt-10 space-y-2 text-[14px] text-butter-pale/75">
               <p>메일 · starofleee@gmail.com</p>
               <p>전화 · +82 10-3732-8091</p>
             </div>

@@ -5,6 +5,7 @@ import Wordmark from "@/components/Wordmark";
 import Reveal from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 import SectionHead from "@/components/SectionHead";
+import Hl from "@/components/Hl";
 import PriceCards from "@/components/PriceCards";
 import ReviewMarquee from "@/components/ReviewMarquee";
 import CoffeeChat from "@/components/CoffeeChat";
@@ -54,7 +55,7 @@ export default function Home() {
                 <CountUp value={s.value} decimals={s.decimals} />
                 <span className="ml-1 text-[20px] md:text-[24px]">{s.suffix}</span>
               </p>
-              <p className="mt-3 text-[13px] text-brown/60">{s.label}</p>
+              <p className="mt-3 text-[13px] text-brown/75">{s.label}</p>
             </Reveal>
           ))}
         </div>
@@ -64,7 +65,7 @@ export default function Home() {
       <section id="services" className="wrap scroll-mt-20 py-24 md:py-36">
         <SectionHead
           eyebrow="What we do"
-          title={<>Star of AI 에이전시는 AX 에이전시로,<br />개인 혹은 조직의 AI 생산성을 갖추도록 돕습니다</>}
+          title={<>Star of AI 에이전시는 AX 에이전시로,<br />개인 혹은 조직의 <Hl>AI 생산성</Hl>을 갖추도록 돕습니다</>}
         />
         <div className="grid gap-4 md:grid-cols-3">
           {PILLARS.map((p, i) => {
@@ -74,7 +75,7 @@ export default function Home() {
               <Link href={p.href} className={`group flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(97,66,21,.5)] ${t.bg} ${t.border}`}>
                 <p className={`font-serif text-[30px] font-semibold leading-none ${t.text}`}>{t.label}</p>
                 <p className="mt-8 text-[17px] font-bold leading-snug text-brown-dark">{p.q}</p>
-                <p className="mt-4 text-[15px] leading-relaxed text-brown/75">{p.a}</p>
+                <p className="mt-4 text-[15px] leading-relaxed text-brown/85">{p.a}</p>
                 <span className={`mt-auto inline-flex items-center gap-2 pt-8 text-[14px] font-semibold ${t.text}`}>
                   {p.label}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
@@ -108,11 +109,11 @@ export default function Home() {
             <Reveal>
               <p className="eyebrow">About</p>
               <h2 className="h-display mt-4 text-[30px] md:text-[40px]">
-                기획자의 눈으로 업무를 쪼개고,
+                <Hl>기획자의 눈</Hl>으로 업무를 쪼개고,
                 <br />
-                AI로 다시 짭니다
+                AI로 <Hl delay={350}>다시 짭니다</Hl>
               </h2>
-              <p className="mt-7 text-[16px] leading-[1.85] text-brown/80 md:text-[17px]">
+              <p className="mt-7 text-[16px] leading-[1.85] text-brown/90 md:text-[17px]">
                 안녕하세요, Star of AI 대표 <b className="font-semibold text-brown-dark">이경서(Winter)</b>입니다. 디자인을 전공하고 카카오게임즈 계열사에서 글로벌 서비스를 기획했고,
                 지금은 <b className="font-semibold text-brown-dark">IT 기획 에이전시를 운영하며 기업 AX팀에서 실무 자동화를 직접 만들고</b> 있어요.
                 기업·교육기관 <b className="font-semibold text-brown-dark">AI 강의 10회 이상, 누적 수강생 260명+</b>, 사내 AI 에이전트로{" "}
@@ -124,10 +125,10 @@ export default function Home() {
               <ul className="mt-8 divide-y divide-brown/10 border-y border-brown/10">
                 {CAREER.map((c) => (
                   <li key={c.role} className="grid grid-cols-[110px_1fr] gap-4 py-3 text-[14px] md:grid-cols-[150px_1fr]">
-                    <span className="text-brown/50">{c.period}</span>
+                    <span className="text-brown/65">{c.period}</span>
                     <span>
                       <b className="font-semibold text-brown-dark">{c.role}</b>
-                      <span className="ml-2 text-brown/60">{c.desc}</span>
+                      <span className="ml-2 text-brown/75">{c.desc}</span>
                     </span>
                   </li>
                 ))}
@@ -149,10 +150,10 @@ export default function Home() {
               <h2 className="mt-4 font-kserif text-[32px] font-bold leading-[1.25] text-butter md:text-[44px]">
                 어떻게 AI를 도입해야 할지
                 <br />
-                막막하시다구요?
+                <mark className="hl hl-butter">막막하시다구요?</mark>
               </h2>
-              <p className="mt-6 text-[16px] leading-relaxed text-butter-pale/75">
-                무료로 AX 자동화 범위를 상담해드려요. 30분 동안 지금 하고 계신 업무를 듣고, 무엇부터 자동화하면 좋을지 같이 그립니다. 내일부터 2주 안에서 비는 시간을 바로 고르세요.
+              <p className="mt-6 text-[16px] leading-relaxed text-butter-pale/85">
+                <b className="font-bold text-butter">무료로 AX 자동화 범위</b>를 상담해드려요. 30분 동안 지금 하고 계신 업무를 듣고, 무엇부터 자동화하면 좋을지 같이 그립니다. 내일부터 2주 안에서 비는 시간을 바로 고르세요.
               </p>
             </Reveal>
             <Reveal delay={150}>
@@ -174,7 +175,7 @@ export default function Home() {
 
       {/* PRICING */}
       <section id="pricing" className="wrap scroll-mt-20 py-24 md:py-36">
-        <SectionHead eyebrow="Services & pricing" title={<>3가지 방법 중<br />나에게 맞는 플랜을 고를 수 있어요</>} desc="배울지, 맡길지, 함께 바꿀지. 지금 상황에 맞는 방법 하나를 고르면 돼요." />
+        <SectionHead eyebrow="Services & pricing" title={<>3가지 방법 중<br /><Hl>나에게 맞는 플랜</Hl>을 고를 수 있어요</>} desc={<><b className="font-bold text-brown-dark">배울지, 맡길지, 함께 바꿀지.</b> 지금 상황에 맞는 방법 하나를 고르면 돼요.</>} />
         <PriceCards />
       </section>
 
@@ -201,7 +202,7 @@ export default function Home() {
               <br />
               반복 업무가 있나요?
             </h2>
-            <p className="mx-auto mt-6 max-w-lg text-[16px] text-brown/75">무료 커피챗에서 30분 만에 자동화 지도를 같이 그려봐요.</p>
+            <p className="mx-auto mt-6 max-w-lg text-[16px] text-brown/85">무료 커피챗에서 30분 만에 자동화 지도를 같이 그려봐요.</p>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link href="#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
               <Link href="/contact" className="btn-ghost">기업 문의하기</Link>

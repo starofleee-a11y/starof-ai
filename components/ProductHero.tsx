@@ -32,7 +32,7 @@ export default function ProductHero({
               For <span className={t.text}>{t.label}</span> · {en}
             </p>
             <h1 className="h-display mt-5 max-w-4xl text-[32px] md:text-[58px]">{title}</h1>
-            <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-brown/80 md:text-[18px]">{desc}</p>
+            <p className="mt-6 max-w-2xl text-[16px] leading-relaxed text-brown/90 md:text-[18px]">{desc}</p>
           </Reveal>
           <Reveal delay={150} className="mt-8 flex flex-wrap gap-2">
             {chips.map((c) => (

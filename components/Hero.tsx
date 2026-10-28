@@ -3,8 +3,9 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import GlassBg from "./GlassBg";
 import Diagnose from "./Diagnose";
+import PainMarquee from "./PainMarquee";
 
-/** 메인 히어로 — 빛이 글라스 뒤에서 움직이고, 고객의 고민이 하나씩 바뀌며 보여요. */
+/** 메인 히어로 — 중앙 정렬. 빛이 글라스 뒤에서 움직이고, 검색창처럼 생긴 진단 폼과 고민 말풍선이 있어요. */
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -38,32 +39,37 @@ export default function Hero() {
         <GlassBg />
       </div>
 
-      <div className="wrap relative pb-24 pt-32 md:pt-36">
+      <div className="wrap relative pb-24 pt-32 text-center md:pt-36">
         <p className="eyebrow animate-[fadeUp_.8s_cubic-bezier(.2,.7,.2,1)_both]">AX Agency · Star of AI</p>
-        <h1 className="glow-text mt-6 max-w-4xl break-keep font-kserif text-[34px] font-bold leading-[1.15] tracking-[-0.02em] animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.1s_both] md:text-[80px]">
+        <h1 className="glow-text mx-auto mt-6 max-w-4xl break-keep font-kserif text-[36px] font-bold leading-[1.15] tracking-[-0.02em] animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.1s_both] md:text-[84px]">
           AI 얼리어답터가 되는
           <br />
           <span className="catch">지름길</span>
-          <span className="text-[0.55em] font-semibold text-brown/70">로 안내합니다.</span>
+          <span className="text-[0.55em] font-semibold text-brown/90">로 안내합니다.</span>
         </h1>
-        <p className="mt-7 max-w-2xl text-[17px] leading-[1.7] text-brown/85 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.25s_both] md:text-[20px]">
+        <p className="mx-auto mt-7 max-w-2xl text-[17px] leading-[1.7] text-brown/90 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.25s_both] md:text-[21px]">
           나의 업무가 자동으로 굴러갈 수 있도록,
           <br className="hidden md:block" />
-          시간과 돈이 벌리는 시스템을 설계해드립니다.
+          <b className="font-bold text-brown-dark">시간과 돈이 벌리는 시스템</b>을 설계해드립니다.
         </p>
 
-        {/* 자동화 진단 — 업무·성함·메일을 적으면 가능 여부·방법·플랜을 바로 답해요 */}
-        <div className="mt-10 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.4s_both]">
+        {/* 자동화 진단 — 검색창처럼. 업무·성함·메일을 적으면 가능 여부·방법·플랜을 바로 답해요 */}
+        <div className="mt-12 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.4s_both]">
           <Diagnose />
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.5s_both]">
+        {/* 고객의 고민 — 말풍선이 가로로 흘러요 */}
+        <div className="mt-12 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.55s_both]">
+          <PainMarquee />
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-3 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.65s_both]">
           <Link href="#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
           <Link href="#solve" className="btn-glass">어떻게 해결하나요? ↓</Link>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[11px] font-medium uppercase tracking-[0.3em] text-brown/50">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[11px] font-medium uppercase tracking-[0.3em] text-brown/65">
         Scroll
       </div>
     </section>

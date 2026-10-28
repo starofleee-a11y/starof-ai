@@ -29,13 +29,13 @@ export default function SuccessClient() {
       .catch(() => setRes({ ok: false, message: "결제 확인 중 문제가 생겼어요." }));
   }, [sp]);
 
-  if (!res) return <p className="text-center text-brown/60">결제를 확인하고 있어요…</p>;
+  if (!res) return <p className="text-center text-brown/75">결제를 확인하고 있어요…</p>;
 
   if (!res.ok)
     return (
       <div className="card p-10 text-center">
         <p className="text-[20px] font-bold text-brown-dark">결제를 완료하지 못했어요</p>
-        <p className="mt-3 text-[15px] text-brown/70">{res.message}</p>
+        <p className="mt-3 text-[15px] text-brown/85">{res.message}</p>
         <Link href="/contact" className="btn-primary mt-8">문의하기</Link>
       </div>
     );
@@ -44,7 +44,7 @@ export default function SuccessClient() {
     <div className="card p-10 text-center">
       <p className="mt-6 font-serif text-5xl italic text-brown">Welcome!</p>
       <p className="mt-4 text-[19px] font-bold text-brown-dark">결제가 완료됐어요{res.test ? " (테스트)" : ""}</p>
-      <p className="mt-2 text-[15px] text-brown/70">
+      <p className="mt-2 text-[15px] text-brown/85">
         {res.orderName} · {won(res.amount)}
         <br />
         24시간 안에 일정 안내 메일을 보내드릴게요.

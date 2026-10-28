@@ -10,7 +10,9 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import { PRODUCTS } from "@/lib/products";
 import { DeliverableGallery, Voices } from "@/components/Deliverables";
-import ProjectGrid from "@/components/ProjectGrid";
+import ProjectMarquee from "@/components/ProjectMarquee";
+import ImageBand from "@/components/ImageBand";
+import Hl from "@/components/Hl";
 
 export const metadata: Metadata = {
   title: "1:1 AX 컨설팅",
@@ -66,7 +68,7 @@ export default function ConsultingPage() {
             최적화된 AI 워크플로우 구축까지
           </>
         }
-        desc="컨설턴트가 자동화 작업과 개발을 대행하고, 고객은 컨설팅에서 셋팅을 따라가기만 하면 됩니다. 복잡한 업무의 병목 하나를 3번의 만남으로 없애요."
+        desc={<><b className="font-bold text-brown-dark">컨설턴트가 자동화 작업과 개발을 대행</b>하고, 고객은 컨설팅에서 셋팅을 따라가기만 하면 됩니다. 복잡한 업무의 병목 하나를 <b className="font-bold text-brown-dark">3번의 만남</b>으로 없애요.</>}
         chips={["무료 커피챗으로 시작", "컨설팅 3회 (오프라인 2 · 온라인 1)", `워크플로우 1개당 ${p.priceLabel}`, "개발·셋팅 대행"]}
       >
         <Link href="/#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
@@ -85,7 +87,7 @@ export default function ConsultingPage() {
                   <span className="chip">{s.time}</span>
                 </div>
                 <h3 className="mt-6 text-[19px] font-bold text-brown-dark">{s.title}</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-brown/75">{s.desc}</p>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-brown/85">{s.desc}</p>
               </div>
             </Reveal>
           ))}
@@ -94,24 +96,37 @@ export default function ConsultingPage() {
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-butter-pale px-7 py-5">
             <p className="text-[15px] text-brown-dark">
               <b className="font-semibold">컨설팅 3회 · 워크플로우 1개 구축</b>
-              <span className="ml-3 text-brown/60">수정·오류 보완 포함</span>
+              <span className="ml-3 text-brown/75">수정·오류 보완 포함</span>
             </p>
             <p className="font-serif text-[30px] font-semibold text-brown">{p.priceLabel}</p>
           </div>
         </Reveal>
       </section>
 
+      {/* 중간 자료 — 실제 작업 화면 */}
+      <section className="wrap pb-24 md:pb-32">
+        <ImageBand
+          eyebrow="컨설팅에서 실제로 만드는 화면"
+          images={[
+            { src: "/images/projects/kpi.jpg", alt: "업무일지 KPI 리포트 자동 발행 화면", caption: "매주 자동 발행되는 KPI 리포트" },
+            { src: "/images/projects/slack.jpg", alt: "슬랙 리마인드 자동화 화면", caption: "정해진 시간에 나가는 슬랙 리마인드" },
+            { src: "/images/projects/research.jpg", alt: "리서치 자동화 스킬 실행 화면", caption: "10개 토픽을 한 번에 리서치하는 스킬" },
+          ]}
+          note="고객사 이름과 숫자는 블러 처리했고, 화면은 실제 구조를 바탕으로 재구성했어요."
+        />
+      </section>
+
       {/* PROJECTS */}
-      <section id="cases" className="scroll-mt-20 bg-paper py-24 md:py-32">
+      <section id="cases" className="scroll-mt-20 overflow-hidden bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="AX Projects" title="카테고리별로 보는 자동화 프로젝트" desc="기업 AX팀과 컨설팅, 자체 운영에서 직접 만든 자동화예요. 큰 글씨는 어떻게 그 숫자를 만들었는지의 핵심이에요. 비슷한 업무가 있다면 같은 방식으로 가져갈 수 있어요." />
-          <ProjectGrid />
+          <SectionHead eyebrow="AX Projects" title={<>카테고리별로 보는 <Hl>자동화 프로젝트</Hl></>} desc={<>기업 AX팀과 컨설팅, 자체 운영에서 직접 만든 자동화예요. <b className="font-bold text-brown-dark">큰 글씨는 어떻게 그 숫자를 만들었는지의 핵심</b>이에요. 비슷한 업무가 있다면 같은 방식으로 가져갈 수 있어요.</>} />
+          <ProjectMarquee />
         </div>
       </section>
 
       {/* CASES (deep dive) */}
       <section className="wrap py-24 md:py-32">
-        <SectionHead eyebrow="Case study" title="문제 → 해결 → 성과, 네 건을 자세히" desc="위 프로젝트 중 네 건을 문제·해결·성과로 풀어 봤어요." />
+        <SectionHead eyebrow="Case study" title={<><Hl>문제 → 해결 → 성과</Hl>, 네 건을 자세히</>} desc="위 프로젝트 중 네 건을 문제·해결·성과로 풀어 봤어요." />
         <CaseStudies />
       </section>
 

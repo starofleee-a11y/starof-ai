@@ -17,17 +17,17 @@ export default function CaseStudies({ limit }: { limit?: number }) {
                 <div className="flex h-full flex-col justify-between bg-paper p-7 md:p-9">
                   <div className="flex items-center justify-between text-[12px]">
                     <span className="eyebrow">{c.tag}</span>
-                    <span className="text-brown/50">{c.org}</span>
+                    <span className="text-brown/65">{c.org}</span>
                   </div>
                   <div>
                     <p className="font-serif text-[64px] font-semibold leading-none text-brown md:text-[88px]">{c.metric}</p>
-                    <p className="mt-2 text-[14px] text-brown/60">{c.metricLabel}</p>
+                    <p className="mt-2 text-[14px] text-brown/75">{c.metricLabel}</p>
                   </div>
                 </div>
               )}
             </div>
             <div className="p-7 md:p-9">
-              <p className="text-[12px] text-brown/50">
+              <p className="text-[12px] text-brown/65">
                 사례 {String(i + 1).padStart(2, "0")} · {c.org}
               </p>
               <h3 className="mt-2 text-[21px] font-bold leading-snug text-brown-dark md:text-[24px]">{c.title}</h3>
@@ -39,7 +39,7 @@ export default function CaseStudies({ limit }: { limit?: number }) {
                 ].map(([k, v]) => (
                   <div key={k} className="grid grid-cols-[48px_1fr] gap-3">
                     <dt className="pt-0.5 text-[12px] font-semibold uppercase tracking-[0.15em] text-olive">{k}</dt>
-                    <dd className={`text-[15px] leading-relaxed ${k === "성과" ? "font-semibold text-brown-dark" : "text-brown/75"}`}>{v}</dd>
+                    <dd className={`text-[15px] leading-relaxed ${k === "성과" ? "font-semibold text-brown-dark" : "text-brown/85"}`}>{v}</dd>
                   </div>
                 ))}
               </dl>

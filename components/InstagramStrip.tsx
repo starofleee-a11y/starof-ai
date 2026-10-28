@@ -12,7 +12,7 @@ export default function InstagramStrip() {
   return (
     <div className="min-w-0">
       <div className="mb-4 flex items-baseline justify-between">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/50">Instagram · {SITE.instagramHandle}</p>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/65">Instagram · {SITE.instagramHandle}</p>
         <a href={SITE.instagram} target="_blank" rel="noreferrer" className="text-[13px] font-semibold text-brown underline-offset-4 hover:underline">
           전체 보기 ↗
         </a>

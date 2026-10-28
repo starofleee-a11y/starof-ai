@@ -88,10 +88,10 @@ export default function CheckoutClient() {
   return (
     <>
       <Script src="https://js.tosspayments.com/v2/standard" strategy="afterInteractive" onLoad={() => setSdkReady(true)} />
-      <Link href={product.href} className="text-[14px] text-brown/60 hover:text-brown">← {product.short} 상세로 돌아가기</Link>
+      <Link href={product.href} className="text-[14px] text-brown/75 hover:text-brown">← {product.short} 상세로 돌아가기</Link>
       <h1 className="h-display mt-4 text-[32px] md:text-[44px]">결제하기</h1>
       {isTossTestMode() && (
-        <div className="mt-5 rounded-xl border border-brown/15 bg-white/80 p-4 text-[14px] text-brown/80">
+        <div className="mt-5 rounded-xl border border-brown/15 bg-white/80 p-4 text-[14px] text-brown/90">
           <p className="font-semibold text-brown-dark">카드 결제 준비 중 · 지금은 테스트 모드라 실제로 결제되지 않아요</p>
           {BANK ? <p className="mt-1">계좌이체로 결제하실 수 있어요: <b className="text-brown-dark">{BANK}</b> (입금자명에 이름을 적어주세요)</p> : <p className="mt-1">결제는 신청 접수 후 메일로 안내드려요.</p>}
         </div>
@@ -123,7 +123,7 @@ export default function CheckoutClient() {
           <div className="card overflow-hidden !bg-white/90 p-2 md:p-4">
             <div id="payment-method" />
             <div id="agreement" />
-            {!widgetReady && !error && <p className="p-6 text-center text-[14px] text-brown/50">결제 수단을 불러오는 중…</p>}
+            {!widgetReady && !error && <p className="p-6 text-center text-[14px] text-brown/65">결제 수단을 불러오는 중…</p>}
             {error && <p className="p-6 text-center text-[14px] font-medium text-[#B04A1A]">{error}</p>}
           </div>
         </div>
@@ -132,16 +132,16 @@ export default function CheckoutClient() {
           <div className="rounded-[28px] bg-brown p-7 text-butter-pale shadow-[0_30px_60px_-30px_rgba(61,42,12,.8)]">
             <p className="font-serif text-[15px] italic text-butter/70">{product.en}</p>
             <p className="mt-2 text-[19px] font-bold text-butter">{name}</p>
-            <p className="mt-1 text-[13px] text-butter-pale/60">{product.unit}</p>
+            <p className="mt-1 text-[13px] text-butter-pale/75">{product.unit}</p>
             <div className="my-6 h-px bg-butter/15" />
             <div className="flex items-baseline justify-between">
-              <span className="text-[14px] text-butter-pale/70">결제 금액</span>
+              <span className="text-[14px] text-butter-pale/85">결제 금액</span>
               <span className="font-serif text-[34px] font-semibold text-butter">{won(amount)}</span>
             </div>
             <button disabled={!widgetReady} className="btn-yellow mt-6 w-full !py-4 text-[16px] disabled:opacity-50">
               {won(amount)} 결제하기
             </button>
-            <p className="mt-4 text-center text-[12px] text-butter-pale/50">결제 후 24시간 안에 안내 메일을 드려요 · 1회차 시작 전 전액 환불</p>
+            <p className="mt-4 text-center text-[12px] text-butter-pale/65">결제 후 24시간 안에 안내 메일을 드려요 · 1회차 시작 전 전액 환불</p>
           </div>
         </aside>
       </form>

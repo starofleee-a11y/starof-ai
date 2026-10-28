@@ -20,12 +20,12 @@ export default function PriceCards() {
                   {p.audience} · {p.en}
                 </p>
                 <h3 className="mt-4 text-[22px] font-bold leading-snug text-brown-dark">{p.name}</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-brown/70">{p.summary}</p>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-brown/85">{p.summary}</p>
                 <div className="mt-7">
                   <p className="font-serif text-[38px] font-semibold leading-none text-brown">{p.priceLabel}</p>
-                  <p className="mt-2 text-[13px] text-brown/55">{p.unit}</p>
+                  <p className="mt-2 text-[13px] text-brown/70">{p.unit}</p>
                 </div>
-                <ul className="mt-6 space-y-2 border-t border-brown/10 pt-6 text-[14px] text-brown/80">
+                <ul className="mt-6 space-y-2 border-t border-brown/10 pt-6 text-[14px] text-brown/90">
                   {p.bullets.map((b) => (
                     <li key={b} className="flex gap-2.5">
                       <span className={t.text}>·</span>
@@ -47,7 +47,7 @@ export default function PriceCards() {
         <div className="glass-card mt-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
           <p className="text-[16px] text-brown-dark md:text-[17px]">
             <b className="font-semibold">플랜 선택이 어렵다면 무료 커피챗을 신청해주세요.</b>
-            <span className="ml-2 text-brown/60">30분 안에 어떤 방법이 맞는지 같이 정해드려요.</span>
+            <span className="ml-2 text-brown/75">30분 안에 어떤 방법이 맞는지 같이 정해드려요.</span>
           </p>
           <Link href="#coffee-chat" className="btn-primary shrink-0">무료 커피챗 신청</Link>
         </div>

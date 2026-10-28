@@ -7,7 +7,7 @@ export default function FAQ({ items }: { items: { q: string; a: string }[] }) {
             {it.q}
             <span className="faq-icon grid h-8 w-8 shrink-0 place-items-center rounded-full bg-butter-pale text-xl text-brown transition-transform duration-300">+</span>
           </summary>
-          <p className="pb-6 pr-12 text-[15px] leading-relaxed text-brown/75">{it.a}</p>
+          <p className="pb-6 pr-12 text-[15px] leading-relaxed text-brown/85">{it.a}</p>
         </details>
       ))}
     </div>

@@ -16,7 +16,7 @@ export function DeliverableGallery() {
             <figcaption className="p-6">
               <p className="text-[12px] font-semibold uppercase tracking-[0.18em] text-olive">Deliverable 0{i + 1}</p>
               <p className="mt-2 text-[17px] font-bold text-brown-dark">{d.title}</p>
-              <p className="mt-2 text-[14px] leading-relaxed text-brown/70">{d.desc}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-brown/85">{d.desc}</p>
             </figcaption>
           </figure>
         </Reveal>
@@ -34,7 +34,7 @@ export function Voices({ limit }: { limit?: number }) {
         <Reveal key={r.who + i} delay={i * 80}>
           <figure className="glass-card h-full">
             <blockquote className="text-[15.5px] leading-[1.8] text-brown-dark">“{r.quote}”</blockquote>
-            <figcaption className="mt-5 text-[13px] text-brown/60">— {r.who}</figcaption>
+            <figcaption className="mt-5 text-[13px] text-brown/75">— {r.who}</figcaption>
           </figure>
         </Reveal>
       ))}
