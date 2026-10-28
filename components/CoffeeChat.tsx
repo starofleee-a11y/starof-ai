@@ -14,16 +14,31 @@ export default function CoffeeChat() {
   const [msg, setMsg] = useState("");
   const [result, setResult] = useState<{ when: string; link?: string; confirmed: boolean } | null>(null);
 
+  // 빈 시간은 매번 캘린더에서 새로 읽어요. 열어 둔 동안에도 1분마다, 탭으로 돌아올 때마다 다시 확인합니다.
   useEffect(() => {
-    fetch("/api/availability", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d: { live: boolean; days: DaySlots[] }) => {
-        setDays(d.days);
-        setLive(d.live);
-        const first = d.days.find((x) => x.slots.length);
-        if (first) setDay(first.date);
-      })
-      .catch(() => setDays([]));
+    let alive = true;
+    const load = (first = false) =>
+      fetch(`/api/availability?t=${Date.now()}`, { cache: "no-store" })
+        .then((r) => r.json())
+        .then((d: { live: boolean; days: DaySlots[] }) => {
+          if (!alive) return;
+          setDays(d.days);
+          setLive(d.live);
+          if (first) {
+            const f = d.days.find((x) => x.slots.length);
+            if (f) setDay(f.date);
+          }
+        })
+        .catch(() => first && setDays([]));
+    load(true);
+    const t = setInterval(() => document.visibilityState === "visible" && load(), 60_000);
+    const vis = () => document.visibilityState === "visible" && load();
+    document.addEventListener("visibilitychange", vis);
+    return () => {
+      alive = false;
+      clearInterval(t);
+      document.removeEventListener("visibilitychange", vis);
+    };
   }, []);
 
   const current = useMemo(() => days?.find((d) => d.date === day), [days, day]);
@@ -51,7 +66,7 @@ export default function CoffeeChat() {
       setMsg(data.error || "전송에 실패했어요. 잠시 후 다시 시도해 주세요.");
       if (res?.status === 409) {
         setTime("");
-        fetch("/api/availability", { cache: "no-store" }).then((r) => r.json()).then((d) => setDays(d.days)).catch(() => {});
+        fetch(`/api/availability?t=${Date.now()}`, { cache: "no-store" }).then((r) => r.json()).then((d) => setDays(d.days)).catch(() => {});
       }
     }
   }

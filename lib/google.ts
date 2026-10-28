@@ -52,7 +52,7 @@ async function gfetch(path: string, init: RequestInit = {}) {
   return data;
 }
 
-/** 바쁜 시간 구간 조회 */
+/** 바쁜 시간 구간 조회 (freeBusy) — '한가함'으로 표시한 일정은 빠지는 단점이 있어 busyRanges 를 먼저 씁니다. */
 export async function freeBusy(timeMin: Date, timeMax: Date): Promise<{ start: Date; end: Date }[] | null> {
   const data = await gfetch("/freeBusy", {
     method: "POST",
@@ -62,6 +62,61 @@ export async function freeBusy(timeMin: Date, timeMax: Date): Promise<{ start: D
   const cals = (data.calendars ?? {}) as Record<string, { busy?: { start: string; end: string }[] }>;
   const busy = cals[CAL()]?.busy ?? Object.values(cals)[0]?.busy ?? [];
   return (busy as { start: string; end: string }[]).map((b) => ({ start: new Date(b.start), end: new Date(b.end) }));
+}
+
+let calListCache: { ids: string[]; exp: number } | null = null;
+
+/** 캘린더 목록에서 켜 둔(selected) 캘린더 id — 공휴일 캘린더는 제외. 10분 캐시. */
+async function calendarIds(): Promise<string[]> {
+  if (calListCache && calListCache.exp > Date.now()) return calListCache.ids;
+  const data = (await gfetch("/users/me/calendarList?minAccessRole=reader&fields=items(id,selected,accessRole)")) as
+    | { items?: { id: string; selected?: boolean; accessRole?: string }[] }
+    | null;
+  const ids = (data?.items ?? [])
+    .filter((c) => c.selected !== false && !/#holiday@|#contacts@/.test(c.id))
+    .map((c) => c.id);
+  const out = ids.length ? ids : [CAL()];
+  calListCache = { ids: out, exp: Date.now() + 10 * 60_000 };
+  return out;
+}
+
+interface GEvent {
+  status?: string;
+  eventType?: string;
+  transparency?: string;
+  start?: { dateTime?: string; date?: string };
+  end?: { dateTime?: string; date?: string };
+}
+
+/**
+ * 바쁜 시간 구간 — 켜 둔 모든 캘린더의 일정을 직접 읽어요.
+ * 시간이 정해진 일정은 '한가함'으로 표시돼 있어도 막고(캘린더에 적어 둔 약속은 약속이니까),
+ * 종일 일정은 '바쁨'으로 표시한 것만 하루 전체를 막아요.
+ */
+export async function busyRanges(timeMin: Date, timeMax: Date): Promise<{ start: Date; end: Date }[] | null> {
+  const ids = await calendarIds();
+  const q = new URLSearchParams({
+    timeMin: timeMin.toISOString(),
+    timeMax: timeMax.toISOString(),
+    singleEvents: "true",
+    maxResults: "250",
+    fields: "items(status,eventType,transparency,start,end)",
+  });
+  const results = await Promise.all(ids.map((id) => gfetch(`/calendars/${encodeURIComponent(id)}/events?${q}`) as Promise<{ items?: GEvent[] } | null>));
+  if (results.every((r) => !r)) return null;
+  const out: { start: Date; end: Date }[] = [];
+  for (const r of results) {
+    for (const ev of r?.items ?? []) {
+      if (ev.status === "cancelled") continue;
+      if (ev.eventType === "workingLocation" || ev.eventType === "birthday") continue;
+      if (ev.start?.dateTime && ev.end?.dateTime) {
+        out.push({ start: new Date(ev.start.dateTime), end: new Date(ev.end.dateTime) });
+      } else if (ev.start?.date && ev.end?.date && ev.transparency !== "transparent") {
+        out.push({ start: new Date(`${ev.start.date}T00:00:00+09:00`), end: new Date(`${ev.end.date}T00:00:00+09:00`) });
+      }
+    }
+  }
+  return out;
 }
 
 export interface CoffeeEvent {

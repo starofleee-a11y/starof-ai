@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail } from "@/lib/notify";
 import { PRODUCTS, type ProductId } from "@/lib/products";
+import { PLAN_CRITERIA, describeHow, pickPlan } from "@/lib/recommend";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -28,21 +29,14 @@ const PLAN_TEXT: Record<ProductId, string> = {
 };
 
 function rules(task: string): Diagnosis {
-  const t = task.toLowerCase();
-  const company = /(전사|조직|회사 전체|팀 전체|임직원|부서|직원들|우리 팀|전 직원|교육)/.test(t);
-  const learn = /(배우|설치|처음|입문|어떻게 쓰|강의|스터디|시작)/.test(t);
-  const plan: ProductId = company ? "enterprise" : learn ? "study" : "consulting";
-  const hasIO = /(엑셀|시트|보고서|메일|슬랙|노션|정리|취합|리포트|견적|공고|문서|데이터|크롤|수집|게시|업로드|알림)/.test(t);
+  const { plan, reason } = pickPlan(task);
+  const { hasIO, headline, how } = describeHow(task, plan);
   return {
-    feasible: hasIO ? "yes" : "partial",
-    headline: hasIO ? "네, 입력과 결과물이 분명한 반복 업무라 자동화할 수 있어요." : "규칙을 조금 더 정하면 자동화할 수 있어요. 커피챗에서 범위를 같이 잡아드릴게요.",
-    how: [
-      "어디서 입력이 오고 어떤 결과물이 나가는지 한 줄로 정리해요.",
-      "클로드 코드 스킬로 수집 → 정리 → 초안 작성을 묶고, 커넥터로 메일·슬랙·시트를 연결해요.",
-      "루틴으로 정해진 시간에 돌리고, 사람은 예외만 확인하도록 넘겨드려요.",
-    ],
+    feasible: hasIO || plan === "study" ? "yes" : "partial",
+    headline,
+    how,
     plan,
-    reason: company ? "여러 사람이 같이 쓰는 흐름이라 조직 단위로 설계하는 게 빨라요." : learn ? "직접 만들어 보고 싶으신 것 같아 기초 강의부터 권해요." : "한 개 워크플로우를 빠르게 안착시키기엔 1:1 컨설팅이 가장 효율적이에요.",
+    reason,
     by: "rules",
   };
 }
@@ -50,13 +44,16 @@ function rules(task: string): Diagnosis {
 async function askClaude(task: string): Promise<Diagnosis | null> {
   if (!process.env.ANTHROPIC_API_KEY) return null;
   const client = new Anthropic();
+  const { plan: hint } = pickPlan(task);
   const system = `너는 AX 에이전시 'Star of AI'의 자동화 진단 담당이야. 방문자가 적은 업무를 보고 한국어로, 과장 없이, 따뜻하지만 간결하게 답해.
 반드시 아래 JSON 하나만 출력해 (설명·코드블록 금지):
 {"feasible":"yes"|"partial"|"consult","headline":"가능 여부를 말하는 한 문장 (40자 이내)","how":["1단계","2단계","3단계"],"plan":"study"|"consulting"|"enterprise","reason":"이 플랜을 추천하는 이유 한 문장"}
-플랜 기준:
-- study: ${PLAN_TEXT.study}. 혼자 배워서 직접 만들고 싶거나, 설치·기초부터 막힌 개인.
-- consulting: ${PLAN_TEXT.consulting}. 개인·소규모 팀이 특정 반복 업무 1개를 빨리 자동화하고 싶을 때.
-- enterprise: ${PLAN_TEXT.enterprise}. 여러 부서·전 직원·조직 단위 도입, 교육, 시스템 개발.
+플랜 기준 (이 순서로 판단: 조직 단위 신호가 있으면 enterprise → '직접 배우고 싶다/설치부터' 신호면 study → 그 외 구체적인 업무 자동화는 consulting):
+- enterprise: ${PLAN_TEXT.enterprise}. ${PLAN_CRITERIA.enterprise}
+- study: ${PLAN_TEXT.study}. ${PLAN_CRITERIA.study}
+- consulting: ${PLAN_TEXT.consulting}. ${PLAN_CRITERIA.consulting}
+키워드 참고 추천: ${hint} (규칙 기반). 문맥상 명백히 다르면 바꿔도 되지만, 이유를 reason 에 그 사람 말에 맞춰 적어.
+reason 은 방문자가 적은 업무를 그대로 받아 "~라서 ~이 맞아요" 꼴로, 추천 플랜이 그 니즈를 어떻게 해결하는지 한 문장. headline 은 가능 여부를 먼저 말하고 그 업무를 한 단어로 되짚어.
 how 는 클로드 코드(스킬·커넥터·루틴)로 실제로 어떻게 할지 구체적으로, 각 25자 안팎. 불법·위험한 요청이면 feasible을 consult로 하고 정중히 범위를 안내해.`;
   const res = await client.messages.create({
     model: "claude-opus-5-5",

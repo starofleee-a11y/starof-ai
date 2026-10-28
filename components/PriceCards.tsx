@@ -26,8 +26,9 @@ export default function PriceCards() {
                 <p className={`text-[12px] font-bold uppercase tracking-[0.2em] ${t.eyebrow}`}>
                   {p.audience} · {p.en}
                 </p>
-                <h3 className={`mt-4 text-[23px] font-extrabold leading-snug ${t.name}`}>{p.name}</h3>
-                <p className={`mt-3 text-[14.5px] leading-relaxed ${t.summary}`}>{p.summary}</p>
+                <h3 className={`mt-4 break-keep text-[30px] font-extrabold leading-[1.2] tracking-tight md:text-[34px] ${t.name}`}>{p.name}</h3>
+                <p className={`mt-4 text-[17px] font-bold leading-snug ${t.name}`}>{p.hook}</p>
+                <p className={`mt-1.5 text-[14.5px] leading-relaxed ${t.summary}`}>{p.how}</p>
                 <div className="mt-7">
                   <p className={`font-serif text-[42px] font-bold leading-none ${t.price}`}>{p.priceLabel}</p>
                   <p className={`mt-2 text-[13px] font-medium ${t.unit}`}>{p.unit}</p>
