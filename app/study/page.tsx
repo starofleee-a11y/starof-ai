@@ -11,9 +11,8 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
-import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES } from "@/lib/study";
+import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES, LETTER } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
-import ImageBand from "@/components/ImageBand";
 import Hl from "@/components/Hl";
 import { won } from "@/lib/products";
 
@@ -123,7 +122,7 @@ export default function StudyPage() {
 
       {/* 1기 결과물 */}
       <section id="results" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="3주 뒤 내 모습" title={<>3주 뒤, <Hl>수강생들이 직접 만든</Hl> 자동화</>} desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 발표한 자동화예요. 발표 자료 기준으로 정리했습니다." />
+        <SectionHead eyebrow="3주 뒤 내 모습" title={<>3주 뒤, <Hl>이런 자동화</Hl>를 직접 만들 수 있어요</>} desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 실제로 발표한 자동화예요. 비슷한 업무가 있다면 같은 방식으로 만들 수 있어요." />
         <div className="grid gap-4 md:grid-cols-2">
           {STUDENT_PROJECTS.map((pr, i) => (
             <Reveal key={pr.title} delay={i * 80}>
@@ -132,8 +131,12 @@ export default function StudyPage() {
                   <Image src={pr.image} alt={pr.alt} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
                 </div>
                 <div className="p-7">
-                  <p className="font-serif text-[15px] italic text-olive">0{i + 1} · 4회차 발표 자료</p>
-                  <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="rounded-full bg-brown-dark px-3 py-1 text-[12px] font-bold text-butter">{pr.role}</span>
+                    <span className="text-[12px] font-semibold text-brown/70">0{i + 1} · 1기 발표 자료</span>
+                  </div>
+                  <p className="mt-4 text-[20px] font-extrabold leading-snug text-brown-dark">{pr.can}</p>
+                  <h3 className="mt-2 text-[15px] font-bold text-brown">{pr.title}</h3>
                   <p className="mt-2 text-[14.5px] leading-relaxed text-brown/85">{pr.desc}</p>
                 </div>
               </div>
@@ -159,15 +162,27 @@ export default function StudyPage() {
           <Reveal>
             <p className="mt-14 mb-5 text-[12px] font-bold uppercase tracking-[0.2em] text-brown">수강생이 보낸 메시지</p>
           </Reveal>
-          <div className="grid gap-3 md:grid-cols-3 md:gap-4">
-            {MESSAGES.map((m, i) => (
-              <Reveal key={m.src} delay={i * 90}>
-                <figure className="overflow-hidden rounded-2xl border border-brown/20 bg-[#1a1a1a]">
-                  <Image src={m.src} alt={m.alt} width={m.w} height={m.h} className="w-full object-contain" />
-                  <figcaption className="bg-white px-4 py-2.5 text-[12.5px] font-semibold text-brown-dark">{m.caption}</figcaption>
-                </figure>
-              </Reveal>
-            ))}
+          <div className="grid gap-3 md:grid-cols-[1fr_1.6fr] md:gap-4">
+            <Reveal>
+              <figure className="h-full overflow-hidden rounded-2xl border border-brown/20 bg-white">
+                <div className="relative aspect-[4/5] md:aspect-auto md:h-[calc(100%-42px)]">
+                  <Image src={LETTER.src} alt={LETTER.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover" />
+                </div>
+                <figcaption className="px-4 py-2.5 text-[12.5px] font-semibold text-brown-dark">{LETTER.caption}</figcaption>
+              </figure>
+            </Reveal>
+            <div className="grid gap-3 md:gap-4">
+              {MESSAGES.map((m, i) => (
+                <Reveal key={m.src} delay={i * 90}>
+                  <figure className="grid overflow-hidden rounded-2xl border border-brown/20 bg-[#1a1a1a] md:grid-cols-[1fr_150px]">
+                    <div className="relative aspect-[16/5]">
+                      <Image src={m.src} alt={m.alt} fill sizes="(min-width:768px) 50vw, 100vw" className="object-contain p-3" />
+                    </div>
+                    <figcaption className="flex items-center bg-white px-4 py-2.5 text-[12.5px] font-semibold text-brown-dark">{m.caption}</figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -241,22 +256,34 @@ export default function StudyPage() {
 
       {/* 교안 · 실습 결과물 */}
       <section className="wrap pt-24 md:pt-32">
-        <ImageBand
-          eyebrow="교안 · 실습 결과물"
-          images={STUDY_MATERIALS}
-          note="실제 수업에서 쓰는 교안과 수강생이 실습 시간에 만든 결과물이에요. 교안은 매 기수 최신 버전으로 업데이트됩니다."
-        />
+        <Reveal>
+          <p className="mb-5 text-[12px] font-bold uppercase tracking-[0.2em] text-brown">교안 · 실습 결과물</p>
+        </Reveal>
+        <div className="grid grid-cols-2 items-start gap-3 md:grid-cols-4 md:gap-4">
+          {STUDY_MATERIALS.map((im, i) => (
+            <Reveal key={im.src} delay={i * 90}>
+              <figure className="overflow-hidden rounded-2xl border border-brown/20 bg-white">
+                <Image src={im.src} alt={im.alt} width={im.w} height={im.h} className="h-auto w-full" />
+                <figcaption className="border-t border-brown/10 px-3 py-2.5 text-[12.5px] font-semibold text-brown-dark">{im.caption}</figcaption>
+              </figure>
+            </Reveal>
+          ))}
+        </div>
+        <p className="mt-4 text-[12.5px] text-brown/75">실제 수업에서 쓰는 교안과 수강생이 실습 시간에 만든 결과물이에요. 교안은 매 기수 최신 버전으로 업데이트됩니다.</p>
       </section>
 
       {/* INCLUDED */}
       <section id="included" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="What's included" title={<>참가비 {won(STUDY.price)}에<br /><Hl>포함되는 것</Hl></>} desc="강의만 듣고 끝나지 않도록, 설치부터 수료까지 같이 가요." />
+        <SectionHead eyebrow="What's included" title={<>합리적인 {won(STUDY.price)}에<br /><Hl>클로드 코드 설치부터 자동화 실습까지</Hl></>} desc="강의만 듣고 끝나지 않도록, 설치 · 셋팅 · 실습 · 1:1 피드백 · 수료까지 전부 포함이에요." />
         <div className="grid gap-3 md:grid-cols-3 md:gap-4">
           {INCLUDED.map((x, i) => (
             <Reveal key={x.t} delay={i * 60}>
               <div className={`h-full rounded-2xl border p-6 ${i === 5 ? "border-brown-dark bg-brown-dark" : "border-brown/20 bg-white"}`}>
-                <p className={`font-serif text-[22px] font-bold ${i === 5 ? "text-butter" : "text-brown"}`}>0{i + 1}</p>
-                <h3 className={`mt-3 text-[17px] font-extrabold ${i === 5 ? "text-white" : "text-brown-dark"}`}>{x.t}</h3>
+                <div className="flex items-center justify-between">
+                  <span className={`rounded-full px-3 py-1 text-[12px] font-bold ${i === 5 ? "bg-butter text-brown-dark" : "bg-butter-pale text-brown-dark"}`}>{x.k}</span>
+                  <span className={`font-serif text-[20px] font-bold ${i === 5 ? "text-butter" : "text-brown/70"}`}>0{i + 1}</span>
+                </div>
+                <h3 className={`mt-4 text-[17px] font-extrabold leading-snug ${i === 5 ? "text-white" : "text-brown-dark"}`}>{x.t}</h3>
                 <p className={`mt-2 text-[14.5px] leading-relaxed ${i === 5 ? "text-butter-pale/85" : "text-brown/85"}`}>{x.d}</p>
               </div>
             </Reveal>
@@ -265,24 +292,41 @@ export default function StudyPage() {
       </section>
 
       {/* HOST */}
-      <section id="host" className="wrap scroll-mt-20 py-24 md:py-32">
-        <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-20">
+      <section id="host" className="scroll-mt-20 bg-paper py-24 md:py-32">
+        <div className="wrap grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
           <Reveal>
-            <p className="eyebrow">Host</p>
-            <h2 className="h-display mt-4 text-[28px] md:text-[38px]">현업에서 매일 자동화를 만드는 사람이 가르쳐요</h2>
-            <p className="mt-6 text-[16px] leading-[1.8] text-brown/90">
-              스터디장은 현재 기업에서 <b className="font-semibold text-brown-dark">AX 실무와 AI 컨설팅</b>을 진행하고 있으며, 업무 관리 자동화, 업계 리서치 자동화, 바이브 코딩 대시보드 개발, 마케팅 릴스 제작 자동화 등{" "}
-              <b className="font-semibold text-brown-dark">실제 기업 전사 자동화 경험</b>이 있습니다.
-            </p>
+            <div className="relative overflow-hidden rounded-2xl border border-brown/20 shadow-[0_30px_60px_-40px_rgba(46,31,8,.6)]">
+              <Image src="/images/lectures/winter-lecture.jpg" alt="강의 중인 스터디장 Winter" width={1400} height={1750} className="h-auto w-full" />
+              <span className="absolute left-4 top-4 rounded-full bg-brown-dark px-3 py-1 text-[12px] font-bold text-butter">강의 현장</span>
+            </div>
           </Reveal>
-          <Reveal delay={120}>
-            <ul className="divide-y divide-brown/10 border-y border-brown/10">
-              {STUDY.hostCareer.map((c) => (
-                <li key={c} className="py-3.5 text-[15px] text-brown/85">{c}</li>
+          <div className="min-w-0">
+            <Reveal>
+              <p className="eyebrow">Host</p>
+              <h2 className="h-display mt-4 text-[28px] md:text-[38px]">
+                기업 AI 강의 <Hl>10건+</Hl>, 현업 AX 컨설턴트가
+                <br />
+                매일 만드는 자동화를 그대로 가르쳐요
+              </h2>
+              <p className="mt-6 text-[16px] leading-[1.8] text-brown/90">
+                스터디장 <b className="font-bold text-brown-dark">이경서(Winter)</b>는 지금도 기업 안에서 <b className="font-bold text-brown-dark">사내 AI 에이전트, 입찰 자동화, 영업 보고서 자동화</b>를 직접 만들고 있어요. 책으로 배운 게 아니라 <b className="font-bold text-brown-dark">이번 주에도 돌아가는 자동화</b>를 수업에 가져옵니다.
+              </p>
+            </Reveal>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
+              {STUDY.hostStats.map((x, i) => (
+                <Reveal key={x.l} delay={i * 60}>
+                  <div className={`h-full rounded-2xl border p-5 ${i === 0 ? "border-brown-dark bg-brown-dark" : "border-brown/20 bg-white"}`}>
+                    <p className={`font-serif text-[34px] font-bold leading-none ${i === 0 ? "text-butter" : "text-brown-dark"}`}>{x.n}</p>
+                    <p className={`mt-2 text-[15px] font-extrabold ${i === 0 ? "text-white" : "text-brown-dark"}`}>{x.l}</p>
+                    <p className={`mt-1 text-[13px] ${i === 0 ? "text-butter-pale/80" : "text-brown/75"}`}>{x.d}</p>
+                  </div>
+                </Reveal>
               ))}
-            </ul>
-            <p className="mt-6 text-[15px] text-brown/85">함께 일잘러가 될 수 있는 자동화 스터디하면서 AI 노마드가 되어봐요.</p>
-          </Reveal>
+            </div>
+            <Reveal>
+              <p className="mt-8 rounded-2xl border border-butter-deep bg-butter px-6 py-4 text-[16px] font-bold text-brown-dark">함께 일잘러가 되는 3주. 자동화 스터디로 AI 노마드가 되어봐요.</p>
+            </Reveal>
+          </div>
         </div>
       </section>
 

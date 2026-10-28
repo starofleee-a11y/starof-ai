@@ -111,6 +111,30 @@ export const CASES: CaseStudy[] = [
     metric: "자동화",
     metricLabel: "HR 반복 구간",
   },
+  {
+    id: "crm",
+    image: "/images/cases/crm.jpg",
+    org: "마케팅팀 · 컨설팅 고객사",
+    tag: "마케팅 CRM 분석",
+    title: "5시간 걸리던 CRM 분석을 10분으로",
+    problem: "매달 CRM 데이터를 내보내 세그먼트를 나누고 캠페인별 전환을 집계해 리포트로 정리하는 데 담당자 한 명이 5시간을 썼습니다.",
+    solution: "내보내기 → 세그먼트 분류 → 전환 집계 → 인사이트 요약까지 한 번의 지시로 돌아가는 분석 스킬을 만들고, 결과는 노션 리포트와 슬랙 요약으로 받게 했습니다.",
+    result: "5시간 → 10분. 담당자는 자동으로 뽑힌 인사이트를 읽고 캠페인을 정하는 데만 시간을 씁니다.",
+    metric: "5시간 → 10분",
+    metricLabel: "월 CRM 분석",
+  },
+  {
+    id: "insta",
+    image: "/images/cases/insta.jpg",
+    org: "콘텐츠팀 · 컨설팅 고객사",
+    tag: "인스타그램 콘텐츠 분석",
+    title: "콘텐츠 CTA · 클릭률 · 조회수 자동 분석 대시보드",
+    problem: "게시물마다 조회수, 클릭률, CTA 반응을 세 명이 나눠서 손으로 모으고 비교하느라 리서치에만 사람 셋이 붙었습니다.",
+    solution: "매일 아침 인스타그램 데이터를 수집해 콘텐츠별 성과와 CTA 조합을 분석하는 대시보드를 만들고, 주간 인사이트를 노션과 슬랙으로 보내도록 했습니다.",
+    result: "리서치 3인분 → 1인분. 한 명이 대시보드를 확인하고 다음 콘텐츠를 정합니다.",
+    metric: "3인분 → 1인분",
+    metricLabel: "콘텐츠 리서치",
+  },
 ];
 
 export const CONSULTING = [

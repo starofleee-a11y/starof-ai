@@ -127,7 +127,7 @@ export default function ConsultingPage() {
 
       {/* CASES (deep dive) */}
       <section className="wrap py-24 md:py-32">
-        <SectionHead eyebrow="Case study" title={<><Hl>문제 → 해결 → 성과</Hl>, 네 건을 자세히</>} desc="위 프로젝트 중 네 건을 문제·해결·성과로 풀어 봤어요." />
+        <SectionHead eyebrow="Case study" title={<><Hl>문제 → 해결 → 성과</Hl>, 여섯 건을 자세히</>} desc="프로젝트 중 여섯 건을 문제·해결·성과로 풀어 봤어요. 화면은 실제 구조를 바탕으로 재구성했고, 고객사명과 숫자 일부는 가렸어요." />
         <CaseStudies />
       </section>
 
