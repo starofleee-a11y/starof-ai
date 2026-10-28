@@ -158,3 +158,13 @@ export const SURVEY = {
   beginners: 64, // 입문자 비율 %
   completion: 86, // 실습 완주율 %
 };
+
+// 1:1 컨설팅에서 고객이 실제로 받는 산출물 미리보기. 고객사 이름·숫자 등 기밀은 이미지에서 블러 처리돼 있어요.
+export const DELIVERABLES = [
+  { src: "/images/deliverables/design-doc.jpg", title: "워크플로우 설계서 (PDF)", desc: "1회차 뒤 받는 문서. 지금 흐름(As-Is) → 자동화 뒤(To-Be), 단계별 담당, 필요한 계정·권한, 완성 기준." },
+  { src: "/images/deliverables/skill.jpg", title: "클로드 코드 스킬 + 실행 로그", desc: "2회차에 고객 환경에 설치하는 스킬 파일. 한 줄 명령으로 실행되고, 실행 로그로 어디까지 됐는지 보여요." },
+  { src: "/images/deliverables/dashboard.jpg", title: "결과 확인용 화면 (웹)", desc: "필요하면 결과를 보는 작은 웹 화면까지 같이 만들어요. 팀원이 링크만 열어 확인할 수 있게." },
+];
+
+// 컨설팅 고객사 코멘트. 고객사에서 공개를 확인해준 문장만 여기에 넣어요 (비어 있으면 섹션이 안 보여요).
+export const CLIENT_QUOTES: { quote: string; who: string }[] = [];

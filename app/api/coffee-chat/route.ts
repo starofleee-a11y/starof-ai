@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail, escapeHtml } from "@/lib/notify";
 import { cancelUrl, createCoffeeEvent, hasGoogle } from "@/lib/google";
-import { SLOT_MINUTES, addMinutes, fmtKst, isValidSlot, toDate } from "@/lib/slots";
+import { SLOT_MINUTES, EVENT_MINUTES, addMinutes, fmtKst, isValidSlot, toDate } from "@/lib/slots";
 import { getAvailability } from "@/lib/availability";
 
 export const runtime = "nodejs";
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
   }
 
   const start = toDate(f.date, f.time);
-  const end = addMinutes(start, SLOT_MINUTES);
+  const end = addMinutes(start, EVENT_MINUTES); // 캘린더에는 1시간으로 잡아 다음 칸까지 마감
   const when = fmtKst(start);
   const origin = req.nextUrl.origin;
 

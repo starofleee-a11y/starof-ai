@@ -9,9 +9,11 @@ export const SLOT_RULES: Record<number, string[]> = {
   6: ["14:00", "15:00", "16:00"],
   0: [],
 };
-export const SLOT_MINUTES = 30; // 커피챗 길이
-export const DAYS_AHEAD = 14; // 오늘 기준 2주
-export const MIN_LEAD_HOURS = 20; // 최소 이만큼 뒤의 시간만 예약 가능
+export const SLOT_MINUTES = 30; // 커피챗 길이 (안내용)
+export const EVENT_MINUTES = 60; // 캘린더에 잡는 일정 길이 — 앞뒤 여유를 포함해 1시간을 막아요
+export const FIRST_DAY_OFFSET = 1; // 오늘은 제외, 내일부터
+export const DAYS_AHEAD = 14; // 내일부터 14일까지
+export const MIN_LEAD_HOURS = 0; // 추가 리드타임 (내일부터라 0)
 
 const KST = "Asia/Seoul";
 
@@ -31,12 +33,12 @@ export interface DaySlots {
   slots: string[]; // "HH:MM"
 }
 
-/** 앞으로 2주의 모든 후보 칸 (바쁜 시간 제외 전) */
+/** 내일부터 14일간의 모든 후보 칸 (바쁜 시간 제외 전) */
 export function candidateDays(now = new Date()): DaySlots[] {
   const out: DaySlots[] = [];
   const minStart = now.getTime() + MIN_LEAD_HOURS * 3600_000;
   const start = new Date(`${kstDate(now)}T00:00:00+09:00`);
-  for (let i = 0; i <= DAYS_AHEAD; i++) {
+  for (let i = FIRST_DAY_OFFSET; i < FIRST_DAY_OFFSET + DAYS_AHEAD; i++) {
     const date = kstDate(new Date(start.getTime() + i * 86400_000 + 12 * 3600_000));
     const weekday = kstWeekday(date);
     const slots = (SLOT_RULES[weekday] ?? []).filter((t) => toDate(date, t).getTime() >= minStart);
@@ -45,13 +47,13 @@ export function candidateDays(now = new Date()): DaySlots[] {
   return out;
 }
 
-/** 바쁜 구간과 겹치는 칸 제거 */
+/** 바쁜 구간과 겹치는 칸 제거 — 1시간 일정이 들어갈 자리가 비어 있어야 해요 */
 export function removeBusy(days: DaySlots[], busy: { start: Date; end: Date }[]): DaySlots[] {
   return days.map((d) => ({
     ...d,
     slots: d.slots.filter((t) => {
       const s = toDate(d.date, t).getTime();
-      const e = s + SLOT_MINUTES * 60_000;
+      const e = s + EVENT_MINUTES * 60_000;
       return !busy.some((b) => b.start.getTime() < e && b.end.getTime() > s);
     }),
   }));

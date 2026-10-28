@@ -13,12 +13,12 @@ export default function Proof() {
         <Reveal>
           <p className="eyebrow">Results</p>
           <h2 className="h-display mt-4 text-[30px] md:text-[44px]">
-            말보다 숫자로,
+            자동화 구축도 전문가에게 맡겨야
             <br />
-            먼저 보여드릴게요
+            진정한 성과를 이룰 수 있습니다
           </h2>
           <p className="mt-5 max-w-md text-[16px] leading-relaxed text-brown/75">
-            기업 AX 컨설팅에서 실제로 줄어든 시간과, 강의를 들은 분들이 남긴 점수예요. 같은 방식으로 당신의 업무에도 적용합니다.
+            말보다 숫자로 먼저 보여드릴게요. 기업 AX 컨설팅에서 실제로 줄어든 시간과, 강의를 들은 분들이 남긴 점수예요.
           </p>
         </Reveal>
         <Reveal delay={150} className="mt-10 hidden md:block">

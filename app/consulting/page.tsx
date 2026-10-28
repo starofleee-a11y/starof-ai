@@ -9,6 +9,8 @@ import CaseStudies from "@/components/CaseStudies";
 import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import { PRODUCTS } from "@/lib/products";
+import { DeliverableGallery, Voices } from "@/components/Deliverables";
+import ProjectGrid from "@/components/ProjectGrid";
 
 export const metadata: Metadata = {
   title: "1:1 AX 컨설팅",
@@ -55,12 +57,12 @@ export default function ConsultingPage() {
   return (
     <>
       <ProductHero
-        audience="Workers"
+        tone="workers"
         en="1:1 AX Consulting"
         title={
           <>
             자동화 가능한 범위 상담부터
-            <br />
+            <br className="hidden md:block" />
             최적화된 AI 워크플로우 구축까지
           </>
         }
@@ -99,11 +101,31 @@ export default function ConsultingPage() {
         </Reveal>
       </section>
 
-      {/* CASES */}
+      {/* PROJECTS */}
       <section id="cases" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="AX Projects" title="문제 → 해결 → 성과로 읽는 실제 사례" desc="기업 AX팀과 컨설팅에서 직접 만든 자동화예요. 비슷한 업무가 있다면 같은 방식으로 가져갈 수 있어요." />
-          <CaseStudies />
+          <SectionHead eyebrow="AX Projects" title="카테고리별로 보는 자동화 프로젝트" desc="기업 AX팀과 컨설팅, 자체 운영에서 직접 만든 자동화예요. 큰 글씨는 어떻게 그 숫자를 만들었는지의 핵심이에요. 비슷한 업무가 있다면 같은 방식으로 가져갈 수 있어요." />
+          <ProjectGrid />
+        </div>
+      </section>
+
+      {/* CASES (deep dive) */}
+      <section className="wrap py-24 md:py-32">
+        <SectionHead eyebrow="Case study" title="문제 → 해결 → 성과, 네 건을 자세히" desc="위 프로젝트 중 네 건을 문제·해결·성과로 풀어 봤어요." />
+        <CaseStudies />
+      </section>
+
+      {/* DELIVERABLES */}
+      <section className="wrap py-24 md:py-32">
+        <SectionHead eyebrow="What you get" title="컨설팅이 끝나면 손에 남는 것" desc="설계서, 설치된 스킬, 결과 확인 화면. 실제 산출물 형태 그대로 보여드려요. 고객사 이름과 숫자 같은 기밀은 블러 처리했습니다." />
+        <DeliverableGallery />
+      </section>
+
+      {/* VOICES */}
+      <section className="relative overflow-hidden bg-paper py-24 md:py-32">
+        <div className="wrap">
+          <SectionHead eyebrow="Voices" title="함께 자동화를 만든 분들의 이야기" desc="같은 방식으로 진행한 클로드 코드 스터디 1기 수강생들이 직접 남긴 후기예요. 컨설팅 고객사 코멘트는 공개 확인이 끝나는 대로 추가됩니다." />
+          <Voices limit={4} />
         </div>
       </section>
 

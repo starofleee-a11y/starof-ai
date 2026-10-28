@@ -6,6 +6,7 @@ import SectionHead from "@/components/SectionHead";
 import Reveal from "@/components/Reveal";
 import InquiryForm from "@/components/InquiryForm";
 import CaseStudies from "@/components/CaseStudies";
+import ProjectGrid from "@/components/ProjectGrid";
 import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import CountUp from "@/components/CountUp";
@@ -51,12 +52,12 @@ export default function EnterprisePage() {
   return (
     <>
       <ProductHero
-        audience="Company"
+        tone="company"
         en="Enterprise AX"
         title={
           <>
             조직 전사의 일하는 방식을
-            <br />
+            <br className="hidden md:block" />
             AX로 바꿉니다
           </>
         }
@@ -110,8 +111,12 @@ export default function EnterprisePage() {
       {/* CASES */}
       <section id="cases" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="AX Projects" title="기업에서 실제로 일어난 변화" desc="사내 AX팀과 컨설팅 고객사에서 직접 만든 자동화예요. 교육실시확인서 등 증빙 자료는 요청 시 제공해 드려요." />
-          <CaseStudies />
+          <SectionHead eyebrow="AX Projects" title="기업에서 실제로 일어난 변화" desc="사내 AX팀과 컨설팅 고객사에서 직접 만든 자동화예요. 큰 글씨는 어떻게 그 숫자를 만들었는지의 핵심이에요. 교육실시확인서 등 증빙 자료는 요청 시 제공해 드려요." />
+          <ProjectGrid companyOnly />
+          <div className="mt-16">
+            <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/50">Case study · 네 건을 자세히</p>
+            <CaseStudies />
+          </div>
         </div>
       </section>
 

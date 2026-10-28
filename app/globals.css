@@ -36,6 +36,22 @@ body {
   .chip { @apply inline-flex items-center rounded-md border border-brown/15 bg-white/70 px-2.5 py-1 text-[12px] font-medium text-brown; }
   .pick { @apply rounded-xl border border-brown/15 bg-white px-3.5 py-2.5 text-[14px] font-medium text-brown transition-all hover:border-brown/50 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-brown/15; }
   .pick-on { @apply border-brown bg-brown text-butter; }
+  /* 글라스 카드 — 반투명 흰 유리에 빛이 비치는 느낌 */
+  .glass-card {
+    @apply rounded-2xl border border-white/70 p-6 md:p-7;
+    background: linear-gradient(135deg, rgba(255,255,255,.62), rgba(255,255,255,.32));
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.85), 0 24px 60px -36px rgba(97,66,21,.45);
+  }
+  .btn-glass {
+    @apply btn border border-white/70 text-brown;
+    background: rgba(255,255,255,.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+  }
+  .btn-glass:hover { background: rgba(255,255,255,.7); }
 }
 
 /* 스크롤 등장 */
@@ -56,9 +72,9 @@ body {
   animation: drift var(--t, 22s) ease-in-out infinite alternate;
   transform: translate(calc(var(--px, 0) * 1px), calc(var(--py, 0) * 1px));
 }
-.blob-1 { width: 56vw; height: 56vw; max-width: 760px; max-height: 760px; left: 42%; top: -22%; background: radial-gradient(circle, rgba(255,235,81,.95) 0%, rgba(255,236,140,.6) 45%, rgba(255,236,140,0) 70%); --t: 24s; }
-.blob-2 { width: 44vw; height: 44vw; max-width: 600px; max-height: 600px; left: -12%; top: 38%; background: radial-gradient(circle, rgba(255,232,85,.8) 0%, rgba(255,246,199,.5) 50%, rgba(255,246,199,0) 72%); --t: 30s; animation-delay: -8s; }
-.blob-3 { width: 36vw; height: 36vw; max-width: 480px; max-height: 480px; left: 62%; top: 52%; background: radial-gradient(circle, rgba(255,236,140,.85) 0%, rgba(255,236,140,0) 70%); --t: 27s; animation-delay: -15s; }
+.blob-1 { width: 56vw; height: 56vw; max-width: 760px; max-height: 760px; left: 42%; top: -22%; background: radial-gradient(circle, var(--b1, rgba(255,235,81,.95)) 0%, rgba(255,236,140,.5) 45%, rgba(255,236,140,0) 70%); --t: 24s; }
+.blob-2 { width: 44vw; height: 44vw; max-width: 600px; max-height: 600px; left: -12%; top: 38%; background: radial-gradient(circle, var(--b2, rgba(255,232,85,.8)) 0%, rgba(255,246,199,.45) 50%, rgba(255,246,199,0) 72%); --t: 30s; animation-delay: -8s; }
+.blob-3 { width: 36vw; height: 36vw; max-width: 480px; max-height: 480px; left: 62%; top: 52%; background: radial-gradient(circle, var(--b3, rgba(255,236,140,.85)) 0%, rgba(255,236,140,0) 70%); --t: 27s; animation-delay: -15s; }
 @keyframes drift {
   0%   { translate: 0 0; scale: 1; }
   33%  { translate: 6vw -4vh; scale: 1.08; }
@@ -75,6 +91,16 @@ body {
   content: ""; position: absolute; inset: 0; opacity: .14; mix-blend-mode: multiply; pointer-events: none;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .38 0 0 0 0 .26 0 0 0 0 .08 0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
+/* 히어로 캐치프레이즈 — 노란 형광펜 밑줄 */
+.catch { position: relative; display: inline-block; }
+.catch::before { content: ""; position: absolute; left: -0.04em; right: -0.04em; bottom: 0.08em; height: 0.34em; background: linear-gradient(90deg, rgba(255,235,81,.95), rgba(255,236,140,.7)); border-radius: 4px; z-index: -1; transform-origin: left; animation: hl 1s cubic-bezier(.2,.7,.2,1) .6s both; }
+@keyframes hl { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* 스크롤하면 고민이 지워지는 취소선 */
+.strike { position: relative; }
+.strike::after { content: ""; position: absolute; left: 0; top: 55%; height: 1.5px; width: 0; background: #614215; transition: width .5s cubic-bezier(.2,.7,.2,1); }
+.strike-on::after { width: 100%; }
+
 /* 글라스처럼 은은하게 빛나는 텍스트 */
 .glow-text {
   color: #3d2a0c;

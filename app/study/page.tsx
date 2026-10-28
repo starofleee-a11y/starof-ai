@@ -11,7 +11,8 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
-import { STUDY } from "@/lib/study";
+import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS } from "@/lib/study";
+import { Voices } from "@/components/Deliverables";
 import { won } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -24,24 +25,33 @@ const FAQS = [
   { q: "준비물이 있나요?", a: "클로드 Pro 구독과 개인 노트북이 필요해요. 회사 노트북은 설치·터미널 권한이 막혀 있는 경우가 많아 개인 노트북을 권장합니다." },
   { q: "자동화할 주제가 아직 없어요.", a: "매주 반복하는 일 중 ‘입력이 있고 결과물이 있는 일’ 하나면 충분해요. 신청서에 적어주시면 1회차 전에 같이 다듬어 드립니다." },
   { q: "환급은 어떻게 받나요?", a: `4회 전부 참석하시면 ${won(STUDY.refund)}을 4회차 당일 계좌이체로 보내드려요. 한 번이라도 빠지면 환급 대상에서 제외됩니다.` },
-  { q: "결제는 언제 하나요?", a: `신청서를 보내면 바로 결제할 수 있고, ${STUDY.resultDate} 선정 안내를 받은 뒤 결제하셔도 돼요. 1회차 시작 전에는 전액 환불됩니다.` },
+  { q: "결제와 환불은 어떻게 되나요?", a: `신청서를 보내면 바로 결제할 수 있고, ${STUDY.resultDate} 선정 안내를 받은 뒤 결제하셔도 돼요. 선정 안내 및 입금 후에는 환불이 불가하니 4회 일정을 꼭 확인하고 신청해 주세요.` },
 ];
 
 export default function StudyPage() {
   return (
     <>
       <ProductHero
-        audience="Starters"
+        tone="starters"
         en="Claude Code Study"
         title={
           <>
             클로드 코드로 내 업무를
-            <br />
+            <br className="hidden md:block" />
             직접 자동화해보는 3주
           </>
         }
-        desc="설치와 셋팅을 같이 해보고, 마지막엔 본인 업무 자동화를 실제로 만들어 발표합니다. 함께 일잘러가 되는 자동화 스터디예요."
-        chips={[STUDY.weeks, "회당 2~2.5시간", `모집 ${STUDY.people}`, won(STUDY.price), `신청 마감 ${STUDY.deadline}`]}
+        desc={<>설치와 셋팅을 같이 해보고, 마지막엔 본인 업무 자동화를 실제로 만들어 발표합니다. <b className="font-semibold text-brown-dark">{STUDY.people} 소수 정원</b>으로 한 분씩 막히는 곳을 바로 풀어드려요.</>}
+        chips={[STUDY.weeks, "회당 2~2.5시간", `${STUDY.people} 소수 정원`, won(STUDY.price), `신청 마감 ${STUDY.deadline}`]}
+        aside={
+          <div className="grid grid-cols-[1.25fr_1fr] gap-3">
+            {LECTURE_PHOTOS.slice(0, 2).map((ph, i) => (
+              <div key={ph.src} className={`overflow-hidden rounded-2xl border border-white/70 shadow-[0_30px_60px_-40px_rgba(97,66,21,.6)] ${i === 1 ? "mt-10" : ""}`}>
+                <Image src={ph.src} alt={ph.alt} width={ph.w} height={ph.h} className="h-full w-full object-cover" priority={i === 0} />
+              </div>
+            ))}
+          </div>
+        }
       >
         <Link href="#apply" className="btn-primary">스터디 신청하기</Link>
         <Link href="#free-pdf" className="btn-ghost">1화 교안 무료로 받기</Link>
@@ -118,12 +128,32 @@ export default function StudyPage() {
         </div>
       </section>
 
-      {/* REVIEWS */}
-      <section className="overflow-hidden py-24 md:py-32">
-        <div className="wrap">
-          <SectionHead eyebrow="Reviews" title="먼저 들은 분들의 이야기" desc={`${SURVEY.source}. 추천 의향 평균 ${SURVEY.recommend}점.`} />
+      {/* 1기 결과물 */}
+      <section className="wrap py-24 md:py-32">
+        <SectionHead eyebrow="1기 결과물" title="3주 뒤, 수강생들이 직접 만든 자동화" desc="코딩 경험 없이 시작한 1기 수강생들이 4회차에 발표한 자동화예요. 발표 자료 기준으로 정리했습니다." />
+        <div className="grid gap-4 md:grid-cols-2">
+          {STUDENT_PROJECTS.map((pr, i) => (
+            <Reveal key={pr.title} delay={i * 80}>
+              <div className="card h-full p-7">
+                <p className="font-serif text-[15px] italic text-olive">0{i + 1}</p>
+                <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
+                <p className="mt-2 text-[14.5px] leading-relaxed text-brown/70">{pr.desc}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
-        <ReviewMarquee />
+      </section>
+
+      {/* REVIEWS */}
+      <section className="overflow-hidden bg-paper py-24 md:py-32">
+        <div className="wrap">
+          <SectionHead eyebrow="Reviews" title="먼저 들은 분들의 이야기" desc="1기 수강생이 스터디 페이지에 직접 남긴 후기예요." />
+          <Voices />
+          <p className="mt-16 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/40">{SURVEY.source} · 추천 의향 평균 {SURVEY.recommend}점</p>
+        </div>
+        <div className="mt-6">
+          <ReviewMarquee />
+        </div>
       </section>
 
       {/* LEAD MAGNET */}

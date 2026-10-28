@@ -13,24 +13,25 @@ import Proof from "@/components/Proof";
 import InstagramStrip from "@/components/InstagramStrip";
 import { STATS, CAREER } from "@/lib/proof";
 import { SITE } from "@/lib/site";
+import { TONES, type Tone } from "@/lib/tones";
 
-const PILLARS = [
+const PILLARS: { tone: Tone; q: string; a: string; href: string; label: string }[] = [
   {
-    for: "Starters",
+    tone: "starters",
     q: "클로드 코드 설치부터 자동화까지, 어떻게 하는지 잘 모르신다구요?",
     a: "Starters를 위한 전문 강의를 진행해드립니다.",
     href: "/study",
     label: "자동화 기초 강의",
   },
   {
-    for: "Workers",
+    tone: "workers",
     q: "복잡한 업무의 병목현상을 자동화하고 싶다구요?",
     a: "Workers를 위한 1:1 맞춤 AI 컨설팅을 진행해드립니다.",
     href: "/consulting",
     label: "1:1 AX 컨설팅",
   },
   {
-    for: "Company",
+    tone: "company",
     q: "조직 전사적으로 AX로 시스템을 혁신하고 싶다구요?",
     a: "Company를 위한 기업맞춤 자동화 시스템 개발을 진행해드립니다.",
     href: "/enterprise",
@@ -66,19 +67,22 @@ export default function Home() {
           title={<>Star of AI 에이전시는 AX 에이전시로,<br />개인 혹은 조직의 AI 생산성을 갖추도록 돕습니다</>}
         />
         <div className="grid gap-4 md:grid-cols-3">
-          {PILLARS.map((p, i) => (
-            <Reveal key={p.for} delay={i * 100}>
-              <Link href={p.href} className="group flex h-full flex-col rounded-2xl border border-brown/10 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-brown/40">
-                <p className="font-serif text-[30px] font-semibold leading-none text-brown">{p.for}</p>
+          {PILLARS.map((p, i) => {
+            const t = TONES[p.tone];
+            return (
+            <Reveal key={p.tone} delay={i * 100}>
+              <Link href={p.href} className={`group flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(97,66,21,.5)] ${t.bg} ${t.border}`}>
+                <p className={`font-serif text-[30px] font-semibold leading-none ${t.text}`}>{t.label}</p>
                 <p className="mt-8 text-[17px] font-bold leading-snug text-brown-dark">{p.q}</p>
                 <p className="mt-4 text-[15px] leading-relaxed text-brown/75">{p.a}</p>
-                <span className="mt-auto inline-flex items-center gap-2 pt-8 text-[14px] font-semibold text-brown">
+                <span className={`mt-auto inline-flex items-center gap-2 pt-8 text-[14px] font-semibold ${t.text}`}>
                   {p.label}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
               </Link>
             </Reveal>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -143,12 +147,12 @@ export default function Home() {
             <Reveal>
               <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-butter/80">Free coffee chat</p>
               <h2 className="mt-4 font-kserif text-[32px] font-bold leading-[1.25] text-butter md:text-[44px]">
-                자동화가 어려우신가요?
+                어떻게 AI를 도입해야 할지
                 <br />
-                AI 강의가 궁금하신가요?
+                막막하시다구요?
               </h2>
               <p className="mt-6 text-[16px] leading-relaxed text-butter-pale/75">
-                30분 동안 지금 하고 계신 업무를 듣고, 무엇부터 자동화하면 좋을지 같이 그려드려요. 캘린더에서 비는 시간을 바로 고르세요.
+                무료로 AX 자동화 범위를 상담해드려요. 30분 동안 지금 하고 계신 업무를 듣고, 무엇부터 자동화하면 좋을지 같이 그립니다. 내일부터 2주 안에서 비는 시간을 바로 고르세요.
               </p>
             </Reveal>
             <Reveal delay={150}>
@@ -170,7 +174,7 @@ export default function Home() {
 
       {/* PRICING */}
       <section id="pricing" className="wrap scroll-mt-20 py-24 md:py-36">
-        <SectionHead eyebrow="Services & pricing" title={<>배울지, 맡길지, 함께 바꿀지.<br />세 가지 방법이 있어요</>} />
+        <SectionHead eyebrow="Services & pricing" title={<>3가지 방법 중<br />나에게 맞는 플랜을 고를 수 있어요</>} desc="배울지, 맡길지, 함께 바꿀지. 지금 상황에 맞는 방법 하나를 고르면 돼요." />
         <PriceCards />
       </section>
 
