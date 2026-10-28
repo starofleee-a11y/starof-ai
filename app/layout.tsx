@@ -1,20 +1,21 @@
 import type { Metadata } from "next";
-import { Manrope, IBM_Plex_Sans_KR } from "next/font/google";
+import { Cormorant_Garamond, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollTop from "@/components/ScrollTop";
 import { SITE } from "@/lib/site";
 
-const manrope = Manrope({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
-const plexKr = IBM_Plex_Sans_KR({
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-kr",
+const notoSerif = Noto_Serif_KR({
+  weight: ["500", "600", "700"],
+  variable: "--font-noto-serif",
   display: "swap",
   preload: false,
 });
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko" className={`${manrope.variable} ${plexKr.variable}`}>
+    <html lang="ko" className={`${cormorant.variable} ${notoSerif.variable}`}>
       <head>
         <link
           rel="stylesheet"

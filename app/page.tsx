@@ -72,7 +72,7 @@ export default function Home() {
             const t = TONES[p.tone];
             return (
             <Reveal key={p.tone} delay={i * 100}>
-              <Link href={p.href} className={`gcard g-${p.tone} group flex h-full flex-col p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(97,66,21,.5)]`}>
+              <Link href={p.href} className={`group flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(97,66,21,.5)] ${t.bg} ${t.border}`}>
                 <p className={`font-serif text-[30px] font-semibold leading-none ${t.text}`}>{t.label}</p>
                 <p className="mt-8 text-[17px] font-bold leading-snug text-brown-dark">{p.q}</p>
                 <p className="mt-4 text-[15px] leading-relaxed text-brown/85">{p.a}</p>

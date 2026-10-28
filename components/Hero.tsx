@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import GlassBg from "./GlassBg";
 import Diagnose from "./Diagnose";
@@ -38,21 +39,33 @@ export default function Hero() {
         <GlassBg />
       </div>
 
-      <div className="wrap relative pb-24 pt-32 text-center md:pt-40">
-        <h1 className="glow-text mx-auto max-w-5xl break-keep font-kserif text-[30px] font-bold leading-[1.25] tracking-[-0.03em] animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.1s_both] md:text-[52px] md:leading-[1.2] lg:text-[56px]">
-          나의 업무가 자동으로 굴러갈 수 있도록,
+      <div className="wrap relative pb-24 pt-32 text-center md:pt-36">
+        <p className="eyebrow animate-[fadeUp_.8s_cubic-bezier(.2,.7,.2,1)_both]">AX Agency · Star of AI</p>
+        <h1 className="glow-text mx-auto mt-6 max-w-4xl break-keep font-kserif text-[36px] font-bold leading-[1.15] tracking-[-0.02em] animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.1s_both] md:text-[84px]">
+          AI 얼리어답터가 되는
           <br />
-          <span className="catch">시간과 돈이 벌리는 시스템</span>을 설계해드립니다.
+          <span className="catch">지름길</span>
+          <span className="text-[0.55em] font-semibold text-brown/90">로 안내합니다.</span>
         </h1>
+        <p className="mx-auto mt-7 max-w-2xl text-[17px] leading-[1.7] text-brown/90 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.25s_both] md:text-[21px]">
+          나의 업무가 자동으로 굴러갈 수 있도록,
+          <br className="hidden md:block" />
+          <b className="font-bold text-brown-dark">시간과 돈이 벌리는 시스템</b>을 설계해드립니다.
+        </p>
 
-        {/* 자동화 진단 — 밑줄 한 줄과 화살표. 성함·메일은 모달에서 받고, 답변 페이지로 이동해요 */}
-        <div className="mt-14 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.35s_both] md:mt-20">
+        {/* 자동화 진단 — 검색창처럼. 업무·성함·메일을 적으면 가능 여부·방법·플랜을 바로 답해요 */}
+        <div className="mt-12 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.4s_both]">
           <Diagnose />
         </div>
 
         {/* 고객의 고민 — 말풍선이 가로로 흘러요 */}
-        <div className="mt-14 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.55s_both] md:mt-20">
+        <div className="mt-12 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.55s_both]">
           <PainMarquee />
+        </div>
+
+        <div className="mt-10 flex flex-wrap justify-center gap-3 animate-[fadeUp_.9s_cubic-bezier(.2,.7,.2,1)_.65s_both]">
+          <Link href="#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
+          <Link href="#solve" className="btn-glass">어떻게 해결하나요? ↓</Link>
         </div>
       </div>
 
