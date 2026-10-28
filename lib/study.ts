@@ -18,6 +18,8 @@ export const STUDY = {
       date: "11월 8일(일) 14:30–17:00",
       mode: "오프라인",
       title: "클로드 코드 설치 & 기본기 학습 강의",
+      image: "/images/study/ep1-deck.jpg",
+      imageAlt: "1회차 교안 — 클로드 코드 설치와 기본기",
       items: ["설치 · 터미널 · 권한 초기 셋팅", "스킬 / 토큰 사용 / 커넥터 / 모델 개념 잡기", "클로드 코드로 나만의 사이트 만들어보기"],
     },
     {
@@ -25,6 +27,8 @@ export const STUDY = {
       date: "11월 15일(일) 20:00–22:00",
       mode: "온라인",
       title: "실무 자동화 사례 해부 & 샘플 데이터 실습 강의",
+      image: "/images/study/ep2-deck.jpg",
+      imageAlt: "2회차 교안 — 실무 자동화 사례 해부",
       items: ["실습: 나만의 AI 팀 만들어서 전사적 자동화하기", "샘플 데이터 제공 예정", "자동화가 되는 업무 vs 안 되는 업무 구분법"],
     },
     {
@@ -32,6 +36,8 @@ export const STUDY = {
       date: "11월 18일(수) 20:00–22:00",
       mode: "온라인",
       title: "내 업무 자동화 기획 발표 & 피드백",
+      image: "/images/study/ep3-flow.jpg",
+      imageAlt: "3회차 자료 — 자동화 기획 플로우",
       items: ["기획안은 전날(11/17)까지 제출 (세션은 피드백 중심으로 진행)", "필요한 데이터 · 권한 체크리스트 정리", "최종 발표까지 남은 5일 작업 플랜 짜기"],
     },
     {
@@ -39,6 +45,8 @@ export const STUDY = {
       date: "11월 22일(일) 16:30–19:00",
       mode: "오프라인",
       title: "최종 자동화 발표 & 네트워킹",
+      image: "/images/study/ep4-deck.jpg",
+      imageAlt: "4회차 교안 — 최종 발표와 운영 팁",
       items: ["각 팀원별 완성한 자동화 라이브 시연", "운영 · 유지보수 · 확장 팁", "네트워킹 회식 (이후 자유)"],
     },
   ],
@@ -57,6 +65,14 @@ export const STUDY = {
     "성균관대학교 디자인학과 학사 졸업 & PMBA 석사 재학 중",
   ],
 };
+
+// 교안 · 실습 결과물 (AI 강의 자료 폴더). public/images/study/ 에 넣고 여기에 추가하면 커리큘럼 아래 띠에 나와요.
+export const STUDY_MATERIALS = [
+  { src: "/images/study/practice-cardnews.jpg", alt: "실습 결과물 — 클로드 코드로 만든 카드뉴스", caption: "실습 · 카드뉴스 자동 생성" },
+  { src: "/images/study/practice-site.jpg", alt: "실습 결과물 — 클로드 코드로 만든 개인 사이트", caption: "실습 · 나만의 사이트 만들기" },
+  { src: "/images/study/practice-briefing.jpg", alt: "실습 결과물 — 자동 브리핑 결과", caption: "실습 · 매일 아침 자동 브리핑" },
+  { src: "/images/study/certificate.jpg", alt: "스터디 수료증", caption: "4회 완주 시 수료증 발급" },
+];
 
 // 강의 현장 사진. public/images/lectures/ 에 파일을 넣고 여기에 추가하면 스터디 페이지에 바로 나와요.
 // 1기 스터디 현장 사진 (강의사진 폴더)

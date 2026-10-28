@@ -14,17 +14,17 @@ export default function ImageBand({ images, eyebrow, note }: { images: BandImage
     <div>
       {eyebrow && (
         <Reveal>
-          <p className="mb-5 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/75">{eyebrow}</p>
+          <p className="mb-5 text-[12px] font-bold uppercase tracking-[0.2em] text-brown">{eyebrow}</p>
         </Reveal>
       )}
       <div className={`grid grid-cols-2 gap-3 md:gap-4 ${cols}`}>
         {images.map((im, i) => (
           <Reveal key={im.src} delay={i * 90}>
-            <figure className="overflow-hidden rounded-2xl border border-brown/10 bg-white">
+            <figure className="overflow-hidden rounded-2xl border border-brown/20 bg-white">
               <div className="relative aspect-[4/3]">
                 <Image src={im.src} alt={im.alt} fill sizes="(min-width:768px) 25vw, 50vw" className="object-cover" />
               </div>
-              {im.caption && <figcaption className="px-3 py-2.5 text-[12.5px] font-medium text-brown/85">{im.caption}</figcaption>}
+              {im.caption && <figcaption className="px-3 py-2.5 text-[12.5px] font-semibold text-brown-dark">{im.caption}</figcaption>}
             </figure>
           </Reveal>
         ))}

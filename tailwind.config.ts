@@ -9,7 +9,7 @@ const config: Config = {
         cream: "#FFFDF5",
         paper: "#FFF9E3",
         butter: { DEFAULT: "#FFEB51", soft: "#FFEC8C", deep: "#FFE855", pale: "#FFF6C7" },
-        brown: { DEFAULT: "#614215", dark: "#3D2A0C", light: "#8A6A3A" },
+        brown: { DEFAULT: "#553A10", dark: "#2E1F08", light: "#7E6132" },
         olive: "#70631F",
         // Starters(노랑) · Workers(올리브) · Company(브라운) 구분용 연한 바탕
         sage: { DEFAULT: "#70631F", pale: "#EEF0DA", soft: "#DDE3B8" },

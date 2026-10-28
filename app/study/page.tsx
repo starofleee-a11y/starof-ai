@@ -11,7 +11,7 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
-import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS } from "@/lib/study";
+import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
 import ImageBand from "@/components/ImageBand";
 import Hl from "@/components/Hl";
@@ -121,26 +121,43 @@ export default function StudyPage() {
           <div className="grid gap-4 md:grid-cols-2">
             {STUDY.sessions.map((s, i) => (
               <Reveal key={s.no} delay={i * 80}>
-                <div className="h-full rounded-2xl border border-brown/10 bg-white p-7 md:p-8">
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-[13px]">
-                    <span className="font-semibold text-olive">{s.no}</span>
-                    <span className="chip">{s.mode}</span>
+                <div className={`h-full overflow-hidden rounded-2xl border ${i % 2 === 0 ? "border-brown/20 bg-white" : "border-brown-dark bg-brown-dark text-butter-pale"}`}>
+                  {s.image && (
+                    <div className="relative aspect-[21/9] border-b border-brown/10 bg-paper">
+                      <Image src={s.image} alt={s.imageAlt ?? s.title} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover object-top" />
+                      <span className="absolute left-4 top-4 rounded-full bg-brown-dark px-3 py-1 text-[12px] font-bold text-butter">{s.no} 교안</span>
+                    </div>
+                  )}
+                  <div className="p-7 md:p-8">
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-[13px]">
+                      <span className={`font-bold ${i % 2 === 0 ? "text-brown" : "text-butter"}`}>{s.no}</span>
+                      <span className={i % 2 === 0 ? "chip" : "rounded-full border border-butter/40 px-3 py-1 text-[12px] font-semibold text-butter"}>{s.mode}</span>
+                    </div>
+                    <p className={`mt-4 font-serif text-[21px] font-bold ${i % 2 === 0 ? "text-brown-dark" : "text-butter"}`}>{s.date}</p>
+                    <h3 className={`mt-2 text-[18px] font-extrabold ${i % 2 === 0 ? "text-brown-dark" : "text-white"}`}>{s.title}</h3>
+                    <ul className={`mt-5 space-y-2 border-t pt-5 text-[14.5px] ${i % 2 === 0 ? "border-brown/15 text-brown/90" : "border-butter/20 text-butter-pale/85"}`}>
+                      {s.items.map((it) => (
+                        <li key={it} className="flex gap-2.5">
+                          <span className={i % 2 === 0 ? "font-bold text-brown" : "font-bold text-butter"}>·</span>
+                          {it}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="mt-4 font-serif text-[20px] font-semibold text-brown">{s.date}</p>
-                  <h3 className="mt-2 text-[18px] font-bold text-brown-dark">{s.title}</h3>
-                  <ul className="mt-5 space-y-2 border-t border-brown/10 pt-5 text-[14.5px] text-brown/85">
-                    {s.items.map((it) => (
-                      <li key={it} className="flex gap-2.5">
-                        <span className="text-olive">·</span>
-                        {it}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </Reveal>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* 교안 · 실습 결과물 */}
+      <section className="wrap pt-24 md:pt-32">
+        <ImageBand
+          eyebrow="교안 · 실습 결과물"
+          images={STUDY_MATERIALS}
+          note="실제 수업에서 쓰는 교안과 수강생이 실습 시간에 만든 결과물이에요. 교안은 매 기수 최신 버전으로 업데이트됩니다."
+        />
       </section>
 
       {/* 1기 결과물 */}

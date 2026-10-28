@@ -5,14 +5,14 @@
 :root {
   --cream: #fffdf5;
   --butter: #ffeb51;
-  --brown: #614215;
+  --brown: #553a10;
   --olive: #70631f;
 }
 
 html { scroll-behavior: smooth; }
 body {
   background: var(--cream);
-  color: #3d2a0c;
+  color: #2e1f08;
   font-family: "Pretendard Variable", Pretendard, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   word-break: keep-all;
@@ -22,7 +22,7 @@ body {
 
 @layer components {
   .wrap { @apply mx-auto w-full max-w-site px-5 md:px-8; }
-  .eyebrow { @apply text-[12px] font-semibold uppercase tracking-[0.22em] text-olive; }
+  .eyebrow { @apply text-[12px] font-bold uppercase tracking-[0.22em] text-brown; }
   .h-display { @apply font-kserif font-bold leading-[1.18] tracking-[-0.02em] text-brown-dark; }
   .btn {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold transition-all duration-300 will-change-transform;
