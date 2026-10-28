@@ -10,9 +10,9 @@ export default function CaseStudies({ limit }: { limit?: number }) {
       {list.map((c, i) => (
         <Reveal key={c.id} delay={60}>
           <article className="grid overflow-hidden rounded-2xl border border-brown/10 bg-white md:grid-cols-[1.05fr_1fr]">
-            <div className={`relative min-h-[260px] ${i % 2 ? "md:order-2" : ""}`}>
+            <div className={`relative aspect-[4/3] md:aspect-auto md:min-h-[420px] ${i % 2 ? "md:order-2" : ""}`}>
               {c.image ? (
-                <Image src={c.image} alt={c.title} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
+                <Image src={c.image} alt={c.title} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover object-left-top" />
               ) : (
                 <div className="flex h-full flex-col justify-between bg-paper p-7 md:p-9">
                   <div className="flex items-center justify-between text-[12px]">

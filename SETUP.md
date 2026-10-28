@@ -108,7 +108,7 @@ Vercel에서 산 도메인이라 DNS가 자동으로 잡혀요. 몇 분 안에 �
 | 스터디 기수·일정·참가비·환급·주의사항 | `lib/study.ts` |
 | 커피챗 가능한 요일·시간, 미팅 길이 | `lib/slots.ts` |
 | 성과 숫자, AX 사례(문제·해결·성과), 강의 이력, 후기 | `lib/proof.ts` |
-| 인스타그램 콘텐츠 카드 (링크·썸네일) | `lib/instagram.ts` + `public/images/insta/` |
+| 인스타그램 콘텐츠 카드 (게시물 링크만 적으면 공식 임베드로 표시) | `lib/instagram.ts` |
 | AX 사례 캡처 이미지 | `public/images/cases/` 에 넣고 `lib/proof.ts`의 `image`에 경로 |
 | 연락처, 메뉴 이름, Skill Shop · AI BAMTI 링크 | `lib/site.ts` |
 | 무료 PDF | `public/downloads/` |
