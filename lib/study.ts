@@ -160,7 +160,7 @@ export const GALLERY = [
 ];
 
 // 수강생이 보낸 손편지 (이름은 가렸어요)
-export const LETTER = { src: "/images/lectures/msg-letter.jpg", alt: "1기 수강생이 손으로 쓴 감사 편지", caption: "1기 수강생이 마지막 날 건넨 손편지" };
+export const LETTER = { src: "/images/lectures/msg-letter-2.jpg", alt: "1기 수강생이 손으로 쓴 감사 편지", caption: "1기 수강생이 마지막 날 건넨 손편지" };
 
 // 수강생이 보낸 메시지 (이름은 가렸어요)
 export const MESSAGES = [
