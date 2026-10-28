@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import Sparkle from "@/components/Sparkle";
 import { won } from "@/lib/products";
 
 type Result = { ok: true; orderName: string; amount: number; method?: string; receiptUrl?: string; test?: boolean } | { ok: false; message: string };
@@ -43,7 +42,6 @@ export default function SuccessClient() {
 
   return (
     <div className="card p-10 text-center">
-      <Sparkle className="mx-auto h-12 w-12 animate-twinkle text-[#E8C300]" />
       <p className="mt-6 font-serif text-5xl italic text-brown">Welcome!</p>
       <p className="mt-4 text-[19px] font-bold text-brown-dark">결제가 완료됐어요{res.test ? " (테스트)" : ""}</p>
       <p className="mt-2 text-[15px] text-brown/70">

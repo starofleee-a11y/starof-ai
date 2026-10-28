@@ -20,16 +20,9 @@ const config: Config = {
       maxWidth: { site: "1200px" },
       keyframes: {
         marquee: { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } },
-        twinkle: {
-          "0%,100%": { transform: "scale(1) rotate(0deg)", opacity: "1" },
-          "50%": { transform: "scale(.82) rotate(45deg)", opacity: ".7" },
-        },
-        floaty: { "0%,100%": { transform: "translateY(0)" }, "50%": { transform: "translateY(-10px)" } },
       },
       animation: {
         marquee: "marquee 60s linear infinite",
-        twinkle: "twinkle 4s ease-in-out infinite",
-        floaty: "floaty 6s ease-in-out infinite",
       },
     },
   },

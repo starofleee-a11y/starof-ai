@@ -1,65 +1,92 @@
 # Star of AI 웹사이트 설정 가이드
 
-코딩 없이, 서비스 가입하고 키를 복사해서 Vercel에 붙여넣는 것만으로 끝나요. 키는 모두 **Vercel → starof-ai 프로젝트 → Settings → Environment Variables** 에 넣고, 넣은 뒤에는 **Deployments → 최신 배포 → Redeploy** 를 한 번 눌러주세요.
+코딩 없이, 서비스에 가입하고 키를 복사해서 Vercel에 붙여넣는 것만으로 끝나요. 키는 모두 **Vercel → starof-ai 프로젝트 → Settings → Environment Variables** 에 넣고, 넣은 뒤에는 **Deployments → 최신 배포 → ⋯ → Redeploy** 를 한 번 눌러주세요.
 
 키를 하나도 안 넣어도 사이트는 정상으로 열려요. 해당 기능만 조용히 건너뜁니다.
+
+| 순서 | 할 일 | 걸리는 시간 | 안 하면 |
+| --- | --- | --- | --- |
+| 1 | 도메인 연결 | 5분 | vercel.app 주소로만 열림 |
+| 2 | 슬랙 알림 | 10분 | 신청·문의가 서버 로그에만 남음 |
+| 3 | 메일 발송 (Resend) | 10분 | 고객에게 확인·리마인드 메일이 안 감 |
+| 4 | 구글 캘린더 연동 | 20분 | 커피챗이 기본 시간표로 보이고, 미팅 링크를 직접 보내야 함 |
+| 5 | 결제 (토스페이먼츠) | 가입 10분 + 심사 2~3일 | 테스트 모드. 계좌이체 안내로 대신 가능 |
 
 ---
 
 ## 1. 도메인 starof-ai.com 연결 (5분)
 
 1. Vercel → starof-ai 프로젝트 → **Settings → Domains**
-2. `starof-ai.com` 입력 → Add (도메인이 없으면 이 화면에서 바로 구매 가능, 약 $11/년)
-3. `www.starof-ai.com`도 추가하고, 둘 중 하나를 다른 쪽으로 Redirect 설정
+2. `starof-ai.com` 입력 → **Add**. 같이 추천되는 `www` 리다이렉트 옵션은 그대로 두세요.
 
-Vercel에서 산 도메인은 DNS가 자동이라 몇 분 안에 열려요. 가비아 등 다른 곳에서 샀다면 Vercel이 보여주는 A / CNAME 값을 그 사이트 DNS 설정에 넣으세요.
+Vercel에서 산 도메인이라 DNS가 자동으로 잡혀요. 몇 분 안에 열립니다.
 
-## 2. 슬랙 알림 (10분) — 결제·문의·PDF 다운로드·커피챗
+## 2. 슬랙 알림 (10분) — 커피챗·스터디 신청·문의·PDF 다운로드·결제
 
 1. https://api.slack.com/apps → **Create New App → From scratch** → 이름 `Star of AI 알림`, 워크스페이스 `winter-ydk2969`
-2. 왼쪽 **Incoming Webhooks** → On → **Add New Webhook to Workspace** → 채널 선택 (C0CCWJ4MRFE 채널)
+2. 왼쪽 **Incoming Webhooks** → On → **Add New Webhook to Workspace** → 채널 선택 (C0CCWJ4MRFE)
 3. 생성된 `https://hooks.slack.com/services/...` 주소 복사
 4. Vercel 환경변수 `SLACK_WEBHOOK_URL` 에 붙여넣기
 
-> Skill Shop 프로젝트에 이미 넣어둔 슬랙 값이 있다면 같은 값을 그대로 복사해 써도 돼요.
+## 3. 메일 발송 — Resend (10분)
 
-## 3. 커피챗 예약 — Cal.com (20분)
+고객에게 커피챗 확정 메일, 하루 전 리마인드, 스터디 신청 확인 메일을 보내고, 나에게도 알림 메일이 와요.
 
-줌 링크 자동 생성, 24시간 전 리마인드, 취소·변경 버튼 메일이 모두 Cal.com 기본 기능이에요.
+1. https://resend.com 가입 (무료 월 3,000통) → **API Keys → Create** → `RESEND_API_KEY`
+2. `OWNER_EMAIL` = `starofleee@gmail.com` (알림 받을 주소)
+3. **Domains → Add `starof-ai.com`** → 안내되는 DNS 레코드를 Vercel **Domains → starof-ai.com → DNS Records** 에 추가 → 인증되면 `MAIL_FROM` = `Star of AI <hello@starof-ai.com>`
 
-1. https://cal.com 가입 (무료) → 사용자명 예: `starofai`
-2. **Apps** → Google Calendar 연결 (겹치는 일정 자동 차단), **Zoom** 설치·로그인
-3. **Event Types → New** → 제목 `무료 커피챗`, 30분, URL `coffee-chat`, Location = **Zoom**
-4. 같은 이벤트 → **Advanced → Booking questions** → `자동화 고민` (Long text, 필수) 추가
-5. **Workflows → New** → 트리거 `Before event starts` 24시간 → 참석자에게 메일 (리마인드). 확인 메일에는 취소·변경 버튼이 기본으로 들어가요.
-6. **Availability** 에서 커피챗 가능한 요일·시간 설정
-7. Vercel 환경변수 `NEXT_PUBLIC_CAL_LINK` = `starofai/coffee-chat`
-8. (슬랙 알림) Cal.com **Settings → Developer → Webhooks → New**
-   - Subscriber URL: `https://www.starof-ai.com/api/webhooks/cal`
-   - Events: Booking Created, Cancelled, Rescheduled
-   - Secret: 아무 긴 문자열 → 같은 값을 Vercel `CAL_WEBHOOK_SECRET` 에
+도메인 인증 전에는 가입한 내 주소로 오는 메일만 발송돼요. 고객 메일까지 보내려면 3번까지 꼭 하세요.
 
-넣기 전에는 사이트에 자체 신청 폼이 나오고, 신청이 오면 슬랙·메일로 알려줘요 (이때 줌 링크는 직접 보내야 해요).
+## 4. 구글 캘린더 연동 (20분) — 커피챗 빈 시간 · 미팅 링크 · 리마인드 · 취소
 
-## 4. 결제 — 토스페이먼츠 (가입 10분 + 심사 며칠)
+연결하면 이렇게 돌아가요.
 
-1. https://www.tosspayments.com → 회원가입 → 사업자(대기만성) 정보로 **전자결제 신청**
+- 사이트 커피챗 폼에 **오늘부터 2주 동안 내 캘린더(starofleee@gmail.com)에서 비는 시간만** 보여요. 시간표 규칙은 `lib/slots.ts`에서 바꿔요 (기본: 평일 10·11·14·15·16·17·20시, 토 14·15·16시).
+- 예약하면 캘린더에 일정이 생기고 **구글 미트 링크가 자동 생성**돼서 고객에게 초대 메일과 확정 메일이 가요.
+- 매시간 자동으로 **24시간 전 리마인드 메일**이 나가고, 메일의 **예약 취소하기** 버튼을 누르면 캘린더에서 지워지고 슬랙에 알림이 와요.
+- 줌을 쓰고 싶으면 `MEETING_LINK` 에 줌 개인 회의실 주소를 넣으세요. 그러면 미트 대신 그 링크가 들어가요.
+
+### 4-1. 구글 클라우드에서 열쇠 만들기
+
+1. https://console.cloud.google.com → 상단 프로젝트 선택 → **새 프로젝트** → 이름 `starof-ai`
+2. **API 및 서비스 → 라이브러리** → `Google Calendar API` 검색 → **사용**
+3. **API 및 서비스 → OAuth 동의 화면** → External → 앱 이름 `Star of AI`, 내 메일 입력 → 저장. **테스트 사용자**에 `starofleee@gmail.com` 추가
+4. **API 및 서비스 → 사용자 인증 정보 → 사용자 인증 정보 만들기 → OAuth 클라이언트 ID** → 유형 **웹 애플리케이션**
+   - 승인된 리디렉션 URI: `https://developers.google.com/oauthplayground`
+   - 만들어진 **클라이언트 ID** → `GOOGLE_CLIENT_ID`, **클라이언트 보안 비밀** → `GOOGLE_CLIENT_SECRET`
+
+### 4-2. 리프레시 토큰 받기 (한 번만)
+
+1. https://developers.google.com/oauthplayground 접속
+2. 오른쪽 위 ⚙️ → **Use your own OAuth credentials** 체크 → 위에서 만든 클라이언트 ID·비밀 입력
+3. 왼쪽 목록에서 **Calendar API v3 → `https://www.googleapis.com/auth/calendar`** 선택 → **Authorize APIs** → starofleee@gmail.com 로 로그인·허용
+4. **Exchange authorization code for tokens** 클릭 → 나오는 **Refresh token** 복사 → `GOOGLE_REFRESH_TOKEN`
+
+### 4-3. Vercel에 넣기
+
+| 변수 | 값 |
+| --- | --- |
+| `GOOGLE_CLIENT_ID` | 4-1의 클라이언트 ID |
+| `GOOGLE_CLIENT_SECRET` | 4-1의 클라이언트 보안 비밀 |
+| `GOOGLE_REFRESH_TOKEN` | 4-2의 리프레시 토큰 |
+| `GOOGLE_CALENDAR_ID` | 비워두면 기본 캘린더(starofleee@gmail.com) |
+| `CRON_SECRET` | 아무 긴 문자열 (리마인드 자동 실행 보호용) |
+| `MEETING_LINK` | (선택) 줌 개인 회의실 주소 |
+
+> OAuth 동의 화면이 '테스트' 상태면 리프레시 토큰이 7일 뒤 만료돼요. **OAuth 동의 화면 → 앱 게시** 를 눌러 '프로덕션'으로 바꾸면 만료되지 않아요. (내 계정만 쓰는 거라 구글 검수는 필요 없어요.)
+
+## 5. 결제 — 토스페이먼츠 (가입 10분 + 심사 2~3일)
+
+지금은 토스 공식 **테스트 키**로 동작해요. 결제창이 열리고 테스트 결제까지 되지만 실제 돈은 나가지 않아요 (화면에 '테스트 모드' 표시). 실제 결제를 받으려면 **사업자등록증**이 필요해요.
+
+1. https://www.tosspayments.com → 회원가입 → 사업자(대기만성) 정보로 **전자결제 신청** (사업자등록증, 통장 사본 업로드)
 2. 심사 완료 후 **개발자센터 → API 키 → 결제위젯 연동 키** 에서
    - 클라이언트 키 `live_gck_...` → `NEXT_PUBLIC_TOSS_CLIENT_KEY`
    - 시크릿 키 `live_gsk_...` → `TOSS_SECRET_KEY`
 3. 개발자센터 **결제위젯 → 결제 UI 설정** 에서 카드·간편결제 등 노출할 수단 선택
 
-키를 넣기 전에는 토스 공식 테스트 키로 동작해요. 결제창이 열리고 테스트 결제까지 되지만 실제 돈은 나가지 않아요 (화면에 '테스트 모드' 표시).
-
-## 5. 메일 알림 — Resend (10분)
-
-기업 문의와 결제 완료를 메일로도 받고, 고객에게 접수 확인 메일을 보내요.
-
-1. https://resend.com 가입 (무료 월 3,000통) → **API Keys → Create** → `RESEND_API_KEY`
-2. `OWNER_EMAIL` = `starofleee@gmail.com` (알림 받을 주소)
-3. 고객에게도 메일을 보내려면 **Domains → Add `starof-ai.com`** → 안내되는 DNS 레코드 추가 → 인증 후 `MAIL_FROM` = `Star of AI <hello@starof-ai.com>`
-
-도메인 인증 전에는 내 메일(가입한 주소)로 오는 알림만 발송돼요.
+**심사 전에 바로 받고 싶다면** `NEXT_PUBLIC_BANK_ACCOUNT` 에 `카카오뱅크 3333-00-0000000 이경서` 처럼 계좌를 넣으세요. 스터디 신청 완료 화면과 결제 페이지에 계좌이체 안내가 같이 나와요.
 
 ---
 
@@ -67,16 +94,22 @@ Vercel에서 산 도메인은 DNS가 자동이라 몇 분 안에 열려요. 가�
 
 | 고객 행동 | 슬랙 | 내 메일 | 고객 메일 |
 | --- | --- | --- | --- |
-| 커피챗 예약 (Cal.com) | ✅ | Cal.com이 발송 | Cal.com이 줌 링크·리마인드·취소 버튼 발송 |
+| 커피챗 예약 | ✅ | ✅ | ✅ 확정 + 미팅 링크 + 캘린더 초대, 24시간 전 리마인드, 취소 버튼 |
+| 스터디 신청 | ✅ | ✅ | ✅ 접수 확인 |
 | 1화 교안 / 셋팅 가이드 PDF 다운로드 | ✅ | | |
-| 스터디·셋팅 대행 결제 | ✅ | ✅ | ✅ 결제 완료 안내 |
+| 스터디 결제 | ✅ | ✅ | ✅ 결제 완료 안내 |
 | 기업 문의 · 직접 문의 | ✅ | ✅ | |
 
 ## 내용 고치기
 
 | 바꾸고 싶은 것 | 파일 |
 | --- | --- |
-| 가격, 단체 할인율, 상품 설명 | `lib/products.ts` |
-| 강의 이력, 자동화 사례, 후기, 숫자 | `lib/proof.ts` |
-| 연락처, 하단 Skill Shop · AI BAMTI 링크 | `lib/site.ts` |
+| 가격, 상품 설명 | `lib/products.ts` |
+| 스터디 기수·일정·참가비·환급·주의사항 | `lib/study.ts` |
+| 커피챗 가능한 요일·시간, 미팅 길이 | `lib/slots.ts` |
+| 성과 숫자, AX 사례(문제·해결·성과), 강의 이력, 후기 | `lib/proof.ts` |
+| 인스타그램 콘텐츠 카드 (링크·썸네일) | `lib/instagram.ts` + `public/images/insta/` |
+| AX 사례 캡처 이미지 | `public/images/cases/` 에 넣고 `lib/proof.ts`의 `image`에 경로 |
+| 연락처, 메뉴 이름, Skill Shop · AI BAMTI 링크 | `lib/site.ts` |
 | 무료 PDF | `public/downloads/` |
+| 대표 사진 · 강의 사진 | `public/images/` |

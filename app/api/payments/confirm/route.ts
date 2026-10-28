@@ -52,7 +52,7 @@ export async function POST(req: NextRequest) {
       ["주문번호", orderId],
       ["영수증", data.receipt?.url],
     ] as [string, string | undefined][],
-    footer: "24시간 안에 일정 안내 메일을 보내주세요.",
+    footer: "24시간 안에 안내 메일을 보내주세요.",
   };
   await Promise.all([
     notifySlack(notice),

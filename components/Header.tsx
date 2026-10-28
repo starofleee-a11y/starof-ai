@@ -7,25 +7,36 @@ import { NAV } from "@/lib/site";
 
 export default function Header() {
   const path = usePathname();
+  const home = path === "/";
   const [scrolled, setScrolled] = useState(false);
+  const [past, setPast] = useState(false); // 메인에서 히어로를 지나면 로고 표시
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 12);
+    const on = () => {
+      setScrolled(window.scrollY > 12);
+      setPast(window.scrollY > window.innerHeight * 0.55);
+    };
     on();
     window.addEventListener("scroll", on, { passive: true });
     return () => window.removeEventListener("scroll", on);
   }, []);
   useEffect(() => setOpen(false), [path]);
 
+  const showLogo = !home || past || open;
+
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "bg-cream/80 shadow-[0_1px_0_rgba(97,66,21,.08)] backdrop-blur-xl" : "bg-transparent"
+        scrolled || open ? "bg-cream/75 shadow-[0_1px_0_rgba(97,66,21,.08)] backdrop-blur-xl" : "bg-transparent"
       }`}
     >
       <div className={`wrap flex items-center justify-between transition-all duration-500 ${scrolled ? "h-16" : "h-20"}`}>
-        <Link href="/" aria-label="Star of AI 홈" className="group shrink-0">
+        <Link
+          href="/"
+          aria-label="Star of AI 홈"
+          className={`group shrink-0 transition-all duration-700 ${showLogo ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"}`}
+        >
           <Logo className={`w-auto transition-all duration-500 group-hover:opacity-80 ${scrolled ? "h-[22px]" : "h-[26px]"}`} />
         </Link>
 
@@ -50,12 +61,7 @@ export default function Header() {
           </Link>
         </nav>
 
-        <button
-          className="relative h-10 w-10 md:hidden"
-          aria-label="메뉴 열기"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-        >
+        <button className="relative h-10 w-10 md:hidden" aria-label="메뉴 열기" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
           <span className={`absolute left-2 right-2 h-[2px] rounded bg-brown transition-all ${open ? "top-[19px] rotate-45" : "top-[14px]"}`} />
           <span className={`absolute left-2 right-2 h-[2px] rounded bg-brown transition-all ${open ? "top-[19px] -rotate-45" : "top-[24px]"}`} />
         </button>

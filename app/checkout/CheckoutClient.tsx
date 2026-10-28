@@ -6,6 +6,8 @@ import Script from "next/script";
 import { PRODUCTS, calcAmount, orderName, won, type ProductId } from "@/lib/products";
 import { TOSS_CLIENT_KEY, isTossTestMode } from "@/lib/toss";
 
+const BANK = process.env.NEXT_PUBLIC_BANK_ACCOUNT;
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
   interface Window { TossPayments?: any }
@@ -15,7 +17,7 @@ export default function CheckoutClient() {
   const sp = useSearchParams();
   const pid = (sp.get("product") as ProductId) || "study";
   const product = PRODUCTS[pid] && PRODUCTS[pid].payable ? PRODUCTS[pid] : PRODUCTS.study;
-  const qty = Math.max(1, Math.min(product.id === "study" ? 10 : 5, Number(sp.get("qty")) || 1));
+  const qty = Math.max(1, Math.min(10, Number(sp.get("qty")) || 1));
   const amount = calcAmount(product.id, qty);
   const name = orderName(product.id, qty);
 
@@ -89,14 +91,15 @@ export default function CheckoutClient() {
       <Link href={product.href} className="text-[14px] text-brown/60 hover:text-brown">← {product.short} 상세로 돌아가기</Link>
       <h1 className="h-display mt-4 text-[32px] md:text-[44px]">결제하기</h1>
       {isTossTestMode() && (
-        <p className="mt-4 inline-flex rounded-full bg-brown px-4 py-1.5 text-[13px] font-semibold text-butter">
-          테스트 모드 · 실제로 결제되지 않아요
-        </p>
+        <div className="mt-5 rounded-xl border border-brown/15 bg-white/80 p-4 text-[14px] text-brown/80">
+          <p className="font-semibold text-brown-dark">카드 결제 준비 중 · 지금은 테스트 모드라 실제로 결제되지 않아요</p>
+          {BANK ? <p className="mt-1">계좌이체로 결제하실 수 있어요: <b className="text-brown-dark">{BANK}</b> (입금자명에 이름을 적어주세요)</p> : <p className="mt-1">결제는 신청 접수 후 메일로 안내드려요.</p>}
+        </div>
       )}
 
       <form onSubmit={pay} className="mt-10 grid gap-6 md:grid-cols-[1.25fr_1fr]">
         <div className="space-y-6">
-          <div className="card p-6 md:p-8">
+          <div className="card !bg-white/90 p-6 md:p-8">
             <p className="text-[16px] font-bold text-brown-dark">신청자 정보</p>
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div>
@@ -112,12 +115,12 @@ export default function CheckoutClient() {
                 <input id="c-email" name="email" type="email" required className="field" placeholder="you@example.com" />
               </div>
               <div className="sm:col-span-2">
-                <label className="label" htmlFor="c-memo">자동화하고 싶은 업무 · 희망 일정 (선택)</label>
-                <textarea id="c-memo" name="memo" rows={3} className="field resize-none" placeholder="예) 평일 저녁 7시 이후, 주간 보고서 자동화" />
+                <label className="label" htmlFor="c-memo">자동화하고 싶은 업무 (선택)</label>
+                <textarea id="c-memo" name="memo" rows={3} className="field resize-none" placeholder="예) 주간 보고서 자동화" />
               </div>
             </div>
           </div>
-          <div className="card overflow-hidden p-2 md:p-4">
+          <div className="card overflow-hidden !bg-white/90 p-2 md:p-4">
             <div id="payment-method" />
             <div id="agreement" />
             {!widgetReady && !error && <p className="p-6 text-center text-[14px] text-brown/50">결제 수단을 불러오는 중…</p>}
@@ -138,7 +141,7 @@ export default function CheckoutClient() {
             <button disabled={!widgetReady} className="btn-yellow mt-6 w-full !py-4 text-[16px] disabled:opacity-50">
               {won(amount)} 결제하기
             </button>
-            <p className="mt-4 text-center text-[12px] text-butter-pale/50">결제 후 24시간 안에 일정 안내 메일을 드려요</p>
+            <p className="mt-4 text-center text-[12px] text-butter-pale/50">결제 후 24시간 안에 안내 메일을 드려요 · 1회차 시작 전 전액 환불</p>
           </div>
         </aside>
       </form>

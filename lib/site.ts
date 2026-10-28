@@ -2,7 +2,7 @@
 export const SITE = {
   name: "Star of AI",
   domain: "https://www.starof-ai.com",
-  tagline: "AI 자동화 전문 컨설팅, Star of AI",
+  tagline: "AX 에이전시, Star of AI",
   owner: "이경서 (Winter)",
   company: "대기만성",
   email: "starofleee@gmail.com",
@@ -15,9 +15,9 @@ export const SITE = {
 };
 
 export const NAV = [
-  { href: "/study", label: "클로드 코드 스터디", en: "Study" },
-  { href: "/workflow", label: "자동화 셋팅 대행", en: "Workflow" },
-  { href: "/enterprise", label: "기업 AX", en: "Enterprise" },
+  { href: "/study", label: "자동화 기초 강의", en: "Starters" },
+  { href: "/consulting", label: "1:1 AX 컨설팅", en: "Workers" },
+  { href: "/enterprise", label: "기업 AX", en: "Company" },
 ];
 
 export const OTHER_PROJECTS = [

@@ -1,50 +1,32 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import type { DaySlots } from "@/lib/slots";
 
-const CAL_LINK = process.env.NEXT_PUBLIC_CAL_LINK; // 예: "starofai/coffee-chat"
-
-const TOPICS = ["업무 자동화가 막막해요", "AI 강의·스터디가 궁금해요", "회사 AX 도입을 고민 중이에요", "기타"];
-const TIMES = ["10:00", "11:00", "14:00", "15:00", "16:00", "19:30", "20:30"];
-
-function nextDays(n: number) {
-  const out: Date[] = [];
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  while (out.length < n) {
-    d.setDate(d.getDate() + 1);
-    const w = d.getDay();
-    if (w !== 0) out.push(new Date(d)); // 일요일 제외
-  }
-  return out;
-}
-const fmt = (d: Date) => `${d.getMonth() + 1}/${d.getDate()}`;
-const wd = (d: Date) => "일월화수목금토"[d.getDay()];
-const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const TOPICS = ["업무 자동화가 막막해요", "AI 강의·스터디가 궁금해요", "1:1 AX 컨설팅을 고민 중이에요", "회사 AX 도입을 고민 중이에요", "기타"];
+const WD = "일월화수목금토";
 
 export default function CoffeeChat() {
-  if (CAL_LINK) {
-    // Cal.com이 연결되면: 실시간 빈 시간 · 줌 링크 자동 생성 · 24시간 전 리마인드 · 취소/변경 버튼 메일이 모두 자동
-    return (
-      <div className="overflow-hidden rounded-[28px] border border-brown/10 bg-white shadow-[0_30px_60px_-30px_rgba(97,66,21,.35)]">
-        <iframe
-          title="무료 커피챗 예약"
-          src={`https://cal.com/${CAL_LINK}?embed=true&theme=light&layout=month_view&brandColor=%23614215`}
-          className="h-[720px] w-full"
-          loading="lazy"
-        />
-      </div>
-    );
-  }
-  return <RequestForm />;
-}
-
-function RequestForm() {
-  const days = useMemo(() => nextDays(10), []);
-  const [day, setDay] = useState<string>("");
-  const [time, setTime] = useState<string>("");
-  const [topic, setTopic] = useState(TOPICS[0]);
+  const [days, setDays] = useState<DaySlots[] | null>(null);
+  const [live, setLive] = useState(false);
+  const [day, setDay] = useState("");
+  const [time, setTime] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [msg, setMsg] = useState("");
+  const [result, setResult] = useState<{ when: string; link?: string; confirmed: boolean } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/availability")
+      .then((r) => r.json())
+      .then((d: { live: boolean; days: DaySlots[] }) => {
+        setDays(d.days);
+        setLive(d.live);
+        const first = d.days.find((x) => x.slots.length);
+        if (first) setDay(first.date);
+      })
+      .catch(() => setDays([]));
+  }, []);
+
+  const current = useMemo(() => days?.find((d) => d.date === day), [days, day]);
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -58,119 +40,118 @@ function RequestForm() {
     const res = await fetch("/api/coffee-chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: f.get("name"),
-        email: f.get("email"),
-        concern: f.get("concern"),
-        topic,
-        date: day,
-        time,
-      }),
+      body: JSON.stringify({ name: f.get("name"), email: f.get("email"), concern: f.get("concern"), topic: f.get("topic"), date: day, time }),
     }).catch(() => null);
     const data = res ? await res.json().catch(() => ({})) : {};
-    if (res?.ok) setState("done");
-    else {
+    if (res?.ok) {
+      setResult({ when: data.when, link: data.link, confirmed: data.confirmed });
+      setState("done");
+    } else {
       setState("error");
       setMsg(data.error || "전송에 실패했어요. 잠시 후 다시 시도해 주세요.");
+      if (res?.status === 409) {
+        setTime("");
+        fetch("/api/availability").then((r) => r.json()).then((d) => setDays(d.days)).catch(() => {});
+      }
     }
   }
 
-  if (state === "done")
+  if (state === "done" && result)
     return (
-      <div className="card p-10 text-center">
-        <p className="font-serif text-5xl italic text-brown">Thank you</p>
-        <p className="mt-4 text-[17px] font-semibold text-brown-dark">커피챗 신청이 접수됐어요.</p>
-        <p className="mt-2 text-[15px] text-brown/70">
-          {day} {time} 일정 확인 후 줌 링크를 메일로 보내드릴게요.
+      <div className="card p-8 md:p-10">
+        <p className="eyebrow">{result.confirmed ? "Confirmed" : "Received"}</p>
+        <p className="mt-3 text-[22px] font-bold text-brown-dark">{result.confirmed ? "커피챗 예약이 확정됐어요." : "커피챗 신청이 접수됐어요."}</p>
+        <p className="mt-2 text-[15px] leading-relaxed text-brown/70">
+          {result.when} · 30분 · 온라인
           <br />
-          미팅 하루 전에 리마인드 메일도 함께 드려요.
+          {result.confirmed ? "캘린더 초대와 미팅 링크를 메일로 보냈어요. 하루 전에 리마인드도 드릴게요." : "일정 확인 후 미팅 링크를 메일로 보내드릴게요."}
         </p>
+        {result.link && (
+          <a href={result.link} target="_blank" rel="noreferrer" className="btn-primary mt-6 !py-3 !text-[14px]">
+            미팅 링크 열기
+          </a>
+        )}
       </div>
     );
 
   return (
-    <form onSubmit={submit} className="card grid min-w-0 gap-6 !bg-cream p-6 md:p-8">
+    <form onSubmit={submit} className="card grid min-w-0 gap-7 p-6 md:p-8">
       <div className="min-w-0">
-        <span className="label">1. 날짜를 골라주세요</span>
-        <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
-          {days.map((d) => {
-            const v = iso(d);
-            const on = v === day;
-            return (
-              <button
-                type="button"
-                key={v}
-                onClick={() => setDay(v)}
-                className={`flex w-[64px] shrink-0 flex-col items-center rounded-2xl border py-3 transition-all ${
-                  on ? "border-brown bg-brown text-butter shadow-lg" : "border-brown/15 bg-white text-brown hover:border-brown/40"
-                } ${d.getDay() === 6 ? "text-[#B0702A]" : ""}`}
-              >
-                <span className="text-[11px] opacity-70">{wd(d)}</span>
-                <span className="text-[16px] font-bold">{fmt(d)}</span>
+        <div className="mb-2 flex items-baseline justify-between">
+          <span className="label !mb-0">날짜</span>
+          <span className="text-[12px] text-brown/45">{live ? "캘린더 기준 실시간" : "오늘부터 2주"}</span>
+        </div>
+        {days === null ? (
+          <div className="h-[62px] animate-pulse rounded-xl bg-paper" />
+        ) : (
+          <div className="no-scrollbar -mx-1 flex gap-1.5 overflow-x-auto px-1 pb-1">
+            {days.map((d) => {
+              const on = d.date === day;
+              const off = d.slots.length === 0;
+              const dd = Number(d.date.slice(8));
+              return (
+                <button
+                  type="button"
+                  key={d.date}
+                  disabled={off}
+                  onClick={() => {
+                    setDay(d.date);
+                    setTime("");
+                  }}
+                  className={`pick flex w-[54px] shrink-0 flex-col items-center !px-0 ${on ? "pick-on" : ""} ${d.weekday === 0 || d.weekday === 6 ? "text-[#B0702A]" : ""}`}
+                >
+                  <span className="text-[11px] opacity-60">{WD[d.weekday]}</span>
+                  <span className="text-[16px] font-bold">{dd}</span>
+                </button>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      <div>
+        <span className="label">시간 <span className="font-normal text-brown/45">· 30분</span></span>
+        {current && current.slots.length ? (
+          <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-5">
+            {current.slots.map((t) => (
+              <button type="button" key={t} onClick={() => setTime(t)} className={`pick ${t === time ? "pick-on" : ""}`}>
+                {t}
               </button>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <p className="rounded-xl bg-paper px-4 py-3 text-[14px] text-brown/60">{days ? "날짜를 먼저 골라주세요." : "가능한 시간을 불러오는 중…"}</p>
+        )}
       </div>
-      <div>
-        <span className="label">2. 시간을 골라주세요 (30분)</span>
-        <div className="flex flex-wrap gap-2">
-          {TIMES.map((t) => (
-            <button
-              type="button"
-              key={t}
-              onClick={() => setTime(t)}
-              className={`rounded-full border px-4 py-2 text-[14px] font-semibold transition-all ${
-                t === time ? "border-brown bg-butter text-brown-dark" : "border-brown/15 bg-white text-brown hover:border-brown/40"
-              }`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div>
-        <span className="label">3. 어떤 이야기를 나누고 싶으세요?</span>
-        <div className="flex flex-wrap gap-2">
-          {TOPICS.map((t) => (
-            <button
-              type="button"
-              key={t}
-              onClick={() => setTopic(t)}
-              className={`rounded-full border px-4 py-2 text-[13.5px] transition-all ${
-                t === topic ? "border-brown bg-brown text-butter" : "border-brown/15 bg-white text-brown hover:border-brown/40"
-              }`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2">
+
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="label" htmlFor="cc-name">이름</label>
           <input id="cc-name" name="name" required className="field" placeholder="홍길동" />
         </div>
         <div>
-          <label className="label" htmlFor="cc-email">메일 (줌 링크를 보내드려요)</label>
+          <label className="label" htmlFor="cc-email">메일</label>
           <input id="cc-email" name="email" type="email" required className="field" placeholder="you@example.com" />
         </div>
+        <div className="sm:col-span-2">
+          <label className="label" htmlFor="cc-topic">나누고 싶은 이야기</label>
+          <select id="cc-topic" name="topic" className="field" defaultValue={TOPICS[0]}>
+            {TOPICS.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+        <div className="sm:col-span-2">
+          <label className="label" htmlFor="cc-concern">자동화 고민 <span className="font-normal text-brown/45">· 선택</span></label>
+          <textarea id="cc-concern" name="concern" rows={3} className="field resize-none" placeholder="예) 매주 월요일마다 엑셀 3개를 합쳐서 보고서를 만드는데, 2시간씩 걸려요." />
+        </div>
       </div>
-      <div>
-        <label className="label" htmlFor="cc-concern">자동화 고민을 편하게 적어주세요</label>
-        <textarea
-          id="cc-concern"
-          name="concern"
-          rows={4}
-          className="field resize-none"
-          placeholder="예) 매주 월요일마다 엑셀 3개를 합쳐서 보고서를 만드는데, 2시간씩 걸려요."
-        />
-      </div>
-      {msg && <p className="text-[14px] font-medium text-[#B04A1A]">{msg}</p>}
-      <button disabled={state === "sending"} className="btn-primary w-full !py-4 text-[16px] disabled:opacity-60">
-        {state === "sending" ? "보내는 중…" : "무료 커피챗 예약하기"}
+
+      {msg && <p className="-mt-2 text-[14px] font-medium text-[#B04A1A]">{msg}</p>}
+      <button disabled={state === "sending" || !days} className="btn-primary w-full !py-4 text-[16px] disabled:opacity-60">
+        {state === "sending" ? "예약하는 중…" : day && time ? `${Number(day.slice(5, 7))}/${Number(day.slice(8))} ${time} 예약하기` : "무료 커피챗 예약하기"}
       </button>
-      <p className="-mt-2 text-center text-[12px] text-brown/50">30분 · 온라인(줌) · 영업 전화는 하지 않아요</p>
+      <p className="-mt-3 text-center text-[12px] text-brown/50">온라인 미팅 링크가 메일로 가요 · 영업 전화는 하지 않아요</p>
     </form>
   );
 }

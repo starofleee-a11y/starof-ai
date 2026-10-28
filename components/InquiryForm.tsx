@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
 
-const TYPES = ["기업 AX 강의", "기업 AX 컨설팅", "강의 + 컨설팅 패키지", "클로드 코드 스터디 (단체)", "자동화 셋팅 대행", "기타 문의"];
+export const INQUIRY_TYPES = ["기업 AI 원데이 강의", "기업 AX 컨설팅", "기업 맞춤 SaaS 개발", "기타 문의"];
 const SIZES = ["1~10명", "11~50명", "51~200명", "200명 이상"];
 
-export default function InquiryForm({ defaultType = TYPES[0], compact = false }: { defaultType?: string; compact?: boolean }) {
+export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = false }: { defaultType?: string; compact?: boolean }) {
   const [type, setType] = useState(defaultType);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [err, setErr] = useState("");
@@ -28,27 +28,20 @@ export default function InquiryForm({ defaultType = TYPES[0], compact = false }:
 
   if (state === "done")
     return (
-      <div className="card p-10 text-center">
-        <p className="font-serif text-5xl italic text-brown">Thank you</p>
-        <p className="mt-4 text-[17px] font-semibold text-brown-dark">문의가 접수됐어요.</p>
+      <div className="card p-10">
+        <p className="eyebrow">Received</p>
+        <p className="mt-3 text-[22px] font-bold text-brown-dark">문의가 접수됐어요.</p>
         <p className="mt-2 text-[15px] text-brown/70">영업일 기준 1일 안에 남겨주신 메일로 회신드릴게요.</p>
       </div>
     );
 
   return (
-    <form onSubmit={submit} className={`card grid gap-5 !bg-cream ${compact ? "p-6" : "p-6 md:p-10"}`}>
+    <form onSubmit={submit} className={`card grid gap-5 ${compact ? "p-6" : "p-6 md:p-9"}`}>
       <div>
         <span className="label">문의 유형</span>
-        <div className="flex flex-wrap gap-2">
-          {TYPES.map((t) => (
-            <button
-              type="button"
-              key={t}
-              onClick={() => setType(t)}
-              className={`rounded-full border px-4 py-2 text-[13.5px] transition-all ${
-                t === type ? "border-brown bg-brown text-butter" : "border-brown/15 bg-white text-brown hover:border-brown/40"
-              }`}
-            >
+        <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+          {INQUIRY_TYPES.map((t) => (
+            <button type="button" key={t} onClick={() => setType(t)} className={`pick !px-2 text-[13px] ${t === type ? "pick-on" : ""}`}>
               {t}
             </button>
           ))}

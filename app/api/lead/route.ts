@@ -4,8 +4,8 @@ import { notifySlack, clean, isEmail } from "@/lib/notify";
 export const runtime = "nodejs";
 
 const LABEL: Record<string, string> = {
-  study: "클로드 코드 스터디 · 1화 강의 교안",
-  workflow: "자동화 셋팅 가이드 & 커리큘럼",
+  study: "자동화 기초 강의 · 1화 강의 교안",
+  consulting: "1:1 AX 컨설팅 · 자동화 셋팅 가이드 & 커리큘럼",
 };
 
 export async function POST(req: NextRequest) {
