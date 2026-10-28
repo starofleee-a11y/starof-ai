@@ -1,9 +1,10 @@
 import { REVIEWS, SURVEY } from "@/lib/proof";
+import Quote from "./Quote";
 
 function Card({ r }: { r: (typeof REVIEWS)[number] }) {
   return (
-    <figure className="mx-2 flex w-[300px] shrink-0 flex-col justify-between rounded-2xl border border-brown/10 bg-white p-6 md:w-[340px]">
-      <blockquote className="text-[15px] leading-relaxed text-brown-dark">“{r.quote}”</blockquote>
+    <figure className={`mx-2 flex w-[300px] shrink-0 flex-col justify-between rounded-2xl border p-6 md:w-[340px] ${r.hot ? "border-butter bg-butter-pale" : "border-brown/10 bg-white"}`}>
+      <blockquote className="text-[15px] leading-relaxed text-brown/85">“<Quote text={r.quote} />”</blockquote>
       <figcaption className="mt-5 flex items-center justify-between text-[12px] text-brown/75">
         <span>{r.who}</span>
         <span className="font-semibold text-brown">추천 {r.score}/10</span>

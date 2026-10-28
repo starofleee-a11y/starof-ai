@@ -10,6 +10,8 @@ import FAQ from "@/components/FAQ";
 import StickyBar from "@/components/StickyBar";
 import { PRODUCTS } from "@/lib/products";
 import { DeliverableGallery, Voices } from "@/components/Deliverables";
+import Quote from "@/components/Quote";
+import { EDGE } from "@/lib/proof";
 import ProjectMarquee from "@/components/ProjectMarquee";
 import ImageBand from "@/components/ImageBand";
 import Hl from "@/components/Hl";
@@ -134,6 +136,32 @@ export default function ConsultingPage() {
       <section className="wrap py-24 md:py-32">
         <SectionHead eyebrow="What you get" title="컨설팅이 끝나면 손에 남는 것" desc="설계서, 설치된 스킬, 결과 확인 화면. 실제 산출물 형태 그대로 보여드려요. 고객사 이름과 숫자 같은 기밀은 블러 처리했습니다." />
         <DeliverableGallery />
+      </section>
+
+      {/* EDGE — 우리 AX 컨설팅의 차별점 3가지 */}
+      <section className="bg-brown-dark py-24 text-butter-pale md:py-32">
+        <div className="wrap">
+          <Reveal>
+            <p className="text-[12px] font-semibold uppercase tracking-[0.2em] text-butter/80">Why Star of AI</p>
+            <h2 className="mt-4 max-w-3xl break-keep font-kserif text-[30px] font-bold leading-[1.25] text-butter-pale md:text-[44px]">
+              우리 AX 컨설팅의 <span className="text-butter">차별점 3가지</span>
+            </h2>
+            <p className="mt-5 max-w-2xl text-[16px] leading-relaxed text-butter-pale/75">산출물 하나하나를 어떤 기준으로 만드는지, 세 가지로 정리했어요.</p>
+          </Reveal>
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {EDGE.map((e, i) => (
+              <Reveal key={e.n} delay={i * 110}>
+                <div className="flex h-full flex-col rounded-2xl border border-butter/20 bg-white/[0.06] p-8 backdrop-blur-sm">
+                  <p className="font-serif text-[40px] font-semibold leading-none text-butter">{e.n}</p>
+                  <h3 className="mt-6 break-keep text-[19px] font-bold leading-snug text-white md:text-[21px]">{e.title}</h3>
+                  <p className="mt-4 text-[15px] leading-[1.8] text-butter-pale/80">
+                    <Quote text={e.desc} className="!text-butter" />
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* VOICES */}

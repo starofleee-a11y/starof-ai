@@ -2,6 +2,7 @@ import Reveal from "./Reveal";
 import CountUp from "./CountUp";
 import Hl from "./Hl";
 import { RESULTS, REVIEWS, SURVEY, LECTURES } from "@/lib/proof";
+import Quote from "./Quote";
 
 const PICKED = [REVIEWS[0], REVIEWS[2], REVIEWS[6]];
 
@@ -67,7 +68,7 @@ export default function Proof() {
             <ul className="mt-8 space-y-5 border-t border-brown/10 pt-7">
               {PICKED.map((r) => (
                 <li key={r.quote}>
-                  <p className="text-[16px] font-medium leading-relaxed text-brown-dark md:text-[17px]">“{r.quote}”</p>
+                  <p className="text-[16px] font-medium leading-relaxed text-brown/85 md:text-[17px]">“<Quote text={r.quote} />”</p>
                   <p className="mt-1.5 text-[12.5px] text-brown/65">{r.who}</p>
                 </li>
               ))}

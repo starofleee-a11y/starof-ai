@@ -107,10 +107,10 @@ export default function StudyPage() {
         <ImageBand
           eyebrow="강의 현장"
           images={[
-            { src: "/images/lectures/gsb-2026-09.jpg", alt: "클로드 코드 워크샵 강의 현장", caption: "설치부터 같이 하는 워크샵" },
-            { src: "/images/lecture-gsb.jpg", alt: "워크샵 참여자들", caption: "성균관대 GSB 워크샵" },
-            { src: "/images/gsb-poster-1.jpg", alt: "클로드 코드 강의 포스터", caption: "강의 포스터" },
-            { src: "/images/study-ep1-cover.jpg", alt: "1화 강의 교안 표지", caption: "1화 교안 (무료 PDF)" },
+            { src: "/images/lectures/study1-class.jpg", alt: "1기 1회차 강의 현장", caption: "1회차 · 설치부터 같이 하는 첫 수업" },
+            { src: "/images/lectures/study1-lead.jpg", alt: "스터디장 Winter의 강의 모습", caption: "스터디장이 직접 화면을 보며 진행" },
+            { src: "/images/lectures/study1-present-a.jpg", alt: "1기 수강생 발표 현장", caption: "4회차 · 내 자동화 발표" },
+            { src: "/images/lectures/study1-present-b.jpg", alt: "1기 수강생이 자동화를 발표하는 모습", caption: "4회차 · 수강생 발표" },
           ]}
         />
       </section>
@@ -149,10 +149,15 @@ export default function StudyPage() {
         <div className="grid gap-4 md:grid-cols-2">
           {STUDENT_PROJECTS.map((pr, i) => (
             <Reveal key={pr.title} delay={i * 80}>
-              <div className="card h-full p-7">
-                <p className="font-serif text-[15px] italic text-olive">0{i + 1}</p>
-                <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-brown/85">{pr.desc}</p>
+              <div className="card h-full overflow-hidden">
+                <div className="relative aspect-[16/9] border-b border-brown/10 bg-paper">
+                  <Image src={pr.image} alt={pr.alt} fill sizes="(min-width:768px) 50vw, 100vw" className="object-cover" />
+                </div>
+                <div className="p-7">
+                  <p className="font-serif text-[15px] italic text-olive">0{i + 1} · 4회차 발표 자료</p>
+                  <h3 className="mt-3 text-[18px] font-bold text-brown-dark">{pr.title}</h3>
+                  <p className="mt-2 text-[14.5px] leading-relaxed text-brown/85">{pr.desc}</p>
+                </div>
               </div>
             </Reveal>
           ))}

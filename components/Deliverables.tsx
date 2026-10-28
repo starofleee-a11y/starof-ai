@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
+import Quote from "./Quote";
 import { DELIVERABLES, CLIENT_QUOTES } from "@/lib/proof";
 import { STUDY_REVIEWS } from "@/lib/study";
 
@@ -32,8 +33,8 @@ export function Voices({ limit }: { limit?: number }) {
     <div className="grid gap-4 md:grid-cols-2">
       {list.map((r, i) => (
         <Reveal key={r.who + i} delay={i * 80}>
-          <figure className="glass-card h-full">
-            <blockquote className="text-[15.5px] leading-[1.8] text-brown-dark">“{r.quote}”</blockquote>
+          <figure className={`glass-card h-full ${"featured" in r && r.featured ? "!border-butter !bg-butter-pale/80" : ""}`}>
+            <blockquote className="text-[15.5px] leading-[1.8] text-brown/85">“<Quote text={r.quote} hl />”</blockquote>
             <figcaption className="mt-5 text-[13px] text-brown/75">— {r.who}</figcaption>
           </figure>
         </Reveal>

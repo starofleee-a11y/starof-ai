@@ -40,6 +40,13 @@ const PILLARS: { tone: Tone; q: string; a: string; href: string; label: string }
   },
 ];
 
+// 세 카드의 명도를 확실히 다르게: Starters 밝은 노랑 → Workers 중간 올리브 → Company 진한 브라운
+const PILLAR_STYLE: Record<Tone, { kr: string; card: string; eyebrow: string; label: string; q: string; a: string; link: string }> = {
+  starters: { kr: "입문자", card: "border-butter-deep bg-butter", eyebrow: "text-brown/70", label: "text-brown-dark", q: "text-brown-dark", a: "text-brown/85", link: "text-brown-dark" },
+  workers: { kr: "실무자", card: "border-sage/40 bg-sage-soft", eyebrow: "text-sage", label: "text-sage", q: "text-brown-dark", a: "text-brown/85", link: "text-sage" },
+  company: { kr: "기업", card: "border-brown-dark bg-brown-dark", eyebrow: "text-butter/80", label: "text-butter", q: "text-butter-pale", a: "text-butter-pale/80", link: "text-butter" },
+};
+
 export default function Home() {
   return (
     <>
@@ -69,14 +76,15 @@ export default function Home() {
         />
         <div className="grid gap-4 md:grid-cols-3">
           {PILLARS.map((p, i) => {
-            const t = TONES[p.tone];
+            const c = PILLAR_STYLE[p.tone];
             return (
             <Reveal key={p.tone} delay={i * 100}>
-              <Link href={p.href} className={`group flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(97,66,21,.5)] ${t.bg} ${t.border}`}>
-                <p className={`font-serif text-[30px] font-semibold leading-none ${t.text}`}>{t.label}</p>
-                <p className="mt-8 text-[17px] font-bold leading-snug text-brown-dark">{p.q}</p>
-                <p className="mt-4 text-[15px] leading-relaxed text-brown/85">{p.a}</p>
-                <span className={`mt-auto inline-flex items-center gap-2 pt-8 text-[14px] font-semibold ${t.text}`}>
+              <Link href={p.href} className={`group flex h-full flex-col rounded-2xl border p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_24px_50px_-30px_rgba(97,66,21,.6)] ${c.card}`}>
+                <p className={`text-[11px] font-semibold uppercase tracking-[0.22em] ${c.eyebrow}`}>0{i + 1} · {c.kr}</p>
+                <p className={`mt-3 font-serif text-[44px] font-bold leading-none tracking-tight md:text-[52px] ${c.label}`}>{TONES[p.tone].label}</p>
+                <p className={`mt-8 text-[17px] font-bold leading-snug ${c.q}`}>{p.q}</p>
+                <p className={`mt-4 text-[15px] leading-relaxed ${c.a}`}>{p.a}</p>
+                <span className={`mt-auto inline-flex items-center gap-2 pt-8 text-[14px] font-bold ${c.link}`}>
                   {p.label}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </span>
