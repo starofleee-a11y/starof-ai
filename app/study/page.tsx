@@ -64,7 +64,8 @@ export default function StudyPage() {
       </ProductHero>
 
       {/* ANCHOR NAV */}
-      <div className="wrap -mt-6 mb-10 flex flex-wrap items-center gap-2 md:-mt-10">
+      {/* 히어로가 relative 라 위로 겹쳐 오르면 가려지므로 z-10 — 모바일에서 칩 윗줄이 잘리던 문제 */}
+      <div className="wrap relative z-10 -mt-6 mb-10 flex flex-wrap items-center gap-2 md:-mt-10">
         {[["일정", "#schedule"], ["결과물", "#results"], ["현장", "#gallery"], ["커리큘럼", "#curriculum"], ["포함 사항", "#included"], ["강사", "#host"], ["후기", "#reviews"], ["신청", "#apply"], ["질문", "#faq"]].map(([t, h]) => (
           <a key={h} href={h} className="rounded-full border border-brown/20 bg-white px-4 py-2 text-[13px] font-bold text-brown-dark transition hover:border-brown-dark hover:bg-brown-dark hover:text-butter">{t}</a>
         ))}
@@ -259,12 +260,15 @@ export default function StudyPage() {
         <Reveal>
           <p className="mb-5 text-[12px] font-bold uppercase tracking-[0.2em] text-brown">교안 · 실습 결과물</p>
         </Reveal>
-        <div className="grid grid-cols-2 items-start gap-3 md:grid-cols-4 md:gap-4">
+        {/* 모든 카드가 같은 4:3 박스 — 비율이 다른 이미지는 잘리지 않게 안쪽에 맞춰 넣어요 */}
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
           {STUDY_MATERIALS.map((im, i) => (
-            <Reveal key={im.src} delay={i * 90}>
-              <figure className="overflow-hidden rounded-2xl border border-brown/20 bg-white">
-                <Image src={im.src} alt={im.alt} width={im.w} height={im.h} className="h-auto w-full" />
-                <figcaption className="border-t border-brown/10 px-3 py-2.5 text-[12.5px] font-semibold text-brown-dark">{im.caption}</figcaption>
+            <Reveal key={im.src} delay={i * 90} className="h-full">
+              <figure className="flex h-full flex-col overflow-hidden rounded-2xl border border-brown/20 bg-white">
+                <div className="relative aspect-[4/3] bg-paper p-2">
+                  <Image src={im.src} alt={im.alt} fill sizes="(min-width:768px) 25vw, 50vw" className="object-contain p-2" />
+                </div>
+                <figcaption className="flex min-h-[44px] items-center border-t border-brown/10 px-3 py-2.5 text-[12.5px] font-semibold text-brown-dark">{im.caption}</figcaption>
               </figure>
             </Reveal>
           ))}
