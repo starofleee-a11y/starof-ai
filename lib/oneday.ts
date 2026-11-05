@@ -19,7 +19,7 @@ export const ONEDAY = {
       title: "니온앤비욘 챌린지 영상에 내 얼굴 넣어 만들기",
       desc: "요즘 터지는 챌린지 포맷에 AI로 내 얼굴을 합성해, 촬영 없이 내가 등장하는 릴스를 완성해요.",
       out: "내 얼굴이 들어간 챌린지 릴스 1편",
-      ref: { kind: "tiktok" as const, url: "https://www.tiktok.com/@enjoycouple/video/7697502826636905749", label: "참고 영상 · 니온앤비욘 챌린지" },
+      ref: { kind: "video" as const, src: "/videos/challenge.mp4", poster: "/images/oneday/challenge-poster.jpg", wide: true, label: "참고 영상 · 챌린지 영상에 얼굴 합성" },
     },
     {
       no: "02",
@@ -27,7 +27,7 @@ export const ONEDAY = {
       title: "AI 제품 사진으로 인물·제품 촬영 없이 제품 홍보 영상 만들기",
       desc: "제품 사진 한 장으로 AI 모델 컷과 장면을 만들고, 촬영 없이 제품 홍보 영상으로 이어 붙여요.",
       out: "촬영 없이 만든 제품 홍보 릴스 1편",
-      ref: { kind: "instagram" as const, url: "https://www.instagram.com/p/Dej_wuTJOSl/", label: "참고 영상 · AI 제품 릴스" },
+      ref: { kind: "video" as const, src: "/videos/product.mp4", poster: "/images/oneday/product-poster.jpg", wide: false, label: "참고 영상 · AI 제품 릴스" },
     },
     {
       no: "03",
@@ -35,7 +35,7 @@ export const ONEDAY = {
       title: "릴스 후킹 서사 · 스크립트 작성법 · 팁",
       desc: "첫 1초에 붙잡는 후킹 서사 구조, 조회수를 가른 스크립트 작성법과 운영 팁을 실제 사례로 뜯어봐요.",
       out: "내 채널용 후킹 스크립트 템플릿",
-      ref: { kind: "instagram" as const, url: "https://www.instagram.com/p/DdI9grlzQHV/", label: "참고 영상 · 후킹 서사" },
+      ref: { kind: "video" as const, src: "/videos/starofai.mp4", poster: "/images/oneday/starofai-poster.jpg", wide: false, label: "참고 영상 · 첫 1초 후킹 서사" },
     },
     {
       no: "04",
@@ -43,7 +43,7 @@ export const ONEDAY = {
       title: "릴스 자동화 스킬 소개 + 직접 자동화 워크플로우 구축",
       desc: "노션 스크립트부터 제작까지 이어지는 릴스 자동화 스킬을 소개하고, 내 손으로 자동화 워크플로우를 구축해요.",
       out: "내 릴스 자동화 워크플로우",
-      ref: { kind: "flow" as const, url: "", label: "노션 스크립트 → 릴스 업로드까지" },
+      ref: { kind: "flow" as const, src: "", poster: "", wide: true, label: "노션 스크립트 → 릴스 업로드까지, 한 번 셋팅하면 자동" },
     },
   ],
   // 강사의 릴스 성과
@@ -59,7 +59,7 @@ export const ONEDAY = {
     works: [
       { k: "AI 인물 릴스", name: "teach me daddy", desc: "AI로 만든 인물이 등장하는 드라마 릴스 시리즈", media: { kind: "video" as const, src: "/videos/tmd.mp4", poster: "/images/oneday/tmd-poster.jpg" } },
       { k: "AI 제품 릴스", name: "cabin aura", desc: "촬영 없이 AI 제품 사진으로 만든 제품 홍보 릴스", media: { kind: "video" as const, src: "/videos/cabin.mp4", poster: "/images/oneday/cabin-poster.jpg" } },
-      { k: "직접 촬영 + TTS 자막", name: "starof_ai", desc: "직접 촬영한 영상에 TTS 자막을 얹은 정보 콘텐츠", media: { kind: "instagram" as const, src: "https://www.instagram.com/p/DXvtproPECY/" } },
+      { k: "직접 촬영 + TTS 자막", name: "starof_ai", desc: "직접 촬영한 영상에 TTS 자막을 얹은 정보 콘텐츠", media: { kind: "video" as const, src: "/videos/starofai.mp4", poster: "/images/oneday/starofai-poster.jpg" } },
     ],
     workflow: { k: "전 과정 자동화", name: "Reels Workflow", desc: "릴스 노션 스크립트부터 제작까지 전부 자동화로 구축" },
   },

@@ -52,12 +52,9 @@ export default function StudyPage() {
         desc={<>설치와 셋팅을 같이 해보고, 마지막엔 본인 업무 자동화를 실제로 만들어 발표합니다. <b className="font-semibold text-brown-dark">{STUDY.people} 소수 정원</b>으로 한 분씩 막히는 곳을 바로 풀어드려요.</>}
         chips={["강남 오프라인 2회 + 줌 2회", STUDY.weeks, `${STUDY.people} 소수 정원`, won(STUDY.price), `신청 마감 ${STUDY.deadline}`]}
         aside={
-          <div className="grid grid-cols-[1.25fr_1fr] gap-3">
-            {LECTURE_PHOTOS.slice(0, 2).map((ph, i) => (
-              <div key={ph.src} className={`overflow-hidden rounded-2xl border border-white/70 shadow-[0_30px_60px_-40px_rgba(97,66,21,.6)] ${i === 1 ? "mt-10" : ""}`}>
-                <Image src={ph.src} alt={ph.alt} width={ph.w} height={ph.h} className="h-full w-full object-cover" priority={i === 0} />
-              </div>
-            ))}
+          /* 히어로 사진은 한 장만 — 발표 장면을 크게 크롭해서 칸을 꽉 채워요 */
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/70 shadow-[0_30px_60px_-40px_rgba(97,66,21,.6)] md:aspect-[5/6]">
+            <Image src={LECTURE_PHOTOS[0].src} alt={LECTURE_PHOTOS[0].alt} fill sizes="(min-width:768px) 40vw, 100vw" className="scale-[1.18] object-cover object-[50%_42%]" priority />
           </div>
         }
       >

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import FitIllust from "./FitIllust";
 
 /**
  * "이런 분께 딱 맞아요" — 타깃이 하나씩 켜지며 강조돼요.
@@ -20,7 +21,15 @@ export default function FitSpotlight({ items }: { items: { who: string; why: str
       <div className="relative overflow-hidden rounded-3xl bg-brown-dark p-7 text-butter-pale md:p-9">
         <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-butter/70">Who is this for</p>
         {/* 모든 항목을 같은 칸에 겹쳐 두고(높이 = 가장 긴 항목) 켜진 것만 보여요 */}
-        <div className="mt-10 grid md:mt-16">
+        {/* 타깃별 일러스트 — 켜진 항목의 그림만 보여요 */}
+        <div className="mt-6 grid md:mt-8">
+          {items.map((it, i) => (
+            <div key={it.who} className={`mx-auto h-[150px] w-full max-w-[300px] [grid-area:1/1] transition-all duration-500 md:h-[180px] md:max-w-[340px] ${i === on ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`} aria-hidden={i !== on}>
+              <FitIllust i={i} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 grid md:mt-6">
         {items.map((it, i) => (
           <div key={it.who} className={`[grid-area:1/1] transition-all duration-500 ${i === on ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-3 opacity-0"}`} aria-hidden={i !== on}>
             <p className="font-serif text-[15px] italic text-butter/70">0{i + 1} / 0{items.length}</p>

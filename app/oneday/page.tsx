@@ -7,7 +7,6 @@ import FAQ from "@/components/FAQ";
 import Hl from "@/components/Hl";
 import CountUp from "@/components/CountUp";
 import Image from "next/image";
-import MediaEmbed from "@/components/MediaEmbed";
 import ReelVideo from "@/components/ReelVideo";
 import ReelsFlow from "@/components/ReelsFlow";
 import FitSpotlight from "@/components/FitSpotlight";
@@ -85,22 +84,39 @@ export default function OnedayPage() {
           {ONEDAY.curriculum.map((c, i) => {
             const dark = i === 3;
             return (
-              <Reveal key={c.no} delay={i * 70}>
-                <div className={`grid h-full gap-5 rounded-2xl border p-5 sm:grid-cols-[1fr_168px] md:p-6 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
-                  <div className="flex min-w-0 flex-col">
-                    <div className="flex items-center justify-between">
-                      <span className={`font-serif text-[28px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
-                      <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-butter-pale text-brown-dark"}`}>{c.tag}</span>
+              <Reveal key={c.no} delay={i * 70} className="min-w-0">
+                <div className={`flex h-full flex-col rounded-2xl border p-5 md:p-6 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
+                  {/* 세로 영상은 글 옆에, 가로 영상·다이어그램은 글 아래에 */}
+                  <div className={`grid gap-5 ${c.ref.wide ? "" : "sm:grid-cols-[1fr_160px]"}`}>
+                    <div className="flex min-w-0 flex-col">
+                      <div className="flex items-center justify-between">
+                        <span className={`font-serif text-[28px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
+                        <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-butter-pale text-brown-dark"}`}>{c.tag}</span>
+                      </div>
+                      <p className={`mt-5 break-keep text-[20px] font-bold leading-snug ${dark ? "text-butter" : "text-brown-dark"}`}>{c.title}</p>
+                      <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-butter-pale/85" : "text-brown/85"}`}>{c.desc}</p>
+                      <p className={`mt-auto pt-5 text-[13px] font-semibold ${dark ? "text-butter/80" : "text-olive"}`}>결과물 · {c.out}</p>
                     </div>
-                    <p className={`mt-5 break-keep text-[20px] font-bold leading-snug ${dark ? "text-butter" : "text-brown-dark"}`}>{c.title}</p>
-                    <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-butter-pale/85" : "text-brown/85"}`}>{c.desc}</p>
-                    <p className={`mt-auto pt-6 text-[13px] font-semibold ${dark ? "text-butter/80" : "text-olive"}`}>결과물 · {c.out}</p>
+                    {!c.ref.wide && c.ref.kind === "video" && (
+                      <div className="mx-auto w-[160px] sm:mx-0">
+                        <div className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark">
+                          <ReelVideo src={c.ref.src} poster={c.ref.poster} />
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  {/* 참고 영상 — 각 실습이 어떤 결과물을 향하는지 바로 보여줘요 */}
-                  <div className="mx-auto w-[168px] sm:mx-0">
-                    {c.ref.kind === "flow" ? <ReelsFlow /> : <MediaEmbed kind={c.ref.kind} url={c.ref.url} label={c.ref.label} />}
-                    <p className={`mt-2 text-center text-[11px] ${dark ? "text-butter-pale/60" : "text-brown/55"}`}>{c.ref.label}</p>
-                  </div>
+                  {c.ref.wide && (
+                    <div className="mt-5">
+                      {c.ref.kind === "flow" ? (
+                        <ReelsFlow />
+                      ) : (
+                        <div className="relative aspect-video overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark">
+                          <ReelVideo src={c.ref.src} poster={c.ref.poster} />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <p className={`mt-2 text-[11.5px] ${c.ref.wide ? "" : "text-right"} ${dark ? "text-butter-pale/60" : "text-brown/55"}`}>{c.ref.label}</p>
                 </div>
               </Reveal>
             );
@@ -138,7 +154,7 @@ export default function OnedayPage() {
               {ONEDAY.reels.works.map((w) => (
                 <figure key={w.name} className="min-w-0">
                   <div className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark shadow-[0_24px_50px_-30px_rgba(46,31,8,.7)]">
-                    {w.media.kind === "video" ? <ReelVideo src={w.media.src} poster={w.media.poster} /> : <MediaEmbed kind="instagram" url={w.media.src} label={w.name} />}
+                    <ReelVideo src={w.media.src} poster={w.media.poster} />
                   </div>
                   <figcaption className="mt-3">
                     <p className="text-[10.5px] font-bold uppercase tracking-[0.15em] text-olive">{w.k}</p>
