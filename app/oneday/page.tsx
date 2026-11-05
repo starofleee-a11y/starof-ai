@@ -38,8 +38,9 @@ export default function OnedayPage() {
         }
         desc={
           <>
-            <b className="font-semibold text-brown-dark">「{ONEDAY.title}」</b> — 얼굴 합성 챌린지 영상과 촬영 없는 제품 홍보 영상을 직접 만들고, 노션 스크립트부터 제작까지 이어지는{" "}
-            <b className="font-semibold text-brown-dark">릴스 자동화 워크플로우</b>를 내 손으로 구축해요.
+            릴스 제작 어떻게 할지 막막하셨다구요? 릴스 누적 조회수 <b className="font-semibold text-brown-dark">50만회 이상</b>, 카드뉴스 조회수 <b className="font-semibold text-brown-dark">20만회 이상</b> 터뜨려본 AI 인플루언서인 제가, 책임지고 콘텐츠 기획부터 AI 자동화 노하우까지 가르쳐드립니다.
+            <br className="hidden md:block" />
+            11/29 원데이를 통해 AI를 활용해 콘텐츠 자동화를 돌리는 <b className="font-semibold text-brown-dark">전문 크리에이터</b>로 만들어 드립니다 :)
           </>
         }
         chips={[ONEDAY.date, `${ONEDAY.mode} · 강남`, ONEDAY.duration, won(ONEDAY.price), ONEDAY.people]}
@@ -87,8 +88,8 @@ export default function OnedayPage() {
             const tall = c.ref.kind === "video" && !c.ref.wide;
             return (
               <Reveal key={c.no} delay={60} className="min-w-0">
-                <div className={`rounded-3xl border p-6 md:p-8 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
-                  <div className={`grid items-center gap-7 md:gap-10 ${c.ref.kind === "flow" ? "" : tall ? "md:grid-cols-[1fr_220px]" : "md:grid-cols-[1fr_minmax(0,520px)]"}`}>
+                <div className={`min-w-0 overflow-hidden rounded-3xl border p-6 md:p-8 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
+                  <div className={`grid min-w-0 items-center gap-7 md:gap-10 ${c.ref.kind === "flow" ? "grid-cols-1" : tall ? "md:grid-cols-[1fr_220px]" : "md:grid-cols-[1fr_minmax(0,520px)]"}`}>
                     <div className="min-w-0">
                       <div className="flex items-center gap-3">
                         <span className={`font-serif text-[34px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
@@ -107,9 +108,9 @@ export default function OnedayPage() {
                       </div>
                     )}
                     {c.ref.kind === "flow" && (
-                      <div>
+                      <div className="w-full min-w-0 pt-2">
                         <ReelsFlow />
-                        <p className="mt-2 text-[11.5px] text-butter-pale/60">{c.ref.label}</p>
+                        <p className="mt-4 text-[11.5px] text-butter-pale/60">{c.ref.label} · 원이나 항목을 눌러보세요.</p>
                       </div>
                     )}
                   </div>
@@ -133,7 +134,7 @@ export default function OnedayPage() {
             <p className="eyebrow">Host · {SITE.instagramHandle}</p>
             <h2 className="h-display mt-4 text-[30px] md:text-[40px]">릴스 <Hl>50만회+</Hl>를 직접 터뜨리고,<br />그 과정을 전부 자동화한 사람</h2>
             <p className="mt-6 text-[16px] leading-relaxed text-brown/90">
-              15만·16만·7만회 등 도합 50만회가 넘는 릴스를 직접 만들어 터뜨렸어요. AI 인물 릴스, AI 제품 릴스, 직접 촬영 + TTS 자막 콘텐츠까지 세 가지 방식을 모두 운영해 봤고, 지금은 노션 스크립트부터 제작까지 전부 자동으로 돌아가는 워크플로우로 만들고 있어요. 이 수업에서 그 방식을 그대로 넘겨드려요.
+              <b className="font-bold text-brown-dark">여기 보이는 릴스 세 편은 모두 제가 직접 만든 영상이에요.</b> 16만·15만·7만회, 합쳐서 50만회 넘게 터뜨렸어요. AI 인물 릴스, AI 제품 릴스, 직접 촬영 + TTS 자막까지 세 가지 방식을 다 운영해 봤고, 지금은 노션 스크립트부터 제작까지 전부 자동으로 돌아가는 워크플로우를 만들고 있어요. 이 수업에서 그 방식을 그대로 넘겨드려요.
             </p>
             <div className="mt-8 grid grid-cols-3 gap-3">
               {ONEDAY.reels.hits.map((h) => (
@@ -154,7 +155,7 @@ export default function OnedayPage() {
                   </div>
                   <figcaption className="mt-3">
                     <p className="text-[10.5px] font-bold uppercase tracking-[0.15em] text-olive">{w.k}</p>
-                    <p className="mt-0.5 truncate font-serif text-[19px] font-semibold leading-tight text-brown-dark">{w.name}</p>
+                    <p className="mt-0.5 break-words font-serif text-[17px] md:text-[19px] font-semibold leading-tight text-brown-dark">{w.name}</p>
                     <p className="mt-1 text-[12.5px] leading-snug text-brown/75">{w.desc}</p>
                   </figcaption>
                 </figure>
