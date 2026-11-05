@@ -6,7 +6,7 @@ export const SITE = {
   owner: "이경서 (Winter)",
   company: "대기만성",
   bizNo: "830-10-02771", // 사업자등록번호 (실결제 심사 시 사이트 하단에 필요)
-  mailOrderNo: "", // 통신판매업 신고번호 — 신고 후 "2026-서울강남-0000" 처럼 넣으면 하단에 표시돼요
+  mailOrderNo: "제2026-서울강남-05882호", // 통신판매업 신고번호 (2026-10-21 강남구청)
   email: "starofleee@gmail.com",
   phone: "+82 10-3732-8091",
   address: "서울 강남구 언주로 30길",
