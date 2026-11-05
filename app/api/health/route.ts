@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { hasGoogle } from "@/lib/google";
+import { hasSheets } from "@/lib/sheets";
+import { tossMode } from "@/lib/toss";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -15,6 +17,8 @@ export function GET() {
     cron: !!e.CRON_SECRET,
     anthropic: !!e.ANTHROPIC_API_KEY,
     toss: !!(e.NEXT_PUBLIC_TOSS_CLIENT_KEY && e.TOSS_SECRET_KEY),
+    tossMode: tossMode(),
     bank: !!e.NEXT_PUBLIC_BANK_ACCOUNT,
+    sheets: hasSheets(),
   });
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail } from "@/lib/notify";
+import { recordToSheet } from "@/lib/sheets";
 
 export const runtime = "nodejs";
 
@@ -32,9 +33,18 @@ export async function POST(req: NextRequest) {
     footer: "1영업일 안에 회신해 주세요.",
   };
   // 메일과 슬랙 둘 다로 알림
-  const [slack, mail] = await Promise.all([
+  const [slack, mail, sheet] = await Promise.all([
     notifySlack(notice),
     sendMail({ to: OWNER_EMAIL(), subject: `[Star of AI 문의] ${f.type} · ${f.company || f.name}`, html: noticeToHtml(notice), replyTo: f.email }),
+    recordToSheet({
+      kind: "enterprise",
+      name: f.name,
+      email: f.email,
+      phone: f.phone,
+      job: [f.company, f.size].filter(Boolean).join(" · "),
+      detail: f.message,
+      extra: f.type,
+    }),
   ]);
-  return NextResponse.json({ ok: true, slack, mail });
+  return NextResponse.json({ ok: true, slack, mail, sheet });
 }
