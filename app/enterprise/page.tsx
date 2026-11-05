@@ -4,13 +4,15 @@ import Link from "next/link";
 import ProductHero from "@/components/ProductHero";
 import SectionHead from "@/components/SectionHead";
 import Reveal from "@/components/Reveal";
-import InquiryForm from "@/components/InquiryForm";
+import { INQUIRY_TYPES } from "@/lib/inquiry";
 import CaseStudies from "@/components/CaseStudies";
 import ProjectMarquee from "@/components/ProjectMarquee";
 import ImageBand from "@/components/ImageBand";
 import Hl from "@/components/Hl";
 import FAQ from "@/components/FAQ";
-import StickyBar from "@/components/StickyBar";
+import FloatingCTA from "@/components/FloatingCTA";
+import ApplyButton from "@/components/ApplyButton";
+import ApplyModalHost from "@/components/ApplyModalHost";
 import CountUp from "@/components/CountUp";
 import { STATS, LECTURES } from "@/lib/proof";
 
@@ -180,7 +182,18 @@ export default function EnterprisePage() {
             </div>
           </Reveal>
           <Reveal delay={120} className="text-brown-dark">
-            <InquiryForm defaultType="기업 AI 원데이 강의" />
+            {/* 문의 폼은 팝업으로 — 여기선 유형 안내와 버튼만 */}
+            <div className="card p-7 md:p-9">
+              <p className="eyebrow">Inquiry</p>
+              <p className="mt-2 text-[22px] font-bold text-brown-dark">어떤 도움이 필요하세요?</p>
+              <ul className="mt-5 grid gap-2 text-[14.5px] sm:grid-cols-2">
+                {INQUIRY_TYPES.map((t) => (
+                  <li key={t} className="rounded-xl bg-paper px-4 py-3 font-semibold text-brown-dark">{t}</li>
+                ))}
+              </ul>
+              <ApplyButton kind="enterprise" className="btn-primary mt-6 w-full !py-4 text-[16px]">기업 문의 보내기</ApplyButton>
+              <p className="mt-3 text-center text-[12.5px] text-brown/65">회사·인원·의뢰 내용을 남기면 1영업일 안에 맞춤 제안서로 회신드려요.</p>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -190,7 +203,8 @@ export default function EnterprisePage() {
         <FAQ items={FAQS} />
       </section>
 
-      <StickyBar title="기업 AX 강의 · 컨설팅 · SaaS 개발" price="비용 협의" href="#inquiry" cta="문의하기" />
+      <FloatingCTA kind="enterprise" primary="기업 문의하기" secondary={{ label: "프로젝트 사례", href: "#cases" }} note="강의 · 컨설팅 · SaaS 개발 · 비용 협의" />
+      <ApplyModalHost kind="enterprise" />
     </>
   );
 }

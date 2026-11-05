@@ -7,7 +7,9 @@ import LeadMagnet from "@/components/LeadMagnet";
 import CoffeeBanner from "@/components/CoffeeBanner";
 import CaseStudies from "@/components/CaseStudies";
 import FAQ from "@/components/FAQ";
-import StickyBar from "@/components/StickyBar";
+import FloatingCTA from "@/components/FloatingCTA";
+import ApplyButton from "@/components/ApplyButton";
+import ApplyModalHost from "@/components/ApplyModalHost";
 import { PRODUCTS } from "@/lib/products";
 import { DeliverableGallery, Voices } from "@/components/Deliverables";
 import ProjectMarquee from "@/components/ProjectMarquee";
@@ -72,7 +74,8 @@ export default function ConsultingPage() {
         desc={<><b className="font-bold text-brown-dark">컨설턴트가 자동화 작업과 개발을 대행</b>하고, 고객은 컨설팅에서 셋팅을 따라가기만 하면 됩니다. 복잡한 업무의 병목 하나를 <b className="font-bold text-brown-dark">3번의 만남</b>으로 없애요.</>}
         chips={["무료 커피챗으로 시작", "컨설팅 3회 (오프라인 2 · 온라인 1)", `워크플로우 1개당 ${p.priceLabel}`, "개발·셋팅 대행"]}
       >
-        <Link href="/#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
+        <ApplyButton kind="consulting" className="btn-primary">1:1 컨설팅 신청하기</ApplyButton>
+        <Link href="/#coffee-chat" className="btn-ghost">무료 커피챗 예약</Link>
         <Link href="#cases" className="btn-ghost">AX 프로젝트 사례 보기</Link>
       </ProductHero>
 
@@ -181,7 +184,8 @@ export default function ConsultingPage() {
         <FAQ items={FAQS} />
       </section>
 
-      <StickyBar title="1:1 AX 컨설팅 · 컨설팅 3회" price={`${p.priceLabel} / 워크플로우 1개`} href="/#coffee-chat" cta="무료 커피챗" />
+      <FloatingCTA kind="consulting" primary="1:1 컨설팅 신청하기" secondary={{ label: "무료 커피챗", href: "/#coffee-chat" }} note={`${p.priceLabel} / 워크플로우 1개`} />
+      <ApplyModalHost kind="consulting" />
     </>
   );
 }

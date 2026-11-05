@@ -6,15 +6,16 @@ import SectionHead from "@/components/SectionHead";
 import Reveal from "@/components/Reveal";
 import ReviewMarquee from "@/components/ReviewMarquee";
 import LeadMagnet from "@/components/LeadMagnet";
-import StudyApply from "@/components/StudyApply";
+import ApplyButton from "@/components/ApplyButton";
+import ApplyModalHost from "@/components/ApplyModalHost";
 import FAQ from "@/components/FAQ";
-import StickyBar from "@/components/StickyBar";
+import FloatingCTA from "@/components/FloatingCTA";
 import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
 import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES, LETTER } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
 import Hl from "@/components/Hl";
-import { won } from "@/lib/products";
+import { won, FRIEND_DISCOUNT } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "자동화 기초 강의 · 클로드 코드 스터디",
@@ -59,7 +60,7 @@ export default function StudyPage() {
           </div>
         }
       >
-        <Link href="#apply" className="btn-primary">스터디 신청하기</Link>
+        <ApplyButton kind="study" className="btn-primary">스터디 신청하기</ApplyButton>
         <Link href="#free-pdf" className="btn-ghost">1화 교안 무료로 받기</Link>
       </ProductHero>
 
@@ -116,7 +117,7 @@ export default function StudyPage() {
         <Reveal>
           <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-brown/20 bg-white p-6 md:flex-row md:items-center">
             <p className="text-[16px] text-brown-dark"><b className="font-extrabold">참가비 {won(STUDY.price)}</b> · 4회 전부 참석하면 {won(STUDY.refund)} 환급 · {STUDY.people} 소수 정원</p>
-            <Link href="#apply" className="btn-primary shrink-0">신청하기</Link>
+            <ApplyButton kind="study" className="btn-primary shrink-0">신청하기</ApplyButton>
           </div>
         </Reveal>
       </section>
@@ -379,7 +380,24 @@ export default function StudyPage() {
             </Reveal>
           </div>
           <Reveal delay={120}>
-            <StudyApply />
+            {/* 신청서는 팝업으로 — 여기선 요약과 버튼만 */}
+            <div className="card p-7 md:p-9">
+              <p className="eyebrow">Apply</p>
+              <p className="mt-2 text-[22px] font-bold text-brown-dark">{STUDY.cohort}</p>
+              <p className="mt-1 text-[14px] text-brown/75">신청 마감 {STUDY.deadline} · 선정 결과 {STUDY.resultDate}</p>
+              <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 border-y border-brown/10 py-5 text-[14px]">
+                <dt className="text-brown/70">참가비</dt>
+                <dd className="text-right font-bold text-brown-dark">{won(STUDY.price)}</dd>
+                <dt className="text-brown/70">지인할인</dt>
+                <dd className="text-right font-bold text-brown-dark">{won(STUDY.price - FRIEND_DISCOUNT)} <span className="text-[12px] font-semibold text-olive">(-{won(FRIEND_DISCOUNT)})</span></dd>
+                <dt className="text-brown/70">4회 전부 참석</dt>
+                <dd className="text-right font-bold text-brown-dark">{won(STUDY.refund)} 환급</dd>
+                <dt className="text-brown/70">모집 인원</dt>
+                <dd className="text-right font-bold text-brown-dark">{STUDY.people}</dd>
+              </dl>
+              <ApplyButton kind="study" className="btn-primary mt-6 w-full !py-4 text-[16px]">스터디 신청하기</ApplyButton>
+              <p className="mt-3 text-center text-[12.5px] text-brown/65">신청서는 2분이면 끝나요 · 1기 수강생·지인 추천이면 지인할인을 체크해 주세요</p>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -390,7 +408,8 @@ export default function StudyPage() {
         <FAQ items={FAQS} />
       </section>
 
-      <StickyBar title={`${STUDY.cohort} · ${STUDY.weeks}`} price={won(STUDY.price)} href="#apply" cta="신청하기" />
+      <FloatingCTA kind="study" primary="스터디 신청하기" secondary={{ label: "1화 교안 무료 받기", href: "#free-pdf" }} note={`${won(STUDY.price)} · ${STUDY.weeks}`} />
+      <ApplyModalHost kind="study" />
     </>
   );
 }
