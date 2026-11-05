@@ -38,8 +38,9 @@ export default function OnedayPage() {
         }
         desc={
           <>
-            <b className="font-semibold text-brown-dark">「{ONEDAY.title}」</b> — 얼굴 합성 챌린지 영상과 촬영 없는 제품 홍보 영상을 직접 만들고, 노션 스크립트부터 제작까지 이어지는{" "}
-            <b className="font-semibold text-brown-dark">릴스 자동화 워크플로우</b>를 내 손으로 구축해요.
+            릴스 제작 어떻게 할지 막막하셨다구요? 릴스 누적 조회수 <b className="font-semibold text-brown-dark">50만회 이상</b>, 카드뉴스 조회수 <b className="font-semibold text-brown-dark">20만회 이상</b> 터뜨려본 AI 인플루언서인 제가, 책임지고 콘텐츠 기획부터 AI 자동화 노하우까지 가르쳐드립니다.
+            <br className="hidden md:block" />
+            11/29 원데이를 통해 AI를 활용해 콘텐츠 자동화를 돌리는 <b className="font-semibold text-brown-dark">전문 크리에이터</b>로 만들어 드립니다 :)
           </>
         }
         chips={[ONEDAY.date, `${ONEDAY.mode} · 강남`, ONEDAY.duration, won(ONEDAY.price), ONEDAY.people]}
