@@ -158,6 +158,9 @@ body {
 .marquee-mask { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+@keyframes rf-dot { 0% { transform: translateX(0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { transform: translateX(380px); opacity: 0; } }
+.rf-dot { animation: rf-dot 4.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .rf-dot { animation: none; } }
 
 details > summary { list-style: none; }
 details > summary::-webkit-details-marker { display: none; }
@@ -177,9 +180,3 @@ details[open] .faq-icon { transform: rotate(45deg); }
 }
 
 /* 릴스 워크플로우 다이어그램 — 점이 위에서 아래로 흐르고, 노드가 차례로 켜져요 */
-@keyframes flow-dot-x { 0% { left: 1.75rem; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: calc(100% - 1.75rem); opacity: 0; } }
-@keyframes flow-node { 0%, 100% { opacity: .55; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
-.flow-dot-x { animation: flow-dot-x 4s ease-in-out infinite; }
-.flow-node { animation: flow-node 4s ease-in-out infinite; animation-delay: calc(var(--i) * .8s - 1.2s); }
-.flow-icon { animation: flow-icon 4s ease-in-out infinite; animation-delay: calc(var(--i) * .8s - 1.2s); }
-@media (prefers-reduced-motion: reduce) { .flow-dot-x, .flow-node, .flow-icon { animation: none; } }

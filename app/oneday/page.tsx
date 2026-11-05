@@ -108,9 +108,9 @@ export default function OnedayPage() {
                       </div>
                     )}
                     {c.ref.kind === "flow" && (
-                      <div className="w-full min-w-0">
+                      <div className="w-full min-w-0 pt-2">
                         <ReelsFlow />
-                        <p className="mt-2 text-[11.5px] text-butter-pale/60">{c.ref.label}</p>
+                        <p className="mt-4 text-[11.5px] text-butter-pale/60">{c.ref.label} · 원이나 항목을 눌러보세요.</p>
                       </div>
                     )}
                   </div>
