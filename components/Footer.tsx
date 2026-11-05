@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "./Logo";
-import { NAV, OTHER_PROJECTS, SITE } from "@/lib/site";
+import { NAV_LINKS, OTHER_PROJECTS, SITE } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -17,7 +17,7 @@ export default function Footer() {
         <div>
           <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.2em] text-butter/80">Services</p>
           <ul className="space-y-2.5 text-[14px] text-butter-pale/90">
-            {NAV.map((n) => (
+            {NAV_LINKS.map((n) => (
               <li key={n.href}><Link className="hover:text-butter" href={n.href}>{n.label}</Link></li>
             ))}
             <li><Link className="hover:text-butter" href="/#coffee-chat">무료 커피챗</Link></li>

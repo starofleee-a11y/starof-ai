@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail } from "@/lib/notify";
-import { PRODUCTS, type ProductId } from "@/lib/products";
+import { PRODUCTS, type PlanId } from "@/lib/products";
 import { PLAN_CRITERIA, describeHow, pickPlan } from "@/lib/recommend";
 
 export const runtime = "nodejs";
@@ -17,12 +17,12 @@ export interface Diagnosis {
   feasible: "yes" | "partial" | "consult";
   headline: string;
   how: string[];
-  plan: ProductId;
+  plan: PlanId;
   reason: string;
   by: "claude" | "rules";
 }
 
-const PLAN_TEXT: Record<ProductId, string> = {
+const PLAN_TEXT: Record<PlanId, string> = {
   study: "자동화 기초 강의 — 클로드 코드 설치부터 내 업무 자동화 발표까지 3주 4회, 15만원 (Starters)",
   consulting: "1:1 AX 컨설팅 — 컨설턴트가 워크플로우 1개를 대신 구축·셋팅, 컨설팅 3회, 30만원 (Workers)",
   enterprise: "기업 AX — 임직원 교육, 부서 단위 자동화 구축, 맞춤 SaaS 개발, 비용 협의 (Company)",
@@ -66,7 +66,7 @@ how 는 클로드 코드(스킬·커넥터·루틴)로 실제로 어떻게 할�
   const m = text.match(/\{[\s\S]*\}/);
   if (!m) return null;
   const j = JSON.parse(m[0]);
-  const plan: ProductId = ["study", "consulting", "enterprise"].includes(j.plan) ? j.plan : "consulting";
+  const plan: PlanId = ["study", "consulting", "enterprise"].includes(j.plan) ? j.plan : "consulting";
   return {
     feasible: ["yes", "partial", "consult"].includes(j.feasible) ? j.feasible : "partial",
     headline: String(j.headline ?? "").slice(0, 120),

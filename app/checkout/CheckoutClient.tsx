@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
-import { PRODUCTS, calcAmount, orderName, won, type ProductId } from "@/lib/products";
+import { PRODUCTS, FRIEND_DISCOUNT, calcAmount, hasFriendDiscount, orderName, won, type ProductId } from "@/lib/products";
 import { TOSS_CLIENT_KEY, isTossTestMode } from "@/lib/toss";
 
 const BANK = process.env.NEXT_PUBLIC_BANK_ACCOUNT;
@@ -18,8 +18,11 @@ export default function CheckoutClient() {
   const pid = (sp.get("product") as ProductId) || "study";
   const product = PRODUCTS[pid] && PRODUCTS[pid].payable ? PRODUCTS[pid] : PRODUCTS.study;
   const qty = Math.max(1, Math.min(10, Number(sp.get("qty")) || 1));
-  const amount = calcAmount(product.id, qty);
-  const name = orderName(product.id, qty);
+  // 지인할인: /checkout?product=study&friend=추천인 성함
+  const friendName = (sp.get("friend") || "").trim().slice(0, 50);
+  const friend = !!friendName && hasFriendDiscount(product.id);
+  const amount = calcAmount(product.id, qty, friend);
+  const name = orderName(product.id, qty, friend);
 
   const [sdkReady, setSdkReady] = useState(false);
   const [widgetReady, setWidgetReady] = useState(false);
@@ -63,10 +66,10 @@ export default function CheckoutClient() {
       name: String(f.get("name") || ""),
       email: String(f.get("email") || ""),
       phone: String(f.get("phone") || "").replace(/[^0-9]/g, ""),
-      memo: String(f.get("memo") || ""),
+      memo: `${friend ? `[지인할인 · 추천: ${friendName}] ` : ""}${String(f.get("memo") || "")}`,
     };
-    // 주문번호에 상품·수량을 담아 서버가 금액을 다시 검증합니다.
-    const orderId = `${product.id}-${qty}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
+    // 주문번호에 상품·수량·지인할인 여부를 담아 서버가 금액을 다시 검증합니다. (f = 지인할인)
+    const orderId = `${product.id}-${qty}-${friend ? "f" : "n"}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;
     try {
       sessionStorage.setItem(`order:${orderId}`, JSON.stringify(customer));
     } catch {}
@@ -115,8 +118,8 @@ export default function CheckoutClient() {
                 <input id="c-email" name="email" type="email" required className="field" placeholder="you@example.com" />
               </div>
               <div className="sm:col-span-2">
-                <label className="label" htmlFor="c-memo">자동화하고 싶은 업무 (선택)</label>
-                <textarea id="c-memo" name="memo" rows={3} className="field resize-none" placeholder="예) 주간 보고서 자동화" />
+                <label className="label" htmlFor="c-memo">{product.id === "oneday" ? "만들고 싶은 릴스 (선택)" : "자동화하고 싶은 업무 (선택)"}</label>
+                <textarea id="c-memo" name="memo" rows={3} className="field resize-none" placeholder={product.id === "oneday" ? "예) 카페 신메뉴 홍보 릴스" : "예) 주간 보고서 자동화"} />
               </div>
             </div>
           </div>
@@ -134,6 +137,12 @@ export default function CheckoutClient() {
             <p className="mt-2 text-[19px] font-bold text-butter">{name}</p>
             <p className="mt-1 text-[13px] text-butter-pale/75">{product.unit}</p>
             <div className="my-6 h-px bg-butter/15" />
+            {friend && (
+              <div className="mb-3 flex items-baseline justify-between text-[13.5px] text-butter-pale/85">
+                <span>지인할인 · 추천 {friendName}</span>
+                <span className="font-semibold text-butter">-{won(FRIEND_DISCOUNT * qty)}</span>
+              </div>
+            )}
             <div className="flex items-baseline justify-between">
               <span className="text-[14px] text-butter-pale/85">결제 금액</span>
               <span className="font-serif text-[34px] font-semibold text-butter">{won(amount)}</span>

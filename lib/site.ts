@@ -14,11 +14,34 @@ export const SITE = {
   lectureVideos: "https://drive.google.com/drive/folders/1wMJ6ifEQiRHHHgMdnqZMKJZwPXNxI-0G?usp=sharing",
 };
 
-export const NAV = [
-  { href: "/study", label: "자동화 기초 강의", en: "Starters" },
+export interface NavLink {
+  href: string;
+  label: string;
+  en: string;
+  desc?: string;
+}
+export interface NavItem extends Partial<NavLink> {
+  label: string;
+  en: string;
+  children?: NavLink[]; // 있으면 드롭다운 메뉴
+}
+
+// 헤더 메뉴. [클래스]는 두 개의 클래스를 묶은 드롭다운이에요.
+export const NAV: NavItem[] = [
+  {
+    label: "클래스",
+    en: "Classes",
+    children: [
+      { href: "/study", label: "자동화 기초 클래스", en: "Starters", desc: "클로드 코드 설치부터 내 업무 자동화까지 · 3주 4회" },
+      { href: "/oneday", label: "AI 콘텐츠 제작 원데이", en: "Creators", desc: "AI로 릴스 제작 자동화 · 11/29(토) 3시간" },
+    ],
+  },
   { href: "/consulting", label: "1:1 AX 컨설팅", en: "Workers" },
   { href: "/enterprise", label: "기업 AX", en: "Company" },
 ];
+
+/** 드롭다운을 펼친 평평한 링크 목록 (푸터 등) */
+export const NAV_LINKS: NavLink[] = NAV.flatMap((n) => n.children ?? [n as NavLink]);
 
 export const OTHER_PROJECTS = [
   {

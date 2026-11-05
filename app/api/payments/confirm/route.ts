@@ -13,11 +13,12 @@ export async function POST(req: NextRequest) {
   const c = body.customer ?? {};
   const customer = { name: clean(c.name, 50), email: clean(c.email, 120), phone: clean(c.phone, 20), memo: clean(c.memo, 1000) };
 
-  // 1) 주문번호(상품-수량-랜덤)로 금액을 다시 계산해 위·변조를 막습니다.
-  const [pid, qtyStr] = orderId.split("-");
+  // 1) 주문번호(상품-수량-지인할인(f/n)-랜덤)로 금액을 다시 계산해 위·변조를 막습니다.
+  const [pid, qtyStr, flag] = orderId.split("-");
   const product = PRODUCTS[pid as ProductId];
   const qty = Number(qtyStr);
-  if (!paymentKey || !product?.payable || !qty || calcAmount(product.id, qty) !== amount) {
+  const friend = flag === "f";
+  if (!paymentKey || !product?.payable || !qty || calcAmount(product.id, qty, friend) !== amount) {
     return NextResponse.json({ ok: false, message: "주문 정보가 올바르지 않아요." }, { status: 400 });
   }
 
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
     title: `${test ? "[테스트] " : ""}결제 완료 · ${data.orderName ?? product.name}`,
     fields: [
       ["상품", data.orderName ?? product.name],
-      ["금액", won(amount)],
+      ["금액", friend ? `${won(amount)} (지인할인)` : won(amount)],
       ["결제수단", data.method],
       ["이름", customer.name],
       ["메일", customer.email],

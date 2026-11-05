@@ -1,5 +1,6 @@
 // 상품·가격 정의. 결제 금액은 서버에서도 이 표로 다시 계산해서 위·변조를 막습니다.
-export type ProductId = "study" | "consulting" | "enterprise";
+export type PlanId = "study" | "consulting" | "enterprise"; // 홈 3대 플랜 (진단 추천에 쓰는 묶음)
+export type ProductId = PlanId | "oneday";
 
 export interface Product {
   id: ProductId;
@@ -7,7 +8,7 @@ export interface Product {
   name: string;
   short: string;
   en: string;
-  audience: string; // Starters / Workers / Company
+  audience: string; // Starters / Workers / Company / Creators
   price: number; // 0이면 협의
   priceLabel: string;
   unit: string;
@@ -24,7 +25,7 @@ export const PRODUCTS: Record<ProductId, Product> = {
     id: "study",
     href: "/study",
     name: "자동화 기초 강의",
-    short: "자동화 기초 강의",
+    short: "자동화 기초 클래스",
     en: "Claude Code Study",
     audience: "Starters",
     price: 150000,
@@ -36,6 +37,23 @@ export const PRODUCTS: Record<ProductId, Product> = {
     bullets: ["오프라인 2회 + 온라인 2회", "설치·터미널·권한 셋팅 동행", "내 업무 자동화 직접 완성·발표", "4회 전부 참석 시 30,000원 환급"],
     payable: true,
     cta: "스터디 신청하기",
+  },
+  oneday: {
+    id: "oneday",
+    href: "/oneday",
+    name: "AI 콘텐츠 제작 원데이",
+    short: "AI 콘텐츠 원데이",
+    en: "AI Reels One-day",
+    audience: "Creators",
+    price: 59000,
+    priceLabel: "59,000원",
+    unit: "1인 · 11/29(토) 16:00–19:00 · 3시간",
+    summary: "AI로 릴스 제작을 자동화해보는 3시간 원데이 클래스. 얼굴 합성 챌린지 영상부터 제품 홍보 영상, 스크립트, 자동화 워크플로우까지.",
+    hook: "촬영 없이, 3시간 안에 릴스가 나와요",
+    how: "AI 인물·제품 릴스를 직접 만들고, 노션 스크립트부터 제작까지 이어지는 자동화 워크플로우를 내 손으로 구축해요.",
+    bullets: ["네온비온 챌린지 영상에 내 얼굴 넣기", "촬영 없이 AI 제품 홍보 영상", "릴스 후킹 서사·스크립트 작성법", "릴스 자동화 워크플로우 직접 구축"],
+    payable: true,
+    cta: "원데이 신청하기",
   },
   consulting: {
     id: "consulting",
@@ -52,7 +70,7 @@ export const PRODUCTS: Record<ProductId, Product> = {
     how: "범위 진단부터 구축·셋팅·보완까지, 내 업무용 워크플로우 1개를 완성해 드려요.",
     bullets: ["무료 커피챗으로 범위 진단", "컨설팅 3회 (오프라인 2회 · 온라인 1회)", "개발·셋팅은 컨설턴트가 대행", "수정·오류 보완까지 포함"],
     payable: false,
-    cta: "무료 커피챗으로 시작",
+    cta: "1:1 컨설팅 신청하기",
   },
   enterprise: {
     id: "enterprise",
@@ -74,16 +92,23 @@ export const PRODUCTS: Record<ProductId, Product> = {
 };
 
 export const STUDY_REFUND = 30000; // 4회 전부 참석 시 환급액
+export const FRIEND_DISCOUNT = 20000; // 지인할인 — 스터디 참가비 150,000원 → 130,000원
 
-/** 결제 금액 계산 — 클라이언트와 서버가 같은 함수를 씁니다. */
-export function calcAmount(product: ProductId, qty: number): number {
+/** 지인할인이 적용되는 상품인지 */
+export const hasFriendDiscount = (product: ProductId) => product === "study";
+
+/** 결제 금액 계산 — 클라이언트와 서버가 같은 함수를 씁니다. friend = 지인할인 */
+export function calcAmount(product: ProductId, qty: number, friend = false): number {
   const q = Math.max(1, Math.min(10, Math.floor(qty || 1)));
-  if (product === "study") return PRODUCTS.study.price * q;
-  return 0;
+  const p = PRODUCTS[product];
+  if (!p?.payable) return 0;
+  const unit = friend && hasFriendDiscount(product) ? p.price - FRIEND_DISCOUNT : p.price;
+  return unit * q;
 }
 
-export function orderName(product: ProductId, qty: number) {
-  if (product === "study") return `자동화 기초 강의 · 클로드 코드 스터디 (${qty}인)`;
+export function orderName(product: ProductId, qty: number, friend = false) {
+  if (product === "study") return `자동화 기초 강의 · 클로드 코드 스터디 (${qty}인${friend ? " · 지인할인" : ""})`;
+  if (product === "oneday") return `AI 콘텐츠 제작 원데이 · 릴스 자동화 (${qty}인)`;
   return PRODUCTS[product].name;
 }
 

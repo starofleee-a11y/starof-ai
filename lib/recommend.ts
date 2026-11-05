@@ -3,9 +3,9 @@
 //  - study      : 개인이 클로드 코드 설치·기초·자동화 실습을 직접 해보고 싶을 때
 //  - consulting : 업무 자동화를 고도화하고 싶거나, 개인 과외처럼 1:1로 배우거나, 컨설턴트가 다 셋팅해 주길 바랄 때
 //  - enterprise : 기업·조직 단위의 강의·컨설팅·개발 문의
-import type { ProductId } from "./products";
+import type { PlanId } from "./products";
 
-export const PLAN_CRITERIA: Record<ProductId, string> = {
+export const PLAN_CRITERIA: Record<PlanId, string> = {
   study: "개인이 클로드 코드 설치·기초 사용법·자동화 실습을 '직접 배워서' 해보고 싶을 때. 설치/입문/처음/배우고 싶다/스터디/강의 듣고 싶다 같은 신호.",
   consulting: "개인·소규모가 이미 하는 업무를 자동화로 '고도화'하고 싶거나, 1:1 과외처럼 집중해서 배우고 싶거나, 컨설턴트가 대신 만들어·셋팅해 주길 바랄 때. 구체적인 반복 업무를 적은 경우의 기본값.",
   enterprise: "회사·조직·팀·부서·임직원 단위의 강의, 워크숍, AX 컨설팅, 사내 시스템·SaaS 개발 문의. 여러 사람이 함께 쓰는 도입이면 여기.",
@@ -35,16 +35,16 @@ function score(t: string, rules: readonly (readonly [RegExp, number])[]) {
 }
 
 export interface Pick {
-  plan: ProductId;
+  plan: PlanId;
   reason: string;
-  scores: Record<ProductId, number>;
+  scores: Record<PlanId, number>;
 }
 
 /** 키워드 가중치로 플랜 하나를 고르고, 왜 그 플랜인지 한 문장으로 설명해요. */
 export function pickPlan(task: string): Pick {
   const t = task.toLowerCase();
   const scores = { enterprise: score(t, ENTERPRISE), consulting: score(t, CONSULTING), study: score(t, STUDY) };
-  let plan: ProductId;
+  let plan: PlanId;
   if (scores.enterprise >= 3 && scores.enterprise >= scores.consulting && scores.enterprise >= scores.study) plan = "enterprise";
   else if (scores.study > scores.consulting) plan = "study";
   else if (scores.consulting > 0 || scores.study === 0) plan = "consulting";
@@ -66,7 +66,7 @@ const eul = (w: string) => {
 };
 
 /** 업무 문장에서 보이는 도구·입출력을 뽑아, 자동화 3단계를 그 업무에 맞게 적어요. 설치·기초가 목표인 분께는 배우는 순서를 적어요. */
-export function describeHow(task: string, plan?: ProductId): { hasIO: boolean; headline: string; how: string[] } {
+export function describeHow(task: string, plan?: PlanId): { hasIO: boolean; headline: string; how: string[] } {
   const t = task.toLowerCase();
   const tools: string[] = [];
   if (/(엑셀|시트|스프레드|csv|표)/.test(t)) tools.push("엑셀·시트");

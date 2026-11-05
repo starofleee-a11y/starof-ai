@@ -1,10 +1,12 @@
 "use client";
 import { useState } from "react";
 
-export const INQUIRY_TYPES = ["기업 AI 원데이 강의", "기업 AX 컨설팅", "기업 맞춤 SaaS 개발", "기타 문의"];
+import { INQUIRY_TYPES } from "@/lib/inquiry";
+export { INQUIRY_TYPES };
 const SIZES = ["1~10명", "11~50명", "51~200명", "200명 이상"];
 
-export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = false }: { defaultType?: string; compact?: boolean }) {
+/** 기업 문의 폼. bare=true면 팝업 안에서 쓰는 모양(카드 테두리 없음) */
+export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = false, bare = false }: { defaultType?: string; compact?: boolean; bare?: boolean }) {
   const [type, setType] = useState(defaultType);
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [err, setErr] = useState("");
@@ -28,7 +30,7 @@ export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = 
 
   if (state === "done")
     return (
-      <div className="card p-10">
+      <div className={bare ? "" : "card p-10"}>
         <p className="eyebrow">Received</p>
         <p className="mt-3 text-[22px] font-bold text-brown-dark">문의가 접수됐어요.</p>
         <p className="mt-2 text-[15px] text-brown/85">영업일 기준 1일 안에 남겨주신 메일로 회신드릴게요.</p>
@@ -36,7 +38,7 @@ export default function InquiryForm({ defaultType = INQUIRY_TYPES[0], compact = 
     );
 
   return (
-    <form onSubmit={submit} className={`card grid gap-5 ${compact ? "p-6" : "p-6 md:p-9"}`}>
+    <form onSubmit={submit} className={bare ? "grid gap-5" : `card grid gap-5 ${compact ? "p-6" : "p-6 md:p-9"}`}>
       <div>
         <span className="label">문의 유형</span>
         <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
