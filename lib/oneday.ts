@@ -2,15 +2,15 @@
 export const ONEDAY = {
   cohort: "AI 콘텐츠 제작 원데이 1기",
   title: "AI로 릴스 제작 자동화 해보기",
-  date: "11월 29일(토) 16:00–19:00",
-  dateShort: "11/29(토)",
+  date: "11월 29일(일) 16:00–19:00",
+  dateShort: "11/29(일)",
   time: "16:00–19:00",
   duration: "3시간 원데이",
   mode: "오프라인",
   place: "서울 (강남 인근 강의실에서 진행 예정)",
   price: 59000,
   people: "소수 정원",
-  deadline: "11/27(목)",
+  deadline: "11/27(금)",
   host: "starof_ai",
   curriculum: [
     {
