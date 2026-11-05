@@ -150,7 +150,7 @@ export default function CheckoutClient() {
             <button disabled={!widgetReady} className="btn-yellow mt-6 w-full !py-4 text-[16px] disabled:opacity-50">
               {won(amount)} 결제하기
             </button>
-            <p className="mt-4 text-center text-[12px] text-butter-pale/65">결제 후 24시간 안에 안내 메일을 드려요 · 1회차 시작 전 전액 환불</p>
+            <p className="mt-4 text-center text-[12px] text-butter-pale/65">결제 후 24시간 안에 안내 메일을 드려요 · {product.id === "oneday" ? "결제 후에는 환불이 불가해요" : "선정 안내 및 입금 후에는 환불이 불가해요"}</p>
           </div>
         </aside>
       </form>
