@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PRODUCTS, calcAmount, won, type ProductId } from "@/lib/products";
-import { tossSecretKey, isTossTestMode } from "@/lib/toss";
+import { tossSecretKey, isTossTestMode, tossMode } from "@/lib/toss";
+import { recordToSheet } from "@/lib/sheets";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail } from "@/lib/notify";
 
 export const runtime = "nodejs";
@@ -22,7 +23,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, message: "주문 정보가 올바르지 않아요." }, { status: 400 });
   }
 
-  // 2) 토스페이먼츠 결제 승인
+  // 2) 토스페이먼츠 결제 승인 — 라이브/테스트 키가 섞여 있으면 승인 전에 막고 알려줘요.
+  if (tossMode() === "mismatch") {
+    console.error("[toss] 클라이언트 키와 시크릿 키 종류(test/live)가 달라요. Vercel 환경변수를 확인하세요.");
+    return NextResponse.json({ ok: false, message: "결제 설정을 점검 중이에요. 잠시 후 다시 시도하거나 문의해 주세요." }, { status: 500 });
+  }
+  // 결제 승인 요청
   const auth = Buffer.from(`${tossSecretKey()}:`).toString("base64");
   const r = await fetch("https://api.tosspayments.com/v1/payments/confirm", {
     method: "POST",
@@ -65,6 +71,18 @@ export async function POST(req: NextRequest) {
           html: `<div style="font-family:Pretendard,sans-serif;color:#3D2A0C;line-height:1.7;padding:24px;background:#FFFDF5"><h2 style="color:#614215">결제해 주셔서 감사해요 ✦</h2><p>${customer.name}님, <b>${data.orderName ?? product.name}</b> (${won(amount)}) 결제가 완료됐어요.<br>24시간 안에 일정 안내 메일을 다시 드릴게요.</p><p style="color:#8A6A3A;font-size:13px">Star of AI · 이경서(Winter) · starofleee@gmail.com</p></div>`,
         })
       : Promise.resolve(false),
+    recordToSheet({
+      kind: "payment",
+      product: product.id,
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      amount,
+      method: data.method,
+      orderId,
+      test,
+      detail: customer.memo,
+    }),
   ]);
 
   return NextResponse.json({ ok: true, orderName: data.orderName ?? product.name, amount, method: data.method, receiptUrl: data.receipt?.url, test });

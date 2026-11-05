@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { recordToSheet } from "@/lib/sheets";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail, escapeHtml } from "@/lib/notify";
 import { cancelUrl, createCoffeeEvent, hasGoogle } from "@/lib/google";
 import { SLOT_MINUTES, EVENT_MINUTES, addMinutes, fmtKst, isValidSlot, toDate } from "@/lib/slots";
@@ -66,6 +67,7 @@ export async function POST(req: NextRequest) {
     notifySlack(notice),
     sendMail({ to: OWNER_EMAIL(), subject: `[커피챗] ${f.name} · ${when}`, html: noticeToHtml(notice), replyTo: f.email }),
     sendMail({ to: f.email, subject: `[Star of AI] 커피챗 ${event ? "예약 확정" : "신청 접수"} · ${when}`, html: customerHtml }),
+    recordToSheet({ kind: "coffee", name: f.name, email: f.email, detail: [f.topic, f.concern].filter(Boolean).join(" · "), extra: `${when} (${SLOT_MINUTES}분)` }),
   ]);
   return NextResponse.json({ ok: true, confirmed: !!event, when, link });
 }

@@ -42,7 +42,10 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap flex flex-col gap-2 border-t border-butter/10 py-6 text-[12px] text-butter-pale/65 md:flex-row md:justify-between">
-        <p>상호 {SITE.company} · 대표 이경서 · {SITE.email}</p>
+        <p>
+          상호 {SITE.company} · 대표 이경서 · 사업자등록번호 {SITE.bizNo}
+          {SITE.mailOrderNo ? ` · 통신판매업 신고 ${SITE.mailOrderNo}` : ""} · {SITE.email}
+        </p>
         <p>© {new Date().getFullYear()} Star of AI. All rights reserved.</p>
       </div>
     </footer>

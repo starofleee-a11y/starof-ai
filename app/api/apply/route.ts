@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail, escapeHtml } from "@/lib/notify";
+import { recordToSheet } from "@/lib/sheets";
 import { STUDY } from "@/lib/study";
 import { ONEDAY } from "@/lib/oneday";
 import { PRODUCTS, FRIEND_DISCOUNT, calcAmount, hasFriendDiscount, won } from "@/lib/products";
@@ -88,6 +89,22 @@ export async function POST(req: NextRequest) {
         <h2 style="color:#614215;margin:0 0 16px">${escapeHtml(f.name)}님, 신청 감사해요 ✨</h2>
         ${m.mailBody}${priceLine}
         <p style="margin-top:28px;font-size:13px;color:#8A6A3A">Star of AI · 이경서(Winter)</p></div>`,
+    }),
+    recordToSheet({
+      kind: product,
+      name: f.name,
+      email: f.email,
+      phone: f.phone,
+      job: f.job,
+      detail: f.topic,
+      amount: p.payable ? amount : undefined,
+      friend: f.friendName,
+      extra:
+        product === "study"
+          ? `클로드 Pro ${f.pro} · 4회 참석 ${f.schedule}`
+          : product === "oneday"
+            ? `일정 참여·노트북 ${f.schedule}`
+            : "",
     }),
   ]);
   return NextResponse.json({ ok: true });
