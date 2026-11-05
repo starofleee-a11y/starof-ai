@@ -35,7 +35,7 @@ export const ONEDAY = {
       title: "릴스 후킹 서사 · 스크립트 작성법 · 팁",
       desc: "첫 1초에 붙잡는 후킹 서사 구조, 조회수를 가른 스크립트 작성법과 운영 팁을 실제 사례로 뜯어봐요.",
       out: "내 채널용 후킹 스크립트 템플릿",
-      ref: { kind: "video" as const, src: "/videos/starofai.mp4", poster: "/images/oneday/starofai-poster.jpg", wide: false, label: "참고 영상 · 첫 1초 후킹 서사" },
+      ref: { kind: "video" as const, src: "/videos/script.mp4", poster: "/images/oneday/script-poster.jpg", wide: false, label: "참고 영상 · 첫 1초 후킹 서사" },
     },
     {
       no: "04",

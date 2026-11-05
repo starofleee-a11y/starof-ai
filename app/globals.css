@@ -181,4 +181,5 @@ details[open] .faq-icon { transform: rotate(45deg); }
 @keyframes flow-node { 0%, 100% { opacity: .55; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-3px); } }
 .flow-dot-x { animation: flow-dot-x 4s ease-in-out infinite; }
 .flow-node { animation: flow-node 4s ease-in-out infinite; animation-delay: calc(var(--i) * .8s - 1.2s); }
-@media (prefers-reduced-motion: reduce) { .flow-dot-x, .flow-node { animation: none; } }
+.flow-icon { animation: flow-icon 4s ease-in-out infinite; animation-delay: calc(var(--i) * .8s - 1.2s); }
+@media (prefers-reduced-motion: reduce) { .flow-dot-x, .flow-node, .flow-icon { animation: none; } }
