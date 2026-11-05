@@ -16,6 +16,7 @@ import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_
 import { Voices } from "@/components/Deliverables";
 import Hl from "@/components/Hl";
 import { won, FRIEND_DISCOUNT } from "@/lib/products";
+import { ONEDAY } from "@/lib/oneday";
 
 export const metadata: Metadata = {
   title: "자동화 기초 강의 · 클로드 코드 스터디",
@@ -397,6 +398,7 @@ export default function StudyPage() {
               </dl>
               <ApplyButton kind="study" className="btn-primary mt-6 w-full !py-4 text-[16px]">스터디 신청하기</ApplyButton>
               <p className="mt-3 text-center text-[12.5px] text-brown/65">신청서는 2분이면 끝나요 · 1기 수강생·지인 추천이면 지인할인을 체크해 주세요</p>
+              <p className="mt-3 rounded-xl bg-paper px-4 py-3 text-center text-[13px] font-semibold text-brown-dark">📩 {ONEDAY.smsNotice}</p>
             </div>
           </Reveal>
         </div>

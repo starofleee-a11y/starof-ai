@@ -23,7 +23,7 @@ const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLab
       { name: "schedule", text: "4회 일정(11/8 · 11/15 · 11/18 · 11/22)에 모두 참여할 수 있어요." },
     ],
     submit: "스터디 신청하기",
-    done: `선정 결과는 ${STUDY.resultDate} 남겨주신 번호로 카카오톡 팀 채팅 초대와 함께 알려드려요. 참가비는 지금 결제하거나, 선정 안내를 받은 뒤 결제하셔도 돼요.`,
+    done: `선정 결과는 ${STUDY.resultDate} 남겨주신 번호로 문자(SMS)로 알려드리고, 입금 안내와 톡방 초대도 문자로 보내드려요. 참가비는 지금 결제하거나, 선정 안내를 받은 뒤 결제하셔도 돼요.`,
   },
   oneday: {
     eyebrow: "Apply",
@@ -34,7 +34,7 @@ const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLab
     topicRequired: false,
     checks: [{ name: "schedule", text: `${ONEDAY.date} 오프라인 수업에 참여할 수 있고, 개인 노트북을 가져올 수 있어요.` }],
     submit: "원데이 신청하기",
-    done: "자리 확정과 준비 안내(툴 계정·사진 준비)는 남겨주신 메일로 보내드려요. 결제를 마치면 자리가 확정됩니다.",
+    done: "남겨주신 번호로 문자(SMS)로 입금 안내와 톡방 초대를 보내드려요. 툴 계정·사진 준비 안내는 톡방에서 이어집니다.",
   },
   consulting: {
     eyebrow: "Apply",
@@ -160,6 +160,10 @@ export default function ApplyForm({ product, bare = false }: { product: Kind; ba
             </label>
           ))}
         </div>
+      )}
+
+      {(product === "study" || product === "oneday") && (
+        <p className="rounded-xl border border-brown/15 bg-white px-4 py-3 text-[13px] font-semibold text-brown-dark">📩 {ONEDAY.smsNotice}</p>
       )}
 
       {hasFriendDiscount(product) && (

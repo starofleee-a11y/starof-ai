@@ -6,7 +6,11 @@ import Reveal from "@/components/Reveal";
 import FAQ from "@/components/FAQ";
 import Hl from "@/components/Hl";
 import CountUp from "@/components/CountUp";
-import InstagramStrip from "@/components/InstagramStrip";
+import Image from "next/image";
+import MediaEmbed from "@/components/MediaEmbed";
+import ReelVideo from "@/components/ReelVideo";
+import ReelsFlow from "@/components/ReelsFlow";
+import FitSpotlight from "@/components/FitSpotlight";
 import ApplyButton from "@/components/ApplyButton";
 import ApplyModalHost from "@/components/ApplyModalHost";
 import FloatingCTA from "@/components/FloatingCTA";
@@ -16,7 +20,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "AI 콘텐츠 제작 원데이 · AI로 릴스 제작 자동화 해보기",
-  description: `${ONEDAY.date} 3시간 원데이 클래스. 네온비온 챌린지 얼굴 합성, 촬영 없는 AI 제품 홍보 영상, 릴스 후킹 스크립트, 릴스 자동화 워크플로우 구축까지. ${won(ONEDAY.price)}.`,
+  description: `${ONEDAY.date} 3시간 원데이 클래스. 니온앤비욘 챌린지 얼굴 합성, 촬영 없는 AI 제품 홍보 영상, 릴스 후킹 스크립트, 릴스 자동화 워크플로우 구축까지. ${won(ONEDAY.price)}.`,
 };
 
 export default function OnedayPage() {
@@ -40,7 +44,7 @@ export default function OnedayPage() {
           </>
         }
         chips={[ONEDAY.date, `${ONEDAY.mode} · 강남`, ONEDAY.duration, won(ONEDAY.price), ONEDAY.people]}
-        aside={<ReelsBoard />}
+        aside={<ChallengeCard />}
       >
         <ApplyButton kind="oneday" className="btn-primary">원데이 신청하기</ApplyButton>
         <Link href="#curriculum" className="btn-ghost">커리큘럼 보기</Link>
@@ -82,14 +86,21 @@ export default function OnedayPage() {
             const dark = i === 3;
             return (
               <Reveal key={c.no} delay={i * 70}>
-                <div className={`flex h-full flex-col rounded-2xl border p-7 md:p-8 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
-                  <div className="flex items-center justify-between">
-                    <span className={`font-serif text-[28px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
-                    <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-butter-pale text-brown-dark"}`}>{c.tag}</span>
+                <div className={`grid h-full gap-5 rounded-2xl border p-5 sm:grid-cols-[1fr_168px] md:p-6 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
+                  <div className="flex min-w-0 flex-col">
+                    <div className="flex items-center justify-between">
+                      <span className={`font-serif text-[28px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
+                      <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-butter-pale text-brown-dark"}`}>{c.tag}</span>
+                    </div>
+                    <p className={`mt-5 break-keep text-[20px] font-bold leading-snug ${dark ? "text-butter" : "text-brown-dark"}`}>{c.title}</p>
+                    <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-butter-pale/85" : "text-brown/85"}`}>{c.desc}</p>
+                    <p className={`mt-auto pt-6 text-[13px] font-semibold ${dark ? "text-butter/80" : "text-olive"}`}>결과물 · {c.out}</p>
                   </div>
-                  <p className={`mt-5 break-keep text-[21px] font-bold leading-snug ${dark ? "text-butter" : "text-brown-dark"}`}>{c.title}</p>
-                  <p className={`mt-3 text-[14.5px] leading-relaxed ${dark ? "text-butter-pale/85" : "text-brown/85"}`}>{c.desc}</p>
-                  <p className={`mt-auto pt-6 text-[13px] font-semibold ${dark ? "text-butter/80" : "text-olive"}`}>결과물 · {c.out}</p>
+                  {/* 참고 영상 — 각 실습이 어떤 결과물을 향하는지 바로 보여줘요 */}
+                  <div className="mx-auto w-[168px] sm:mx-0">
+                    {c.ref.kind === "flow" ? <ReelsFlow /> : <MediaEmbed kind={c.ref.kind} url={c.ref.url} label={c.ref.label} />}
+                    <p className={`mt-2 text-center text-[11px] ${dark ? "text-butter-pale/60" : "text-brown/55"}`}>{c.ref.label}</p>
+                  </div>
                 </div>
               </Reveal>
             );
@@ -122,17 +133,27 @@ export default function OnedayPage() {
             </div>
           </Reveal>
           <Reveal delay={120} className="min-w-0">
-            <ul className="grid gap-3 sm:grid-cols-2">
-              {ONEDAY.reels.works.map((w, i) => (
-                <li key={w.k} className={`rounded-2xl border p-5 ${i === 3 ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/15 bg-white"}`}>
-                  <p className={`text-[11.5px] font-bold uppercase tracking-[0.18em] ${i === 3 ? "text-butter/80" : "text-olive"}`}>{w.k}</p>
-                  <p className={`mt-2 font-serif text-[22px] font-semibold leading-tight ${i === 3 ? "text-butter" : "text-brown-dark"}`}>{w.name}</p>
-                  <p className={`mt-2 text-[13.5px] leading-relaxed ${i === 3 ? "text-butter-pale/85" : "text-brown/80"}`}>{w.desc}</p>
-                </li>
+            {/* 강사가 직접 만든 릴스 세 편이 카드 안에서 재생돼요 */}
+            <div className="grid grid-cols-3 gap-3">
+              {ONEDAY.reels.works.map((w) => (
+                <figure key={w.name} className="min-w-0">
+                  <div className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark shadow-[0_24px_50px_-30px_rgba(46,31,8,.7)]">
+                    {w.media.kind === "video" ? <ReelVideo src={w.media.src} poster={w.media.poster} /> : <MediaEmbed kind="instagram" url={w.media.src} label={w.name} />}
+                  </div>
+                  <figcaption className="mt-3">
+                    <p className="text-[10.5px] font-bold uppercase tracking-[0.15em] text-olive">{w.k}</p>
+                    <p className="mt-0.5 truncate font-serif text-[19px] font-semibold leading-tight text-brown-dark">{w.name}</p>
+                    <p className="mt-1 text-[12.5px] leading-snug text-brown/75">{w.desc}</p>
+                  </figcaption>
+                </figure>
               ))}
-            </ul>
-            <div className="mt-8">
-              <InstagramStrip />
+            </div>
+            <div className="mt-5 flex items-center gap-4 rounded-2xl border border-brown-dark bg-brown-dark p-5 text-butter-pale">
+              <div className="min-w-0 flex-1">
+                <p className="text-[11.5px] font-bold uppercase tracking-[0.18em] text-butter/80">{ONEDAY.reels.workflow.k}</p>
+                <p className="mt-1 font-serif text-[22px] font-semibold leading-tight text-butter">{ONEDAY.reels.workflow.name}</p>
+                <p className="mt-1.5 text-[13.5px] leading-relaxed text-butter-pale/85">{ONEDAY.reels.workflow.desc} — 04 실습에서 이 워크플로우를 같이 만들어요.</p>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -140,17 +161,10 @@ export default function OnedayPage() {
 
       {/* FIT */}
       <section id="fit" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="For you" title={<>이런 분께 <Hl>딱 맞아요</Hl></>} />
-        <div className="grid gap-3 md:grid-cols-2">
-          {ONEDAY.fit.map((f, i) => (
-            <Reveal key={f} delay={i * 60}>
-              <div className="flex gap-4 rounded-2xl border border-brown/15 bg-white p-6">
-                <span className="font-serif text-[22px] italic leading-none text-olive">{String(i + 1).padStart(2, "0")}</span>
-                <p className="text-[16px] font-semibold leading-snug text-brown-dark">{f}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <SectionHead eyebrow="For you" title={<>이런 분께 <Hl>딱 맞아요</Hl></>} desc="마우스를 올리거나 눌러서 나와 가장 가까운 분을 골라 보세요." />
+        <Reveal>
+          <FitSpotlight items={ONEDAY.fit} />
+        </Reveal>
       </section>
 
       {/* APPLY */}
@@ -187,6 +201,7 @@ export default function OnedayPage() {
               </dl>
               <ApplyButton kind="oneday" className="btn-primary mt-6 w-full !py-4 text-[16px]">{p.cta}</ApplyButton>
               <p className="mt-3 text-center text-[12.5px] text-brown/65">신청서는 1분이면 끝나요 · 신청 후 바로 결제할 수 있어요</p>
+              <p className="mt-3 rounded-xl bg-paper px-4 py-3 text-center text-[13px] font-semibold text-brown-dark">📩 {ONEDAY.smsNotice}</p>
             </div>
           </Reveal>
         </div>
@@ -204,28 +219,21 @@ export default function OnedayPage() {
   );
 }
 
-/** 히어로 오른쪽 — 릴스 성과를 폰 화면 느낌의 카드로 */
-function ReelsBoard() {
-  const cards = [
-    { k: "AI 인물 릴스", n: "16만회", name: "teach me daddy", tone: "bg-brown-dark text-butter" },
-    { k: "AI 제품 릴스", n: "15만회", name: "cabin aura", tone: "bg-white text-brown-dark" },
-    { k: "촬영 + TTS 자막", n: "7만회", name: "starof_ai", tone: "bg-butter text-brown-dark" },
-  ];
+/** 히어로 오른쪽 — 니온앤비욘 챌린지 참고 이미지 (01 실습에서 내 얼굴을 넣어 만드는 영상) */
+function ChallengeCard() {
   return (
-    <div className="grid grid-cols-3 gap-3">
-      {cards.map((c, i) => (
-        <div key={c.k} className={`relative aspect-[9/16] overflow-hidden rounded-2xl border border-white/70 p-3 shadow-[0_30px_60px_-40px_rgba(97,66,21,.6)] ${c.tone} ${i === 1 ? "mt-8" : i === 2 ? "mt-16" : ""}`}>
-          <p className="text-[10px] font-bold uppercase tracking-[0.15em] opacity-70">{c.k}</p>
-          <p className="mt-1 break-keep font-serif text-[15px] font-semibold leading-tight">{c.name}</p>
-          <div className="absolute inset-x-3 bottom-3">
-            <p className="font-serif text-[24px] font-semibold leading-none">{c.n}</p>
-            <p className="mt-1 flex items-center gap-1 text-[10.5px] font-semibold opacity-80">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-              조회수
-            </p>
-          </div>
-        </div>
-      ))}
-    </div>
+    <figure className="relative">
+      <div className="overflow-hidden rounded-3xl border border-white/70 bg-white shadow-[0_40px_80px_-40px_rgba(97,66,21,.6)]">
+        <Image src="/images/oneday/challenge.jpg" alt="니온앤비욘 챌린지 영상 장면 — 흰 옷을 입은 두 댄서" width={831} height={556} priority className="h-auto w-full" />
+      </div>
+      <figcaption className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-brown-dark/90 px-3 py-1.5 text-[12px] font-bold text-butter backdrop-blur">
+        <span className="h-1.5 w-1.5 rounded-full bg-butter" />
+        01 · 니온앤비욘 챌린지에 내 얼굴 넣기
+      </figcaption>
+      <div className="absolute -bottom-5 right-4 rounded-2xl border border-brown/10 bg-white px-4 py-3 shadow-[0_18px_40px_-20px_rgba(97,66,21,.5)]">
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.15em] text-olive">촬영 없이</p>
+        <p className="text-[14px] font-bold text-brown-dark">내가 등장하는 챌린지 릴스 1편</p>
+      </div>
+    </figure>
   );
 }

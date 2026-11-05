@@ -175,3 +175,10 @@ details[open] .faq-icon { transform: rotate(45deg); }
   70% { box-shadow: 0 0 0 12px rgba(255, 235, 81, 0); }
   100% { box-shadow: 0 0 0 0 rgba(255, 235, 81, 0); }
 }
+
+/* 릴스 워크플로우 다이어그램 — 점이 위에서 아래로 흐르고, 노드가 차례로 켜져요 */
+@keyframes flow-dot { 0% { top: 1.25rem; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { top: calc(100% - 1.25rem); opacity: 0; } }
+@keyframes flow-node { 0%, 100% { opacity: .55; transform: translateX(0); } 50% { opacity: 1; transform: translateX(3px); } }
+.flow-dot { animation: flow-dot 4s ease-in-out infinite; }
+.flow-node { animation: flow-node 4s ease-in-out infinite; animation-delay: calc(var(--i) * .8s - 1.2s); }
+@media (prefers-reduced-motion: reduce) { .flow-dot, .flow-node { animation: none; } }
