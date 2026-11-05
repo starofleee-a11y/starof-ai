@@ -9,7 +9,7 @@ export const SITE = {
   mailOrderNo: "제2026-서울강남-05882호", // 통신판매업 신고번호 (2026-10-21 강남구청)
   email: "starofleee@gmail.com",
   phone: "+82 10-3732-8091",
-  address: "서울 강남구 언주로 30길",
+  address: "서울특별시 강남구 선릉로 120, 14동 201호 (대치동)", // 사업자등록증·통신판매업 신고 주소와 동일
   instagram: "https://www.instagram.com/starof_ai",
   instagramHandle: "@starof_ai",
   linkedinPost: "https://lnkd.in/p/gQHTtuWk",
