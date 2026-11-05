@@ -80,43 +80,39 @@ export default function OnedayPage() {
       {/* CURRICULUM */}
       <section id="curriculum" className="wrap scroll-mt-20 py-24 md:py-32">
         <SectionHead eyebrow="Curriculum" title={<>{ONEDAY.date}<br /><Hl>4가지</Hl>를 직접 만들어요</>} desc={`${ONEDAY.place}. 편집 프로그램 없이 AI 툴과 자동화로 진행하고, 수업 안에서 릴스 2편과 내 워크플로우를 완성합니다.`} />
-        <div className="grid gap-4 md:grid-cols-2">
+        {/* 실습 주제 4개를 세로로 하나씩 — 영상은 원래 비율(9:16 / 16:9) 그대로, 글 옆에 붙어요. 스크롤하면 하나씩 나타나요. */}
+        <div className="grid gap-5">
           {ONEDAY.curriculum.map((c, i) => {
             const dark = i === 3;
+            const tall = c.ref.kind === "video" && !c.ref.wide;
             return (
-              <Reveal key={c.no} delay={i * 70} className="min-w-0">
-                <div className={`flex h-full flex-col rounded-2xl border p-5 md:p-6 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
-                  {/* 세로 영상은 글 옆에, 가로 영상·다이어그램은 글 아래에 */}
-                  <div className={`grid gap-5 ${c.ref.wide ? "" : "sm:grid-cols-[1fr_160px]"}`}>
-                    <div className="flex min-w-0 flex-col">
-                      <div className="flex items-center justify-between">
-                        <span className={`font-serif text-[28px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
+              <Reveal key={c.no} delay={60} className="min-w-0">
+                <div className={`rounded-3xl border p-6 md:p-8 ${dark ? "border-brown-dark bg-brown-dark text-butter-pale" : "border-brown/20 bg-white"}`}>
+                  <div className={`grid items-center gap-7 md:gap-10 ${c.ref.kind === "flow" ? "" : tall ? "md:grid-cols-[1fr_220px]" : "md:grid-cols-[1fr_minmax(0,520px)]"}`}>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-3">
+                        <span className={`font-serif text-[34px] font-semibold leading-none ${dark ? "text-butter" : "text-olive"}`}>{c.no}</span>
                         <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-butter-pale text-brown-dark"}`}>{c.tag}</span>
                       </div>
-                      <p className={`mt-5 break-keep text-[20px] font-bold leading-snug ${dark ? "text-butter" : "text-brown-dark"}`}>{c.title}</p>
-                      <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-butter-pale/85" : "text-brown/85"}`}>{c.desc}</p>
-                      <p className={`mt-auto pt-5 text-[13px] font-semibold ${dark ? "text-butter/80" : "text-olive"}`}>결과물 · {c.out}</p>
+                      <p className={`mt-5 break-keep text-[22px] font-bold leading-snug md:text-[26px] ${dark ? "text-butter" : "text-brown-dark"}`}>{c.title}</p>
+                      <p className={`mt-3 max-w-xl text-[15px] leading-relaxed ${dark ? "text-butter-pale/85" : "text-brown/85"}`}>{c.desc}</p>
+                      <p className={`mt-5 text-[13.5px] font-semibold ${dark ? "text-butter/80" : "text-olive"}`}>결과물 · {c.out}</p>
+                      {c.ref.kind !== "flow" && <p className={`mt-2 text-[11.5px] ${dark ? "text-butter-pale/60" : "text-brown/55"}`}>{c.ref.label}</p>}
                     </div>
-                    {!c.ref.wide && c.ref.kind === "video" && (
-                      <div className="mx-auto w-[160px] sm:mx-0">
-                        <div className="relative aspect-[9/16] overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark">
+                    {c.ref.kind === "video" && (
+                      <div className={`mx-auto w-full ${tall ? "max-w-[220px]" : "max-w-[520px]"} md:mx-0 md:justify-self-end`}>
+                        <div className={`relative overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark ${tall ? "aspect-[9/16]" : "aspect-video"}`}>
                           <ReelVideo src={c.ref.src} poster={c.ref.poster} />
                         </div>
                       </div>
                     )}
-                  </div>
-                  {c.ref.wide && (
-                    <div className="mt-5">
-                      {c.ref.kind === "flow" ? (
+                    {c.ref.kind === "flow" && (
+                      <div>
                         <ReelsFlow />
-                      ) : (
-                        <div className="relative aspect-video overflow-hidden rounded-2xl border border-brown/10 bg-brown-dark">
-                          <ReelVideo src={c.ref.src} poster={c.ref.poster} />
-                        </div>
-                      )}
-                    </div>
-                  )}
-                  <p className={`mt-2 text-[11.5px] ${c.ref.wide ? "" : "text-right"} ${dark ? "text-butter-pale/60" : "text-brown/55"}`}>{c.ref.label}</p>
+                        <p className="mt-2 text-[11.5px] text-butter-pale/60">{c.ref.label}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </Reveal>
             );

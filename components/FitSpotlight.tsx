@@ -24,7 +24,7 @@ export default function FitSpotlight({ items }: { items: { who: string; why: str
         {/* 타깃별 일러스트 — 켜진 항목의 그림만 보여요 */}
         <div className="mt-6 grid md:mt-8">
           {items.map((it, i) => (
-            <div key={it.who} className={`mx-auto h-[150px] w-full max-w-[300px] [grid-area:1/1] transition-all duration-500 md:h-[180px] md:max-w-[340px] ${i === on ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`} aria-hidden={i !== on}>
+            <div key={it.who} className={`mx-auto aspect-square h-[220px] [grid-area:1/1] transition-all duration-500 md:h-[260px] ${i === on ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0"}`} aria-hidden={i !== on}>
               <FitIllust i={i} />
             </div>
           ))}

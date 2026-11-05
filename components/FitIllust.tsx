@@ -1,131 +1,179 @@
 /**
- * "이런 분께 딱 맞아요" 타깃별 일러스트 — 손그림 느낌의 라인 드로잉 + 사이트 노랑(butter) 포인트.
- * 갈색 패널 위에 올라가므로 선은 크림색, 포인트는 노랑으로 그려요. (참고: 블루 라인 일러스트 → 사이트 무드로 변환)
+ * "이런 분께 딱 맞아요" 타깃별 일러스트 — 굵은 검정 라인 + 포인트 컬러 한 가지(참고 일러스트의 블루 → 사이트 노랑).
+ * 갈색 패널 위에 크림색 카드로 올라가요. 머리카락은 검정 면, 얼굴·옷은 크림, 포인트는 노랑.
  */
-const YEL = "#FFEB51";
-const INK = "#FFF6D9";
+const Y = "#FFEB51"; // 포인트 (참고 이미지의 블루 자리)
+const K = "#2E1F08"; // 라인 (브라운 다크 — 검정 역할)
+const C = "#FFFCEF"; // 살결·옷 (크림)
+const G = "#D8D0BE"; // 회색 보조선
 
-const base = { fill: "none", stroke: INK, strokeWidth: 3, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const L = { fill: "none", stroke: K, strokeWidth: 4, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
 
-function Blob({ d }: { d: string }) {
-  return <path d={d} fill={YEL} opacity={0.92} />;
+/** 01 — 거울 속 다른 얼굴을 보는 사람 (체크 셔츠) : 내 얼굴 대신 AI 합성 얼굴로 등장 */
+function Mirror() {
+  return (
+    <svg viewBox="0 0 300 300" className="h-full w-full" aria-hidden>
+      <defs>
+        <clipPath id="fi-shirt1"><path d="M52 300C52 228 80 190 118 176L134 196 152 172C194 184 220 220 224 300Z" /></clipPath>
+      </defs>
+      {/* 거울 프레임 */}
+      <path d="M212 44h76v172" fill="none" stroke={Y} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M212 44v44" fill="none" stroke={Y} strokeWidth={5} strokeLinecap="round" />
+      <path d="M232 200h30" fill="none" stroke={Y} strokeWidth={5} strokeLinecap="round" />
+      <circle cx="268" cy="164" r="4" fill="none" stroke={K} strokeWidth={3} />
+      {/* 거울 속 얼굴 (AI로 바뀐 얼굴) */}
+      <path {...L} d="M224 108c-4-28 10-50 36-50 24 0 36 22 32 50-3 22-18 38-36 38s-29-16-32-38z" />
+      <path {...L} d="M226 92c6-22 22-32 42-30 10 1 18 6 22 14" />
+      <path {...L} d="M250 100c2-3 6-3 8 0" />
+      <path {...L} d="M262 108c4 3 4 9 0 13" />
+      <path {...L} d="M248 128c6 4 14 4 20-1" />
+      {/* 속도선 */}
+      <path d="M60 92l34-12M50 116l38-8" fill="none" stroke={Y} strokeWidth={4} strokeLinecap="round" />
+      {/* 셔츠 (체크) */}
+      <path d="M52 300C52 228 80 190 118 176L134 196 152 172C194 184 220 220 224 300Z" fill={Y} />
+      <g clipPath="url(#fi-shirt1)" stroke={C} strokeWidth={4}>
+        <path d="M84 170v140M118 170v140M152 170v140M186 170v140" />
+        <path d="M40 206h200M40 240h200M40 274h200" />
+      </g>
+      <path {...L} d="M52 300C52 228 80 190 118 176L134 196 152 172C194 184 220 220 224 300" />
+      <path {...L} d="M118 176l-10 20 26 0M152 172l12 18-28 6" />
+      <circle cx="135" cy="222" r="3" fill={K} /><circle cx="135" cy="252" r="3" fill={K} />
+      <path {...L} d="M68 232c10-8 22-8 30 0" />
+      {/* 목 */}
+      <path {...L} d="M122 150l-4 28M150 148l2 26" />
+      {/* 얼굴 */}
+      <path d="M100 76c2-30 24-46 50-42 26 4 36 28 34 56-2 30-18 52-40 52-24 0-46-24-44-66z" fill={C} />
+      <path {...L} d="M100 76c2-30 24-46 50-42 26 4 36 28 34 56-2 30-18 52-40 52-24 0-46-24-44-66z" />
+      {/* 머리 (검정 면) */}
+      <path d="M96 100c-8-40 12-70 50-72 24-1 40 12 44 30-10-8-22-10-34-6-14 4-22 2-30 10-10 10-14 24-16 42-6-2-10-4-14-4z" fill={K} />
+      <path {...L} d="M70 80l14 6M72 60l10 8" />
+      {/* 이목구비 — 오른쪽을 봄 */}
+      <path {...L} d="M158 92c2-3 6-3 8 0" />
+      <path {...L} d="M172 104c6 4 6 12 0 16" />
+      <path {...L} d="M158 134c6 3 12 2 16-2" />
+      <path {...L} d="M104 108c-6-2-10 2-9 8 1 5 5 8 10 7" />
+    </svg>
+  );
 }
 
-/** 01 얼굴 노출이 부담스러운 예비 크리에이터 — 폰 뒤에 숨은 사람, 화면엔 AI로 합성된 웃는 얼굴 */
-function Hide() {
+/** 02 — 안경 쓰고 종이와 펜을 든 사람 : 제품·홍보 기획을 직접 챙기는 소상공인·마케터 */
+function Planner() {
   return (
-    <svg viewBox="0 0 240 170" className="h-full w-full" aria-hidden>
-      <Blob d="M136 36c18-4 40 2 44 20 4 20-2 56-8 72-8 10-40 10-48 0-6-20-10-54-2-74 2-10 6-14 14-18z" />
-      {/* 뒤에 숨은 사람 */}
-      <path {...base} d="M60 150c0-26 8-44 28-54" />
-      <path {...base} d="M84 74c-12-2-22 6-22 20 0 12 8 22 20 24" />
-      <path {...base} d="M74 90c2-2 6-2 8 0" />
-      <path {...base} d="M62 66c6-8 16-10 26-6" />
-      <path {...base} d="M24 150c4-22 14-40 36-50" />
-      {/* 폰 */}
-      <rect x="112" y="30" width="60" height="104" rx="10" {...base} />
-      <path {...base} d="M134 38h16" />
-      {/* 화면 속 웃는 얼굴 */}
-      <circle cx="142" cy="78" r="18" {...base} />
-      <path {...base} d="M134 76c1-2 3-2 4 0M146 76c1-2 3-2 4 0" />
-      <path {...base} d="M134 86c4 4 12 4 16 0" />
-      <path {...base} d="M126 62c4-10 10-14 18-16" />
+    <svg viewBox="0 0 300 300" className="h-full w-full" aria-hidden>
+      {/* 글줄 */}
+      <path d="M226 92h52M226 112h52M226 132h36" fill="none" stroke={G} strokeWidth={4} strokeLinecap="round" />
+      {/* 셔츠 */}
+      <path d="M40 300c4-76 44-116 92-124l24 10 26-10c48 8 84 50 88 124z" fill={Y} />
+      <path {...L} d="M40 300c4-76 44-116 92-124l24 10 26-10c48 8 84 50 88 124" />
+      <path {...L} d="M132 176l16 24 8-14 8 14 18-24" />
+      {/* 종이 */}
+      <path d="M62 206l96-14 16 108H78z" fill={C} />
+      <path {...L} d="M62 206l96-14 16 108" />
+      <path {...L} d="M86 236l50-6M90 256l40-5" />
+      {/* 왼손 — 종이 모서리 */}
+      <path d="M44 236c-8 10-6 26 4 34 10 8 26 6 32-2l6-26-8-14z" fill={C} />
+      <path {...L} d="M44 236c-8 10-6 26 4 34 10 8 26 6 32-2M46 246l20-4M48 262l20-2" />
+      {/* 오른손 + 펜 */}
+      <path d="M196 212c14-6 30 2 34 16 4 16-6 30-20 32-14 2-28-8-28-24 0-10 6-20 14-24z" fill={C} />
+      <path {...L} d="M196 212c14-6 30 2 34 16 4 16-6 30-20 32-14 2-28-8-28-24M190 236l22-2M192 250l20 0" />
+      <path d="M216 206l20 46" fill="none" stroke={K} strokeWidth={8} strokeLinecap="round" />
+      <path d="M236 252l6 14" fill="none" stroke={K} strokeWidth={4} strokeLinecap="round" />
+      {/* 목 */}
+      <path {...L} d="M134 150l-2 26M166 150l2 26" />
+      {/* 얼굴 */}
+      <path d="M106 86c0-30 20-48 46-48s46 18 46 48c0 36-18 68-46 68s-46-32-46-68z" fill={C} />
+      <path {...L} d="M106 86c0-30 20-48 46-48s46 18 46 48c0 36-18 68-46 68s-46-32-46-68z" />
+      {/* 회색 머리 */}
+      <path d="M104 92c-4-36 16-58 48-58 30 0 50 20 48 50-8-10-18-14-30-12-10 2-18 8-28 6-10-2-18-4-26 2-6 4-10 8-12 12z" fill={G} />
+      <path {...L} d="M104 92c-4-36 16-58 48-58 30 0 50 20 48 50" />
+      <path {...L} d="M196 46l10-10" />
+      {/* 안경 (노랑) */}
+      <g fill="none" stroke={Y} strokeWidth={5} strokeLinecap="round">
+        <circle cx="130" cy="96" r="15" /><circle cx="170" cy="96" r="15" /><path d="M145 96h10M115 94l-10-4M185 94l12-4" />
+      </g>
+      <path {...L} d="M127 96c2-2 5-2 7 0M167 96c2-2 5-2 7 0" />
+      <path {...L} d="M150 104c4 4 4 10 0 14" />
+      <path {...L} d="M138 132c8 6 18 6 26 0" />
+    </svg>
+  );
+}
+
+/** 03 — 두 손 모으고 눈 감은 긴 머리 사람 (줄무늬 옷, 반짝임) : 손으로 다 하느라 지친, '좀 편해졌으면' */
+function Wish() {
+  return (
+    <svg viewBox="0 0 300 300" className="h-full w-full" aria-hidden>
+      <defs>
+        <clipPath id="fi-top3"><path d="M118 300c0-62 24-100 60-112 36 10 68 46 72 112z" /></clipPath>
+      </defs>
       {/* 반짝임 */}
-      <path {...base} d="M188 44l6-8M196 60l10-2M186 24l2-10" />
-      {/* 폰 든 손 */}
-      <path {...base} d="M112 120c-10 2-18 10-22 20M172 116c8 2 12 10 14 18" />
-      <path {...base} d="M30 158h180" strokeWidth={2.5} opacity={0.5} />
+      <path {...L} d="M56 104h20M66 94v20M236 60h18M245 51v18" strokeWidth={3} />
+      <circle cx="64" cy="68" r="4" fill={K} /><circle cx="258" cy="118" r="4" fill={K} /><circle cx="236" cy="156" r="3" fill={K} />
+      {/* 뒷머리 — 긴 검정 머리 */}
+      <path d="M84 300c-8-80-8-170 18-220 22-42 92-44 108 0 14 38 8 90-14 130l-12-10c10-30 12-60 2-86-10-26-52-28-68-2-18 32-10 100-6 188z" fill={K} />
+      {/* 옷 (크림 + 노랑 줄무늬) */}
+      <path d="M118 300c0-62 24-100 60-112 36 10 68 46 72 112z" fill={C} />
+      <g clipPath="url(#fi-top3)">
+        <path d="M100 214h170v14H100zM100 246h170v14H100zM100 278h170v14H100z" fill={Y} />
+      </g>
+      <path {...L} d="M118 300c0-62 24-100 60-112 36 10 68 46 72 112" />
+      {/* 목걸이 */}
+      <path {...L} d="M166 190c6 10 18 10 24 0" strokeWidth={3} /><circle cx="178" cy="200" r="4" fill={C} stroke={K} strokeWidth={3} />
+      {/* 두 손 (기도 모양) */}
+      <path d="M140 270c-6-40 8-74 24-92 16 18 30 52 24 92-14 10-34 10-48 0z" fill={C} />
+      <path {...L} d="M140 270c-6-40 8-74 24-92 16 18 30 52 24 92M156 206l-4 56M172 206l4 56" />
+      {/* 얼굴 */}
+      <path d="M116 100c0-34 20-54 48-54s48 20 48 54c0 34-20 62-48 62s-48-28-48-62z" fill={C} />
+      <path {...L} d="M116 100c0-34 20-54 48-54s48 20 48 54c0 34-20 62-48 62s-48-28-48-62z" />
+      {/* 앞머리 */}
+      <path d="M114 96c-2-36 22-58 50-58s52 20 50 56c-10-14-24-18-40-14-10 2-16 8-26 6-12-2-24 0-34 10z" fill={K} />
+      {/* 감은 눈 · 코 · 미소 */}
+      <path {...L} d="M140 108c4-5 10-5 14 0M172 108c4-5 10-5 14 0" />
+      <path {...L} d="M164 112c4 4 4 10 0 14" />
+      <path {...L} d="M150 140c8 6 20 6 28 0" />
     </svg>
   );
 }
 
-/** 02 촬영·모델 비용이 아까운 소상공인·마케터 — 제품 한 병을 들어 보이는 사람, 뒤엔 AI가 만든 광고 컷 */
-function Shop() {
+/** 04 — 고개 들어 위를 보는 옆모습, 곱슬 노랑 머리, 날개 낙서 : AI 툴은 써봤지만 내 콘텐츠로는 아직 */
+function Dream() {
   return (
-    <svg viewBox="0 0 240 170" className="h-full w-full" aria-hidden>
-      <Blob d="M150 38c22-6 50 4 56 24 6 22-6 48-24 56-18 8-44 0-52-16-8-20 2-56 20-64z" />
-      {/* 사람 */}
-      <circle cx="78" cy="56" r="20" {...base} />
-      <path {...base} d="M70 54c1-2 3-2 4 0M84 54c1-2 3-2 4 0" />
-      <path {...base} d="M70 64c4 4 12 4 16 0" />
-      <path {...base} d="M58 48c4-14 22-18 34-10" />
-      <path {...base} d="M46 152c0-28 10-50 32-58 22 8 32 30 32 58" />
-      {/* 제품 든 팔 */}
-      <path {...base} d="M100 104c14-10 30-18 46-26" />
-      {/* 제품 병 */}
-      <path {...base} d="M148 58h18v10l6 8v40c0 4-3 6-6 6h-18c-3 0-6-2-6-6V76l6-8z" />
-      <path {...base} d="M150 90h14" />
-      <path {...base} d="M150 98h10" />
-      {/* 광고 컷 프레임 */}
-      <path {...base} d="M178 34h40v34M178 34v10" />
-      <path {...base} d="M190 24l4-8M206 22l0-10" />
-      <path {...base} d="M30 158h180" strokeWidth={2.5} opacity={0.5} />
+    <svg viewBox="0 0 300 300" className="h-full w-full" aria-hidden>
+      {/* 날개 낙서 + 지그재그 */}
+      <path {...L} d="M206 176c8-32 32-54 50-44 16 10 6 40-18 48M214 196c18-2 40 4 48 20 6 14-8 26-24 22" strokeWidth={3} />
+      <path d="M200 262l12 16 12-16 12 16 12-16 12 16 12-16" fill="none" stroke={Y} strokeWidth={4} strokeLinejoin="round" />
+      {/* 반짝 별 */}
+      <path d="M70 44l6 12 12 6-12 6-6 12-6-12-12-6 12-6z" fill="none" stroke={K} strokeWidth={3} strokeLinejoin="round" />
+      {/* 곱슬 머리 (노랑) */}
+      <g fill={Y} stroke={K} strokeWidth={4}>
+        <circle cx="166" cy="64" r="26" /><circle cx="196" cy="92" r="28" /><circle cx="192" cy="134" r="26" /><circle cx="170" cy="164" r="22" /><circle cx="200" cy="172" r="18" />
+      </g>
+      {/* 몸 (검정 상의) */}
+      <path d="M56 300c8-70 40-112 76-124l16-2c32 12 56 56 60 126z" fill={K} />
+      <path d="M126 184c-12 40-12 80-8 116" fill="none" stroke={C} strokeWidth={3} strokeLinecap="round" />
+      {/* 목 */}
+      <path d="M126 150l-2 30 26-6-4-30z" fill={C} />
+      <path {...L} d="M126 150l-2 30M148 146l2 28" />
+      {/* 얼굴 옆모습 — 왼쪽 위를 봄 */}
+      <path d="M150 56c-24-4-46 10-52 36-2 10 2 18-4 26 6 2 8 8 6 14-2 6 0 12 6 16 8 6 20 6 32 2l16-6-2-82z" fill={C} />
+      <path {...L} d="M150 56c-24-4-46 10-52 36-2 10 2 18-4 26 6 2 8 8 6 14-2 6 0 12 6 16 8 6 20 6 32 2" />
+      <path {...L} d="M110 98c4-4 10-4 14-2" />
+      <path {...L} d="M104 90c6-6 14-8 22-6" strokeWidth={3} />
+      <path {...L} d="M100 136c4 3 10 3 14 0" />
+      {/* 앞머리 라인 + 머리핀 */}
+      <path d="M150 56c-14-2-30 4-40 16 10-2 18 0 24 6 6-8 12-12 16-22z" fill={Y} stroke={K} strokeWidth={4} strokeLinejoin="round" />
+      <path {...L} d="M150 92l18-4" strokeWidth={3} />
+      <path {...L} d="M160 110c6 2 10 8 8 14" strokeWidth={3} />
     </svg>
   );
 }
 
-/** 03 스크립트부터 제작까지 손으로 하느라 지친 크리에이터 — 서류 더미 vs 한 줄로 흐르는 자동화 */
-function Tired() {
-  return (
-    <svg viewBox="0 0 240 170" className="h-full w-full" aria-hidden>
-      <Blob d="M132 96c30-10 66-6 80 10 8 12 2 30-12 36-26 6-60 8-78-2-12-10-8-36 10-44z" />
-      {/* 지친 사람: 턱 괴고 */}
-      <circle cx="66" cy="52" r="20" {...base} />
-      <path {...base} d="M58 50l6 2M74 50l6 2" />
-      <path {...base} d="M60 62c4-2 10-2 14 0" />
-      <path {...base} d="M46 46c2-14 18-22 34-14" />
-      <path {...base} d="M30 150c2-30 12-54 36-62" />
-      <path {...base} d="M100 150c-2-18-8-36-20-48" />
-      <path {...base} d="M40 100c6-14 18-20 26-14" />
-      {/* 서류 더미 */}
-      <path {...base} d="M106 150v-30h30v30M110 128h22M110 136h18" />
-      <path {...base} d="M112 118l4-8h24l4 8" />
-      {/* 흐르는 자동화 */}
-      <circle cx="152" cy="118" r="5" {...base} />
-      <circle cx="178" cy="118" r="5" {...base} />
-      <circle cx="204" cy="118" r="5" {...base} />
-      <path {...base} d="M158 118h14M184 118h14" />
-      <path {...base} d="M210 118l10 0l-4-4M220 118l-4 4" />
-      {/* 시계 */}
-      <circle cx="186" cy="52" r="20" {...base} />
-      <path {...base} d="M186 40v12l8 6" />
-      <path {...base} d="M30 158h180" strokeWidth={2.5} opacity={0.5} />
-    </svg>
-  );
-}
-
-/** 04 AI 툴은 써봤지만 '내 콘텐츠'로 이어지지 않았던 분 — 흩어진 툴 조각이 내 릴스 한 편으로 모여요 */
-function Tools() {
-  return (
-    <svg viewBox="0 0 240 170" className="h-full w-full" aria-hidden>
-      <Blob d="M150 30c12-6 32-4 40 8 8 14 4 60-2 86-4 10-30 12-40 2-8-26-14-74 2-96z" />
-      {/* 흩어진 조각 */}
-      <rect x="22" y="28" width="22" height="22" rx="5" {...base} />
-      <circle cx="74" cy="34" r="11" {...base} />
-      <path {...base} d="M30 88l12-20 12 20z" />
-      <path {...base} d="M66 70l16 16M82 70l-16 16" />
-      <path {...base} d="M46 118c0-8 14-8 14 0s-14 8-14 0" />
-      {/* 모이는 화살 */}
-      <path {...base} d="M98 60c14 6 22 20 26 36M98 100c12-4 24-2 32 4" strokeDasharray="6 6" />
-      {/* 사람 */}
-      <circle cx="112" cy="130" r="14" {...base} />
-      <path {...base} d="M106 128c1-2 3-2 4 0M116 128c1-2 3-2 4 0" />
-      <path {...base} d="M106 136c3 3 9 3 12 0" />
-      <path {...base} d="M100 124c2-10 14-14 24-8" />
-      <path {...base} d="M90 158c2-10 10-18 22-18s20 8 22 18" />
-      {/* 릴스 폰 */}
-      <rect x="150" y="34" width="46" height="84" rx="9" {...base} />
-      <path {...base} d="M167 66l16 10-16 10z" fill={INK} />
-      <path {...base} d="M158 126c8 2 20 2 30 0" />
-      <path {...base} d="M204 28l6-8M210 48l10-2M200 14l2-10" />
-      <path {...base} d="M30 158h180" strokeWidth={2.5} opacity={0.5} />
-    </svg>
-  );
-}
-
-const SET = [Hide, Shop, Tired, Tools];
+const SET = [Mirror, Planner, Wish, Dream];
 
 export default function FitIllust({ i }: { i: number }) {
-  const C = SET[i % SET.length];
-  return <C />;
+  const Pic = SET[i % SET.length];
+  return (
+    <div className="h-full w-full overflow-hidden rounded-2xl bg-cream">
+      <Pic />
+    </div>
+  );
 }
