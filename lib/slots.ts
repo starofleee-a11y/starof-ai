@@ -1,8 +1,10 @@
 // 커피챗 시간표 규칙. 요일별로 열어 둘 시간을 적으면 구글 캘린더의 일정과 겹치는 칸은 자동으로 빠집니다.
 // 요일: 0=일 1=월 2=화 3=수 4=목 5=금 6=토
-// 주중: 점심 12~13시, 저녁 18시 이후(자정 전까지) · 주말: 10시~자정 전. 캘린더에 일정이 있는 칸은 자동으로 빠져요.
-const WEEKDAY = ["12:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
-const WEEKEND = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+// 자정~오후 4시는 잠·코어워크타임이라 캘린더가 비어 있어도 열지 않아요 (winter, 2026-11-12).
+// 주중: 저녁 18시 이후(자정 전까지) · 주말: 16시~자정 전. 캘린더에 일정이 있는 칸은 자동으로 빠져요.
+export const CLOSED_UNTIL = "16:00"; // 이 시각 전에 시작하는 칸은 어떤 요일이든 빼요
+const WEEKDAY = ["18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+const WEEKEND = ["16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
 export const SLOT_RULES: Record<number, string[]> = {
   1: WEEKDAY,
   2: WEEKDAY,
@@ -44,7 +46,7 @@ export function candidateDays(now = new Date()): DaySlots[] {
   for (let i = FIRST_DAY_OFFSET; i < FIRST_DAY_OFFSET + DAYS_AHEAD; i++) {
     const date = kstDate(new Date(start.getTime() + i * 86400_000 + 12 * 3600_000));
     const weekday = kstWeekday(date);
-    const slots = (SLOT_RULES[weekday] ?? []).filter((t) => toDate(date, t).getTime() >= minStart);
+    const slots = (SLOT_RULES[weekday] ?? []).filter((t) => t >= CLOSED_UNTIL && toDate(date, t).getTime() >= minStart);
     out.push({ date, weekday, slots });
   }
   return out;
