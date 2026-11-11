@@ -2,12 +2,14 @@
 export const SITE = {
   name: "Star of AI",
   domain: "https://www.starof-ai.com",
-  tagline: "AX 에이전시, Star of AI",
+  tagline: "마케팅 자동화 에이전시, Star of AI",
   owner: "이경서 (Winter)",
   company: "대기만성",
   email: "starofleee@gmail.com",
   phone: "+82 10-3732-8091",
-  address: "서울 강남구 언주로 30길",
+  address: "서울특별시 강남구 선릉로 120, 14동 201호(대치동, 개포2차우성아파트)", // 사업자등록증과 동일해야 해요
+  bizNo: "830-10-02771", // 사업자등록번호
+  mailOrderNo: "제2026-서울강남-05882호", // 통신판매업 신고번호 (2026-10-21 강남구청)
   instagram: "https://www.instagram.com/starof_ai",
   instagramHandle: "@starof_ai",
   linkedinPost: "https://lnkd.in/p/gQHTtuWk",
@@ -36,7 +38,7 @@ export const NAV: NavItem[] = [
       { href: "/oneday", label: "AI 콘텐츠 제작 원데이", en: "Creators", desc: "AI로 릴스 제작 자동화 · 11/29(일) 3시간" },
     ],
   },
-  { href: "/consulting", label: "1:1 AX 컨설팅", en: "Workers" },
+  { href: "/consulting", label: "1:1 마케팅 자동화 컨설팅", en: "Workers" },
   { href: "/enterprise", label: "기업 AX", en: "Company" },
 ];
 

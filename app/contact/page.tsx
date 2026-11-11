@@ -14,7 +14,7 @@ export default function ContactPage() {
           <p className="eyebrow">Contact</p>
           <h1 className="h-display mt-4 text-[38px] md:text-[56px]">무엇이든<br />편하게 물어보세요</h1>
           <p className="mt-6 text-[16px] leading-relaxed text-brown/90">
-            강의, 1:1 AX 컨설팅, 기업 AX 무엇이든 좋아요. 남겨주신 내용은 바로 대표에게 전달되고, 1영업일 안에 메일로 회신드립니다.
+            강의, 1:1 마케팅 자동화 컨설팅, 기업 AX 무엇이든 좋아요. 남겨주신 내용은 바로 대표에게 전달되고, 1영업일 안에 메일로 회신드립니다.
           </p>
           <div className="mt-10 space-y-3 text-[15px] text-brown/90">
             <p><span className="mr-3 text-brown/65">메일</span><a className="underline underline-offset-4" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>

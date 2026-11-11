@@ -5,8 +5,11 @@ import { PROJECTS } from "@/lib/projects";
  * 프로젝트를 화면 캡처와 함께 천천히 흐르는 가로 모듈.
  * 기본은 두 줄이 서로 반대 방향으로, rows=1 이면 한 줄이 화면 가운데를 가로질러 흘러요 (기업 AX 페이지).
  */
-export default function ProjectMarquee({ companyOnly = false, rows: rowCount = 2 }: { companyOnly?: boolean; rows?: 1 | 2 }) {
-  const items = companyOnly ? PROJECTS.filter((p) => p.forCompany) : PROJECTS;
+export default function ProjectMarquee({ companyOnly = false, rows: rowCount = 2, ids }: { companyOnly?: boolean; rows?: 1 | 2; ids?: string[] }) {
+  // ids를 넘기면 그 순서대로 그 프로젝트만 보여줘요 (1:1 마케팅 자동화 컨설팅 페이지)
+  const items = ids
+    ? ids.map((id) => PROJECTS.find((p) => p.id === id)).filter((p): p is (typeof PROJECTS)[number] => Boolean(p))
+    : companyOnly ? PROJECTS.filter((p) => p.forCompany) : PROJECTS;
   const half = Math.ceil(items.length / 2);
   const rows = rowCount === 1 ? [items] : [items.slice(0, half), items.slice(half)];
   return (

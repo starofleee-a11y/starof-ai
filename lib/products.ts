@@ -18,6 +18,7 @@ export interface Product {
   bullets: string[];
   payable: boolean; // 사이트에서 바로 결제 가능한지
   cta: string;
+  access?: string; // 강의 수강 가능 시점 (결제일로부터 12개월 이내)
 }
 
 export const PRODUCTS: Record<ProductId, Product> = {
@@ -37,6 +38,7 @@ export const PRODUCTS: Record<ProductId, Product> = {
     bullets: ["오프라인 2회 + 온라인 2회", "설치·터미널·권한 셋팅 동행", "내 업무 자동화 직접 완성·발표", "4회 전부 참석 시 30,000원 환급"],
     payable: true,
     cta: "스터디 신청하기",
+    access: "결제 후 확정된 기수 일정(3주 4회)에 수강 · 결제일로부터 12개월 이내",
   },
   oneday: {
     id: "oneday",
@@ -54,23 +56,25 @@ export const PRODUCTS: Record<ProductId, Product> = {
     bullets: ["니온앤비욘 챌린지 영상에 내 얼굴 넣기", "촬영 없이 AI 제품 홍보 영상", "릴스 후킹 서사·스크립트 작성법", "릴스 자동화 워크플로우 직접 구축"],
     payable: true,
     cta: "원데이 신청하기",
+    access: "11/29(일) 16:00–19:00 당일 수강 · 결제일로부터 12개월 이내",
   },
   consulting: {
     id: "consulting",
     href: "/consulting",
-    name: "1:1 AX 컨설팅",
-    short: "1:1 AX 컨설팅",
-    en: "1:1 AX Consulting",
+    name: "1:1 마케팅 자동화 컨설팅",
+    short: "1:1 마케팅 자동화 컨설팅",
+    en: "1:1 Marketing Automation",
     audience: "Workers",
     price: 300000,
     priceLabel: "300,000원",
     unit: "워크플로우 1개 · 컨설팅 3회",
-    summary: "자동화 가능한 범위 상담부터 최적화된 AI 워크플로우 구축·셋팅까지, 컨설턴트가 직접 만들어 드립니다.",
-    hook: "자동화는 컨설턴트가 대신 만들어요",
-    how: "범위 진단부터 구축·셋팅·보완까지, 내 업무용 워크플로우 1개를 완성해 드려요.",
-    bullets: ["무료 커피챗으로 범위 진단", "컨설팅 3회 (오프라인 2회 · 온라인 1회)", "개발·셋팅은 컨설턴트가 대행", "수정·오류 보완까지 포함"],
+    summary: "마케팅 담당자 혹은 1인 사업가를 위한 최적의 마케팅 자동화 프로세스 구축. 기획 > 디자인 > 업로드부터 성과 리포팅까지 컨설턴트가 직접 만들어 드립니다.",
+    hook: "콘텐츠 제작, 99% 자동으로",
+    how: "터지는 콘텐츠 공식부터 릴스·카드뉴스 자동화, 전환율·ROI 트래킹까지 내 마케팅 워크플로우를 완성해 드려요.",
+    bullets: ["무료 커피챗으로 범위 진단", "컨설팅 3회 (오프라인 2회 · 온라인 1회)", "기획 > 디자인 > 업로드 자동화 대행", "전환율·ROI 리포팅까지 연결"],
     payable: false,
     cta: "1:1 컨설팅 신청하기",
+    access: "홈페이지 결제창(PG) 결제 없음 · 계약 후 별도 정산",
   },
   enterprise: {
     id: "enterprise",

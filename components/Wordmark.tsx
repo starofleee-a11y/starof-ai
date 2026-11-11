@@ -89,7 +89,7 @@ export default function Wordmark() {
       <div className={`mt-12 text-center md:mt-16 ${ease >= 1 ? "in" : ""}`} style={{ opacity: Math.max(0.15, (ease - 0.5) / 0.5), transform: `translateY(${(1 - ease) * 24}px)`, transition: "opacity .5s, transform .5s" }}>
         <h2 className="glow-text font-kserif text-[28px] font-bold leading-[1.25] text-brown-dark md:text-[46px]">{SOLVE.title}</h2>
         <p className="mx-auto mt-5 max-w-2xl text-[16px] leading-relaxed text-brown/90 md:text-[19px]">
-          <Hl>AI 강의부터 AX 컨설팅까지</Hl>, AI를 활용한 자동화를 <Hl delay={350}>쉽고 체계적으로</Hl> 구축해드려요.
+          <Hl>기획부터 디자인·업로드·성과 리포팅까지</Hl>, 마케팅 자동화를 <Hl delay={350}>쉽고 체계적으로</Hl> 구축해드려요.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link href="#services" className="btn-primary">세 가지 방법 보기</Link>

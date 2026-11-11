@@ -15,7 +15,7 @@ import { SURVEY } from "@/lib/proof";
 import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES, LETTER } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
 import Hl from "@/components/Hl";
-import { won, FRIEND_DISCOUNT } from "@/lib/products";
+import { PRODUCTS, won, FRIEND_DISCOUNT } from "@/lib/products";
 import { ONEDAY } from "@/lib/oneday";
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
 };
 
 const FAQS = [
+  { q: "언제 수강할 수 있나요?", a: `수강 가능 시점은 ${PRODUCTS.study.access}예요. 결제일로부터 12개월을 넘겨 수강하는 경우는 없어요.` },
   { q: "코딩을 전혀 몰라도 되나요?", a: "네. 1기 수강생의 64%가 클로드 코드를 처음 접한 분들이었어요. 터미널 설치부터 화면을 같이 보며 진행하고, 막히는 부분은 그 자리에서 해결합니다." },
   { q: "무엇을 배우나요?", a: "클로드 코드 설치·셋팅, 스킬·커넥터·토큰 개념, 실무 자동화 사례 해부, 그리고 내 업무 하나를 직접 자동화해서 발표하는 것까지예요. 이론보다 실습 비중이 큽니다." },
   { q: "유튜브나 온라인 강의와 뭐가 다른가요?", a: "에러에서 멈추지 않는다는 점이에요. 소수 정원이라 막힌 화면을 한 명씩 같이 보고, 내 업무에 맞춰 기획안 피드백까지 받습니다." },
@@ -33,7 +34,7 @@ const FAQS = [
   { q: "수업에 빠지면 어떻게 하나요?", a: "교안과 실습 파일은 드리지만, 한 번이라도 빠지면 3만원 환급 대상에서는 제외돼요. 4회 일정을 꼭 확인하고 신청해 주세요." },
   { q: "수료증을 받을 수 있나요?", a: "네. 4회 전부 참석하시면 4회차 당일 수료증을 드리고, 3만원 환급도 같은 날 계좌이체로 보내드려요." },
   { q: "결제와 환불은 어떻게 되나요?", a: `신청서를 보내면 바로 결제할 수 있고, ${STUDY.resultDate} 선정 안내를 받은 뒤 결제하셔도 돼요. 선정 안내 및 입금 후에는 환불이 불가합니다.` },
-  { q: "일정이 안 맞거나, 회사 단위로 듣고 싶어요.", a: "일정이 안 맞으면 1:1 AX 컨설팅으로 내 업무 자동화를 같이 만들 수 있고, 팀·회사 단위는 기업 AX 강의로 진행해요. 무료 커피챗에서 어떤 쪽이 맞는지 같이 정해드립니다." },
+  { q: "일정이 안 맞거나, 회사 단위로 듣고 싶어요.", a: "일정이 안 맞으면 1:1 마케팅 자동화 컨설팅으로 내 업무 자동화를 같이 만들 수 있고, 팀·회사 단위는 기업 AX 강의로 진행해요. 무료 커피챗에서 어떤 쪽이 맞는지 같이 정해드립니다." },
 ];
 
 export default function StudyPage() {

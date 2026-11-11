@@ -22,12 +22,12 @@ const notoSerif = Noto_Serif_KR({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
-  title: { default: "Star of AI · AX 에이전시", template: "%s · Star of AI" },
+  title: { default: "Star of AI · 마케팅 자동화 에이전시", template: "%s · Star of AI" },
   description:
-    "AI 얼리어답터가 되는 지름길. 자동화 기초 강의, 1:1 AX 컨설팅, 기업 AX. 나의 업무가 자동으로 굴러가도록 시간과 돈이 벌리는 시스템을 설계합니다.",
+    "콘텐츠 제작 99% 자동화하는 법을 알려드립니다. 마케팅 담당자 혹은 1인 사업가를 위한 최적의 마케팅 자동화 프로세스 구축. 1:1 마케팅 자동화 컨설팅, 자동화 기초 강의, 기업 AX.",
   openGraph: {
-    title: "Star of AI · AX 에이전시",
-    description: "AI 얼리어답터가 되는 지름길. 자동화 기초 강의 · 1:1 AX 컨설팅 · 기업 AX",
+    title: "Star of AI · 마케팅 자동화 에이전시",
+    description: "콘텐츠 제작 99% 자동화하는 법을 알려드립니다. 1:1 마케팅 자동화 컨설팅 · 자동화 기초 강의 · 기업 AX",
     url: SITE.domain,
     siteName: "Star of AI",
     locale: "ko_KR",

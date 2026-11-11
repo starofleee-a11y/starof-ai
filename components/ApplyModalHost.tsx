@@ -8,7 +8,7 @@ import { APPLY_OPEN, APPLY_STATE, type ApplyKind } from "@/lib/apply";
 const LABEL: Record<ApplyKind, string> = {
   study: "자동화 기초 클래스 신청",
   oneday: "AI 콘텐츠 제작 원데이 신청",
-  consulting: "1:1 AX 컨설팅 신청",
+  consulting: "1:1 마케팅 자동화 컨설팅 신청",
   enterprise: "기업 AX 문의",
 };
 

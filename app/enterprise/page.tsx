@@ -203,7 +203,7 @@ export default function EnterprisePage() {
         <FAQ items={FAQS} />
       </section>
 
-      <FloatingCTA kind="enterprise" primary="기업 문의하기" secondary={{ label: "프로젝트 사례", href: "#cases" }} note="강의 · 컨설팅 · SaaS 개발 · 비용 협의" />
+      <FloatingCTA kind="enterprise" primary="기업 문의하기" secondary={{ label: "프로젝트 사례", href: "#cases" }} note="강의 · 컨설팅 · SaaS 개발 · 비용 협의 · PG 결제 없음" />
       <ApplyModalHost kind="enterprise" />
     </>
   );

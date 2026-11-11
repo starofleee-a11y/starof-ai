@@ -28,8 +28,8 @@ const META: Record<Kind, { emoji: string; label: string; footer: string; mailTit
     emoji: "🧭",
     label: "1:1 컨설팅 신청",
     footer: "1영업일 안에 연락 → 무료 커피챗 30분으로 범위 확정",
-    mailTitle: "1:1 AX 컨설팅 신청이 접수됐어요",
-    mailBody: `<p>1:1 AX 컨설팅 신청이 접수됐어요.<br>1영업일 안에 남겨주신 연락처로 연락드리고, <b>무료 커피챗 30분</b>으로 자동화 범위와 일정을 먼저 정해요.</p>`,
+    mailTitle: "1:1 마케팅 자동화 컨설팅 신청이 접수됐어요",
+    mailBody: `<p>1:1 마케팅 자동화 컨설팅 신청이 접수됐어요.<br>1영업일 안에 남겨주신 연락처로 연락드리고, <b>무료 커피챗 30분</b>으로 자동화 범위와 일정을 먼저 정해요.</p>`,
   },
 };
 
