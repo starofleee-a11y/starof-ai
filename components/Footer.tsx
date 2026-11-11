@@ -9,9 +9,9 @@ export default function Footer() {
         <div>
           <Logo color="#FFEB51" className="h-7 w-auto" />
           <p className="mt-5 max-w-xs text-[14px] leading-relaxed text-butter-pale/85">
-            AX Consulting · AI Builder · AI Lecture
+            Marketing Automation · AI Builder · AI Lecture
             <br />
-            반복 업무는 AI에게 맡기고, 사람은 더 중요한 일에 집중하도록.
+            콘텐츠 제작은 AI에게 맡기고, 사람은 더 중요한 일에 집중하도록.
           </p>
         </div>
         <div>
@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap flex flex-col gap-2 border-t border-butter/10 py-6 text-[12px] text-butter-pale/65 md:flex-row md:justify-between">
-        <p>상호 {SITE.company} · 대표 이경서 · {SITE.email} · <Link href="/refund" className="underline underline-offset-4 hover:text-butter">환불 정책</Link></p>
+        <p>상호 {SITE.company} · 대표 이경서 · 사업자등록번호 {SITE.bizNo} · 통신판매업 신고 {SITE.mailOrderNo} · 사업장 주소 {SITE.address} · {SITE.phone} · {SITE.email} · <Link href="/refund" className="underline underline-offset-4 hover:text-butter">환불 정책</Link></p>
         <p>© {new Date().getFullYear()} Star of AI. All rights reserved.</p>
       </div>
     </footer>

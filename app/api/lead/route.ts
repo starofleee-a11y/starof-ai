@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 
 const LABEL: Record<string, string> = {
   study: "자동화 기초 강의 · 1화 강의 교안",
-  consulting: "1:1 AX 컨설팅 · 자동화 셋팅 가이드 & 커리큘럼",
+  consulting: "1:1 마케팅 자동화 컨설팅 · 자동화 셋팅 가이드 & 커리큘럼",
 };
 
 export async function POST(req: NextRequest) {

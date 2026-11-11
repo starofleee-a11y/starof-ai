@@ -52,7 +52,7 @@ export default function EdgeDiagram() {
           );
         })}
         <text x="200" y="146" textAnchor="middle" fontSize="12" fontWeight="800" fill="#2E1F08" style={{ pointerEvents: "none", fontFamily: "Pretendard, sans-serif" }}>Star of AI</text>
-        <text x="200" y="162" textAnchor="middle" fontSize="11" fontWeight="700" fill="#2E1F08" style={{ pointerEvents: "none", fontFamily: "Pretendard, sans-serif" }}>AX 컨설팅</text>
+        <text x="200" y="162" textAnchor="middle" fontSize="11" fontWeight="700" fill="#2E1F08" style={{ pointerEvents: "none", fontFamily: "Pretendard, sans-serif" }}>마케팅 자동화</text>
       </svg>
       <ol className="space-y-3">
         {EDGE.map((e, i) => {

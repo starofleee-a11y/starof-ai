@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Reveal from "./Reveal";
-import { CASES } from "@/lib/proof";
+import { CASES, type CaseStudy } from "@/lib/proof";
 
-/** 문제 → 해결 → 성과, 3단계로 읽는 AX 프로젝트 사례 */
-export default function CaseStudies({ limit }: { limit?: number }) {
-  const list = limit ? CASES.slice(0, limit) : CASES;
+/** 문제 → 해결 → 성과, 3단계로 읽는 프로젝트 사례. items를 넘기면 그 목록을 보여줘요 (기본: 기업 AX 사례) */
+export default function CaseStudies({ limit, items = CASES }: { limit?: number; items?: CaseStudy[] }) {
+  const list = limit ? items.slice(0, limit) : items;
   return (
     <div className="space-y-6">
       {list.map((c, i) => (

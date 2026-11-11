@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { DaySlots } from "@/lib/slots";
 
-const TOPICS = ["업무 자동화가 막막해요", "AI 강의·스터디가 궁금해요", "1:1 AX 컨설팅을 고민 중이에요", "회사 AX 도입을 고민 중이에요", "기타"];
+const TOPICS = ["콘텐츠·마케팅 자동화가 막막해요", "AI 강의·스터디가 궁금해요", "1:1 마케팅 자동화 컨설팅을 고민 중이에요", "회사 AX 도입을 고민 중이에요", "기타"];
 const WD = "일월화수목금토";
 
 export default function CoffeeChat() {

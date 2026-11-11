@@ -24,7 +24,7 @@ export interface Diagnosis {
 
 const PLAN_TEXT: Record<PlanId, string> = {
   study: "자동화 기초 강의 — 클로드 코드 설치부터 내 업무 자동화 발표까지 3주 4회, 15만원 (Starters)",
-  consulting: "1:1 AX 컨설팅 — 컨설턴트가 워크플로우 1개를 대신 구축·셋팅, 컨설팅 3회, 30만원 (Workers)",
+  consulting: "1:1 마케팅 자동화 컨설팅 — 릴스·카드뉴스 제작, 협찬·CRM, 성과 리포팅 등 마케팅 워크플로우 1개를 컨설턴트가 대신 구축·셋팅, 컨설팅 3회, 30만원 (Workers)",
   enterprise: "기업 AX — 임직원 교육, 부서 단위 자동화 구축, 맞춤 SaaS 개발, 비용 협의 (Company)",
 };
 

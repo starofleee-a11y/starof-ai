@@ -26,10 +26,10 @@ const PILLARS: { tone: Tone; q: string; a: string; href: string; label: string }
   },
   {
     tone: "workers",
-    q: "복잡한 업무의 병목현상을 자동화하고 싶다구요?",
-    a: "Workers를 위한 1:1 맞춤 AI 컨설팅을 진행해드립니다.",
+    q: "릴스·카드뉴스 만드느라 매일 시간이 부족하다구요?",
+    a: "마케팅 담당자·1인 사업가를 위한 1:1 마케팅 자동화 컨설팅을 진행해드립니다.",
     href: "/consulting",
-    label: "1:1 AX 컨설팅",
+    label: "1:1 마케팅 자동화 컨설팅",
   },
   {
     tone: "company",
@@ -72,7 +72,7 @@ export default function Home() {
       <section id="services" className="wrap scroll-mt-20 py-24 md:py-36">
         <SectionHead
           eyebrow="What we do"
-          title={<>Star of AI 에이전시는 AX 에이전시로,<br />개인 혹은 조직의 <Hl>AI 생산성</Hl>을 갖추도록 돕습니다</>}
+          title={<>Star of AI 에이전시는 마케팅 자동화 에이전시로,<br />콘텐츠 제작부터 성과 리포팅까지 <Hl>자동으로 굴러가게</Hl> 돕습니다</>}
         />
         <div className="grid gap-4 md:grid-cols-3">
           {PILLARS.map((p, i) => {
@@ -156,17 +156,17 @@ export default function Home() {
             <Reveal>
               <p className="text-[12px] font-semibold uppercase tracking-[0.22em] text-butter/80">Free coffee chat</p>
               <h2 className="mt-4 font-kserif text-[32px] font-bold leading-[1.25] text-butter md:text-[44px]">
-                어떻게 AI를 도입해야 할지
+                콘텐츠 자동화, 어디서부터 할지
                 <br />
                 <mark className="hl hl-butter">막막하시다구요?</mark>
               </h2>
               <p className="mt-6 text-[16px] leading-relaxed text-butter-pale/85">
-                <b className="font-bold text-butter">무료로 AX 자동화 범위</b>를 상담해드려요. 30분 동안 지금 하고 계신 업무를 듣고, 무엇부터 자동화하면 좋을지 같이 그립니다. 내일부터 2주 안에서 비는 시간을 바로 고르세요.
+                <b className="font-bold text-butter">무료로 마케팅 자동화 범위</b>를 상담해드려요. 30분 동안 지금 콘텐츠를 어떻게 만들고 올리는지 듣고, 무엇부터 자동화하면 좋을지 같이 그립니다. 내일부터 2주 안에서 비는 시간을 바로 고르세요.
               </p>
             </Reveal>
             <Reveal delay={150}>
               <ol className="mt-10 space-y-4 text-[15px]">
-                {["가능한 시간 선택", "자동화 고민 한 줄", "미팅 링크 메일 발송", "하루 전 리마인드 · 메일에서 취소"].map((t, i) => (
+                {["가능한 시간 선택", "콘텐츠·마케팅 고민 한 줄", "미팅 링크 메일 발송", "하루 전 리마인드 · 메일에서 취소"].map((t, i) => (
                   <li key={t} className="flex gap-4 border-b border-butter/10 pb-4">
                     <span className="font-serif text-[15px] italic text-butter/60">0{i + 1}</span>
                     <span className="text-butter-pale/90">{t}</span>
@@ -206,11 +206,11 @@ export default function Home() {
         <div className="wrap py-28 text-center md:py-40">
           <Reveal>
             <h2 className="h-display mx-auto max-w-3xl text-[32px] md:text-[52px]">
-              이번 주에 줄이고 싶은
+              이번 주에 자동화하고 싶은
               <br />
-              반복 업무가 있나요?
+              콘텐츠 업무가 있나요?
             </h2>
-            <p className="mx-auto mt-6 max-w-lg text-[16px] text-brown/85">무료 커피챗에서 30분 만에 자동화 지도를 같이 그려봐요.</p>
+            <p className="mx-auto mt-6 max-w-lg text-[16px] text-brown/85">무료 커피챗에서 30분 만에 마케팅 자동화 지도를 같이 그려봐요.</p>
             <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link href="#coffee-chat" className="btn-primary">무료 커피챗 예약</Link>
               <Link href="/contact" className="btn-ghost">기업 문의하기</Link>

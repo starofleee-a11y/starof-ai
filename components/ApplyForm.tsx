@@ -38,10 +38,10 @@ const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLab
   },
   consulting: {
     eyebrow: "Apply",
-    title: "1:1 AX 컨설팅 신청",
+    title: "1:1 마케팅 자동화 컨설팅 신청",
     sub: "신청 후 1영업일 안에 연락드리고, 무료 커피챗 30분으로 범위를 먼저 확정해요.",
-    topicLabel: "자동화하고 싶은 업무 (병목)",
-    topicPh: "예) 매주 엑셀 3개를 합쳐 주간 보고서 PDF로 만들고 팀 슬랙에 공유하는 일",
+    topicLabel: "자동화하고 싶은 마케팅 업무",
+    topicPh: "예) 카드뉴스 기획·디자인·업로드를 매주 3편씩 손으로 하고, 성과는 따로 엑셀에 정리하는 일",
     topicRequired: true,
     checks: [],
     submit: "1:1 컨설팅 신청하기",
