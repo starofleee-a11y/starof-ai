@@ -34,13 +34,20 @@ export async function POST(req: NextRequest) {
   const when = fmtKst(start);
   const origin = req.nextUrl.origin;
 
-  const event = hasGoogle() ? await createCoffeeEvent({ ...f, start, end }) : null;
+  // Zapier 자동화가 켜져 있으면 줌 링크·캘린더(30분)·안내 메일·1시간 전 리마인드를 Zapier가 맡아요.
+  // 사이트가 따로 캘린더 일정·메일을 만들면 중복되니 이때는 건너뜁니다.
+  const zapierHook = process.env.ZAPIER_COFFEE_HOOK_URL?.trim();
+  const zapier = zapierHook
+    ? await sendToZapier(zapierHook, { ...f, start: start.toISOString(), end: addMinutes(start, SLOT_MINUTES).toISOString(), when })
+    : false;
+
+  const event = !zapier && hasGoogle() ? await createCoffeeEvent({ ...f, start, end }) : null;
   const link = event?.meetLink;
   const cancel = event ? cancelUrl(origin, event.id) : "";
 
   const notice = {
     emoji: "☕",
-    title: `커피챗 ${event ? "예약 확정" : "신청"} · ${when}`,
+    title: `커피챗 ${event || zapier ? "예약 확정" : "신청"} · ${when}`,
     fields: [
       ["이름", f.name],
       ["메일", f.email],
@@ -50,7 +57,11 @@ export async function POST(req: NextRequest) {
       ["미팅 링크", link],
       ["캘린더", event?.htmlLink],
     ] as [string, string | undefined][],
-    footer: event ? "캘린더에 자동 등록됐어요. 24시간 전 리마인드 메일도 자동으로 나갑니다." : "구글 캘린더 미연결 — 확인 후 미팅 링크를 직접 보내주세요.",
+    footer: zapier
+      ? "Zapier가 줌 링크 생성 · 캘린더 등록 · 안내 메일 · 1시간 전 리마인드를 처리해요."
+      : event
+        ? "캘린더에 자동 등록됐어요. 24시간 전 리마인드 메일도 자동으로 나갑니다."
+        : "구글 캘린더 미연결 — 확인 후 미팅 링크를 직접 보내주세요.",
   };
 
   const customerHtml = `<div style="font-family:Pretendard,Apple SD Gothic Neo,sans-serif;color:#3D2A0C;line-height:1.75;padding:28px;background:#FFFDF5">
@@ -65,7 +76,24 @@ export async function POST(req: NextRequest) {
   await Promise.all([
     notifySlack(notice),
     sendMail({ to: OWNER_EMAIL(), subject: `[커피챗] ${f.name} · ${when}`, html: noticeToHtml(notice), replyTo: f.email }),
-    sendMail({ to: f.email, subject: `[Star of AI] 커피챗 ${event ? "예약 확정" : "신청 접수"} · ${when}`, html: customerHtml }),
+    zapier ? Promise.resolve(true) : sendMail({ to: f.email, subject: `[Star of AI] 커피챗 ${event ? "예약 확정" : "신청 접수"} · ${when}`, html: customerHtml }),
   ]);
-  return NextResponse.json({ ok: true, confirmed: !!event, when, link });
+  return NextResponse.json({ ok: true, confirmed: !!event || zapier, when, link });
+}
+
+/** Zapier 웹훅으로 신청 정보 전달. 실패하면 false → 기존 방식(구글 캘린더·Resend)으로 처리해요. */
+async function sendToZapier(url: string, payload: Record<string, string>) {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ source: "starof-ai.com", ...payload }),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) console.error("[zapier] 웹훅 실패:", res.status);
+    return res.ok;
+  } catch (e) {
+    console.error("[zapier] 웹훅 오류:", e);
+    return false;
+  }
 }
