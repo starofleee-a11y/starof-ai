@@ -42,7 +42,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap flex flex-col gap-2 border-t border-butter/10 py-6 text-[12px] text-butter-pale/65 md:flex-row md:justify-between">
-        <p>상호 {SITE.company} · 대표 이경서 · 사업자등록번호 {SITE.bizNo} · 통신판매업 신고 {SITE.mailOrderNo} · 사업장 주소 {SITE.address} · {SITE.phone} · {SITE.email} · <Link href="/refund" className="underline underline-offset-4 hover:text-butter">환불 정책</Link></p>
+        <p>상호 {SITE.company} · 대표 이경서 · 사업자등록번호 {SITE.bizNo} · 통신판매업 신고 {SITE.mailOrderNo} · 사업장 주소 {SITE.address} · {SITE.phone} · {SITE.email} · <Link href="/refund" className="underline underline-offset-4 hover:text-butter">환불 정책</Link> · <Link href="/privacy" className="underline underline-offset-4 hover:text-butter">개인정보처리방침</Link> · <Link href="/terms" className="underline underline-offset-4 hover:text-butter">이용약관</Link></p>
         <p>© {new Date().getFullYear()} Star of AI. All rights reserved.</p>
       </div>
     </footer>
