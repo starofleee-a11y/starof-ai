@@ -91,7 +91,8 @@ const workflow = defineDurable({
       if (isNaN(s0.getTime())) return null;
       const e1 = new Date(endRaw);
       const e0 = endRaw && !isNaN(e1.getTime()) ? e1 : new Date(s0.getTime() + MINUTES * 60_000);
-      return { startIso: s0.toISOString(), endIso: e0.toISOString(), startMs: s0.getTime(), when: kstLabel(s0) };
+      const iso = (d: Date) => d.toISOString().replace(/\.\d{3}Z$/, "Z"); // 줌은 밀리초가 붙으면 시작 시각을 무시해요
+      return { startIso: iso(s0), endIso: iso(e0), startMs: s0.getTime(), when: kstLabel(s0) };
     });
     if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !t) {
       return { skipped: true, reason: "missing-name-email-or-start", received: { name, email, start: startRaw } };

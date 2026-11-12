@@ -2,10 +2,12 @@
 import { useEffect, useMemo, useState } from "react";
 import type { DaySlots } from "@/lib/slots";
 
-const TOPICS = ["콘텐츠·마케팅 자동화가 막막해요", "AI 강의·스터디가 궁금해요", "1:1 마케팅 자동화 컨설팅을 고민 중이에요", "회사 AX 도입을 고민 중이에요", "기타"];
+export const CONSULTING_TOPIC = "1:1 마케팅 자동화 컨설팅을 고민 중이에요";
+const TOPICS = ["콘텐츠·마케팅 자동화가 막막해요", "AI 강의·스터디가 궁금해요", "1:1 마케팅 자동화 컨설팅을 고민 중이에요", "1:1 나의 실무 맞춤 자동화 컨설팅을 받고 싶어요", "회사 AX 도입을 고민 중이에요", "기타"];
 const WD = "일월화수목금토";
 
-export default function CoffeeChat() {
+/** defaultTopic: 처음 선택돼 있을 주제 · bare: 팝업 안에서 카드 테두리 없이 */
+export default function CoffeeChat({ defaultTopic, bare = false }: { defaultTopic?: string; bare?: boolean } = {}) {
   const [days, setDays] = useState<DaySlots[] | null>(null);
   const [live, setLive] = useState(false);
   const [day, setDay] = useState("");
@@ -73,13 +75,13 @@ export default function CoffeeChat() {
 
   if (state === "done" && result)
     return (
-      <div className="card p-8 md:p-10">
+      <div className={bare ? "py-2" : "card p-8 md:p-10"}>
         <p className="eyebrow">{result.confirmed ? "Confirmed" : "Received"}</p>
         <p className="mt-3 text-[22px] font-bold text-brown-dark">{result.confirmed ? "커피챗 예약이 확정됐어요." : "커피챗 신청이 접수됐어요."}</p>
         <p className="mt-2 text-[15px] leading-relaxed text-brown/85">
           {result.when} · 30분 · 온라인
           <br />
-          {result.confirmed ? "캘린더 초대와 미팅 링크를 메일로 보냈어요. 하루 전에 리마인드도 드릴게요." : "일정 확인 후 미팅 링크를 메일로 보내드릴게요."}
+          {result.confirmed ? "캘린더 초대와 미팅 링크를 메일로 보냈어요. 시작 1시간 전에 리마인드도 드릴게요." : "일정 확인 후 미팅 링크를 메일로 보내드릴게요."}
         </p>
         {result.link && (
           <a href={result.link} target="_blank" rel="noreferrer" className="btn-primary mt-6 !py-3 !text-[14px]">
@@ -90,7 +92,7 @@ export default function CoffeeChat() {
     );
 
   return (
-    <form onSubmit={submit} className="card grid min-w-0 gap-7 p-6 md:p-8">
+    <form onSubmit={submit} className={bare ? "grid min-w-0 gap-6" : "card grid min-w-0 gap-7 p-6 md:p-8"}>
       <div className="min-w-0">
         <div className="mb-2 flex items-baseline justify-between">
           <span className="label !mb-0">날짜</span>
@@ -150,7 +152,7 @@ export default function CoffeeChat() {
         </div>
         <div className="sm:col-span-2">
           <label className="label" htmlFor="cc-topic">나누고 싶은 이야기</label>
-          <select id="cc-topic" name="topic" className="field" defaultValue={TOPICS[0]}>
+          <select id="cc-topic" name="topic" className="field" defaultValue={defaultTopic && TOPICS.includes(defaultTopic) ? defaultTopic : TOPICS[0]}>
             {TOPICS.map((t) => (
               <option key={t}>{t}</option>
             ))}

@@ -166,7 +166,7 @@ export default function Home() {
             </Reveal>
             <Reveal delay={150}>
               <ol className="mt-10 space-y-4 text-[15px]">
-                {["가능한 시간 선택", "콘텐츠·마케팅 고민 한 줄", "미팅 링크 메일 발송", "하루 전 리마인드 · 메일에서 취소"].map((t, i) => (
+                {["가능한 시간 선택", "콘텐츠·마케팅 고민 한 줄", "미팅 링크 메일 발송", "1시간 전 리마인드 메일"].map((t, i) => (
                   <li key={t} className="flex gap-4 border-b border-butter/10 pb-4">
                     <span className="font-serif text-[15px] italic text-butter/60">0{i + 1}</span>
                     <span className="text-butter-pale/90">{t}</span>
