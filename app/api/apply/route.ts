@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { notifySlack, sendMail, noticeToHtml, OWNER_EMAIL, clean, isEmail, escapeHtml } from "@/lib/notify";
 import { STUDY } from "@/lib/study";
 import { ONEDAY } from "@/lib/oneday";
+import { SITE } from "@/lib/site";
 import { PRODUCTS, FRIEND_DISCOUNT, calcAmount, hasFriendDiscount, won } from "@/lib/products";
 
 export const runtime = "nodejs";
@@ -13,9 +14,9 @@ const META: Record<Kind, { emoji: string; label: string; footer: string; mailTit
   study: {
     emoji: "🎓",
     label: "스터디 신청",
-    footer: `${STUDY.cohort} · 선정 결과는 ${STUDY.resultDate} 카카오톡으로 안내`,
+    footer: `${STUDY.cohort} · 계좌이체 확인 시 신청 확정`,
     mailTitle: `${STUDY.cohort} 신청이 접수됐어요`,
-    mailBody: `<p>${STUDY.cohort} 신청이 접수됐어요.<br>선정 결과는 <b>${STUDY.resultDate}</b> 남겨주신 번호로 카카오톡 팀 채팅 초대와 함께 알려드릴게요.</p><p style="font-size:14px">첫 세션 전까지 클로드 Pro 구독을 준비해 주세요.</p>`,
+    mailBody: `<p>${STUDY.cohort} 예약 신청이 접수됐어요.<br><b>${SITE.bank.name} ${SITE.bank.number} (예금주 ${SITE.bank.holder})</b>로 참가비를 이체하시면 신청이 확정돼요. 12월 상세 일정은 문자로 안내드릴게요.</p><p style="font-size:14px">첫 세션 전까지 클로드 Pro 구독을 준비해 주세요.</p>`,
   },
   oneday: {
     emoji: "🎬",

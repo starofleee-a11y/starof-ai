@@ -10,6 +10,8 @@ export const SITE = {
   address: "서울특별시 강남구 선릉로 120, 14동 201호(대치동, 개포2차우성아파트)", // 사업자등록증과 동일해야 해요
   bizNo: "830-10-02771", // 사업자등록번호
   mailOrderNo: "제2026-서울강남-05882호", // 통신판매업 신고번호 (2026-10-21 강남구청)
+  // 계좌이체 안내 (토스 카드결제 실키가 연결되기 전까지 결제 수단)
+  bank: { name: "카카오뱅크", number: "3333-31-3252549", holder: "대기만성" },
   instagram: "https://www.instagram.com/starof_ai",
   instagramHandle: "@starof_ai",
   linkedinPost: "https://lnkd.in/p/gQHTtuWk",
