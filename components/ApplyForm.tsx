@@ -13,16 +13,16 @@ type Kind = "study" | "oneday" | "consulting";
 const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLabel: string; topicPh: string; topicRequired: boolean; checks: { name: string; text: string }[]; submit: string; done: string }> = {
   study: {
     eyebrow: "Apply",
-    title: `${STUDY.cohort} 신청`,
-    sub: `신청 마감 ${STUDY.deadline} · 선정 결과 ${STUDY.resultDate}`,
+    title: `${STUDY.cohort} 예약 신청`,
+    sub: `${STUDY.dateLabel} 진행 · 얼리버드 특가 ${STUDY.price.toLocaleString("ko-KR")}원 (정가 ${STUDY.listPrice.toLocaleString("ko-KR")}원)`,
     topicLabel: "자동화하고 싶은 실무 주제",
     topicPh: "예) 매주 월요일 영업 데이터를 엑셀로 정리해서 보고서로 만드는 일",
     topicRequired: true,
     checks: [
       { name: "pro", text: "클로드 Pro 구독을 첫 세션 전까지 준비할 수 있어요." },
-      { name: "schedule", text: "4회 일정(11/8 · 11/15 · 11/18 · 11/22)에 모두 참여할 수 있어요." },
+      { name: "schedule", text: "12월 중 4회 일정(확정 후 안내)에 모두 참여할 수 있어요." },
     ],
-    submit: "스터디 신청하기",
+    submit: "3기 예약 신청하기",
     done: `선정 결과는 ${STUDY.resultDate} 남겨주신 번호로 문자(SMS)로 알려드리고, 입금 안내와 톡방 초대도 문자로 보내드려요. 참가비는 지금 결제하거나, 선정 안내를 받은 뒤 결제하셔도 돼요.`,
   },
   oneday: {
@@ -196,6 +196,11 @@ export default function ApplyForm({ product, bare = false }: { product: Kind; ba
             <>
               <s className="text-brown/45">{won(p.price)}</s> <b className="font-extrabold text-brown-dark">{won(amount)}</b>
               <span className="ml-1 text-[12px] font-semibold text-olive">지인할인 적용</span>
+            </>
+          ) : p.listPrice ? (
+            <>
+              <s className="text-brown/45">{won(p.listPrice)}</s> <b className="font-extrabold text-brown-dark">{won(p.price)}</b>
+              {p.priceNote && <span className="ml-1 text-[12px] font-semibold text-olive">{p.priceNote}</span>}
             </>
           ) : (
             <b className="font-bold text-brown-dark">{won(p.price)}</b>
