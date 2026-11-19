@@ -10,6 +10,8 @@ export interface Product {
   en: string;
   audience: string; // Starters / Workers / Company / Creators
   price: number; // 0이면 협의
+  listPrice?: number; // 할인 전 정가 (있으면 취소선으로 표시)
+  priceNote?: string; // 예) 얼리버드 특가
   priceLabel: string;
   unit: string;
   summary: string;
@@ -29,15 +31,17 @@ export const PRODUCTS: Record<ProductId, Product> = {
     short: "자동화 기초 클래스",
     en: "Claude Code Study",
     audience: "Starters",
-    price: 150000,
-    priceLabel: "150,000원",
+    price: 130000, // 3기 얼리버드 특가
+    listPrice: 150000,
+    priceNote: "3기 얼리버드 특가",
+    priceLabel: "130,000원",
     unit: "1인 · 3주 4회 · 회당 2~2.5시간",
     summary: "클로드 코드 설치부터 내 업무 자동화 발표까지. 7~10명 소수 정원으로 함께하는 3주 스터디예요.",
     hook: "설치부터 막혀도 괜찮아요",
     how: "셋팅을 같이 끝내고, 3주 뒤엔 내 업무 자동화를 직접 완성해 발표해요.",
     bullets: ["오프라인 2회 + 온라인 2회", "설치·터미널·권한 셋팅 동행", "내 업무 자동화 직접 완성·발표", "4회 전부 참석 시 30,000원 환급"],
     payable: true,
-    cta: "스터디 신청하기",
+    cta: "3기 예약 신청하기",
     access: "결제 후 확정된 기수 일정(3주 4회)에 수강 · 결제일로부터 12개월 이내",
   },
   oneday: {
@@ -96,10 +100,10 @@ export const PRODUCTS: Record<ProductId, Product> = {
 };
 
 export const STUDY_REFUND = 30000; // 4회 전부 참석 시 환급액
-export const FRIEND_DISCOUNT = 20000; // 지인할인 — 스터디 참가비 150,000원 → 130,000원
+export const FRIEND_DISCOUNT = 20000; // 지인할인 — 3기 얼리버드 기간엔 중복 적용 안 함 (hasFriendDiscount)
 
 /** 지인할인이 적용되는 상품인지 */
-export const hasFriendDiscount = (product: ProductId) => product === "study";
+export const hasFriendDiscount = (_product: ProductId) => false; // 3기 얼리버드 특가(13만원) 기간엔 지인할인 중복 없음. 다시 켜려면 product === "study"
 
 /** 결제 금액 계산 — 클라이언트와 서버가 같은 함수를 씁니다. friend = 지인할인 */
 export function calcAmount(product: ProductId, qty: number, friend = false): number {

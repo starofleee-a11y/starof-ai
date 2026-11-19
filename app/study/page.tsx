@@ -15,7 +15,7 @@ import { SURVEY } from "@/lib/proof";
 import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES, LETTER } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
 import Hl from "@/components/Hl";
-import { PRODUCTS, won, FRIEND_DISCOUNT } from "@/lib/products";
+import { PRODUCTS, won } from "@/lib/products";
 import { ONEDAY } from "@/lib/oneday";
 
 export const metadata: Metadata = {
@@ -51,7 +51,7 @@ export default function StudyPage() {
           </>
         }
         desc={<>설치와 셋팅을 같이 해보고, 마지막엔 본인 업무 자동화를 실제로 만들어 발표합니다. <b className="font-semibold text-brown-dark">{STUDY.people} 소수 정원</b>으로 한 분씩 막히는 곳을 바로 풀어드려요.</>}
-        chips={["강남 오프라인 2회 + 줌 2회", STUDY.weeks, `${STUDY.people} 소수 정원`, won(STUDY.price), `신청 마감 ${STUDY.deadline}`]}
+        chips={["강남 오프라인 2회 + 줌 2회", STUDY.weeks, `${STUDY.people} 소수 정원`, `얼리버드 ${won(STUDY.price)} (정가 ${won(STUDY.listPrice)})`, `${STUDY.dateLabel} 진행 · 예약 신청 중`]}
         aside={
           /* 히어로 사진은 한 장만 — 발표 장면을 크게 크롭해서 칸을 꽉 채워요 */
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/70 shadow-[0_30px_60px_-40px_rgba(97,66,21,.6)] md:aspect-[5/6]">
@@ -59,7 +59,7 @@ export default function StudyPage() {
           </div>
         }
       >
-        <ApplyButton kind="study" className="btn-primary">스터디 신청하기</ApplyButton>
+        <ApplyButton kind="study" className="btn-primary">3기 예약 신청하기</ApplyButton>
         <Link href="#free-pdf" className="btn-ghost">1화 교안 무료로 받기</Link>
       </ProductHero>
 
@@ -94,7 +94,7 @@ export default function StudyPage() {
 
       {/* SCHEDULE */}
       <section id="schedule" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 2회는 {STUDY.place.offline}, 온라인 2회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">신청 마감 {STUDY.deadline}, 선정 안내 {STUDY.resultDate}.</b></>} />
+        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 2회는 {STUDY.place.offline}, 온라인 2회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">{STUDY.dateLabel} 진행, 상세 일정은 확정되는 대로 안내드려요. 지금은 얼리버드 예약 신청 기간이에요.</b></>} />
         <div className="grid gap-3 md:grid-cols-4">
           {STUDY.sessions.map((x, i) => {
             const dark = x.mode === "오프라인";
@@ -105,8 +105,8 @@ export default function StudyPage() {
                     <span className={`text-[13px] font-extrabold ${dark ? "text-butter" : "text-brown"}`}>{x.no}</span>
                     <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-sage-pale text-brown-dark"}`}>{x.mode}</span>
                   </div>
-                  <p className={`mt-5 font-serif text-[24px] font-bold leading-tight ${dark ? "text-butter" : "text-brown-dark"}`}>{x.date.split(" ")[0]}</p>
-                  <p className={`mt-1 text-[15px] font-semibold ${dark ? "text-butter-pale" : "text-brown-dark"}`}>{x.date.split(" ").slice(1).join(" ")}</p>
+                  <p className={`mt-5 font-serif text-[24px] font-bold leading-tight ${dark ? "text-butter" : "text-brown-dark"}`}>{x.date.includes(" · ") ? x.date.split(" · ")[0] : x.date.split(" ")[0]}</p>
+                  <p className={`mt-1 text-[15px] font-semibold ${dark ? "text-butter-pale" : "text-brown-dark"}`}>{x.date.includes(" · ") ? x.date.split(" · ")[1] : x.date.split(" ").slice(1).join(" ")}</p>
                   <p className={`mt-4 text-[14px] leading-relaxed ${dark ? "text-butter-pale/80" : "text-brown/85"}`}>{x.title}</p>
                 </div>
               </Reveal>
@@ -115,8 +115,8 @@ export default function StudyPage() {
         </div>
         <Reveal>
           <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-brown/20 bg-white p-6 md:flex-row md:items-center">
-            <p className="text-[16px] text-brown-dark"><b className="font-extrabold">참가비 {won(STUDY.price)}</b> · 4회 전부 참석하면 {won(STUDY.refund)} 환급 · {STUDY.people} 소수 정원</p>
-            <ApplyButton kind="study" className="btn-primary shrink-0">신청하기</ApplyButton>
+            <p className="text-[16px] text-brown-dark">참가비 <s className="text-brown/50">{won(STUDY.listPrice)}</s> <b className="font-extrabold">얼리버드 {won(STUDY.price)}</b> · 4회 전부 참석하면 {won(STUDY.refund)} 환급 · {STUDY.people} 소수 정원</p>
+            <ApplyButton kind="study" className="btn-primary shrink-0">예약 신청하기</ApplyButton>
           </div>
         </Reveal>
       </section>
@@ -365,7 +365,7 @@ export default function StudyPage() {
       <section id="apply" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
           <div>
-            <SectionHead eyebrow="Apply" title={<>참가비 {won(STUDY.price)}<br />4회 전부 참석하면 {won(STUDY.refund)} 환급</>} desc={`환급은 4회차 당일 계좌이체로 보내드려요. 모집 인원 ${STUDY.people}, 선정 결과는 ${STUDY.resultDate} 카카오톡으로 안내합니다.`} />
+            <SectionHead eyebrow="Apply" title={<>얼리버드 {won(STUDY.price)} <s className="text-[0.55em] font-semibold text-brown/45">{won(STUDY.listPrice)}</s><br />4회 전부 참석하면 {won(STUDY.refund)} 환급</>} desc={`환급은 4회차 당일 계좌이체로 보내드려요. 모집 인원 ${STUDY.people}, 선정 결과는 ${STUDY.resultDate} 카카오톡으로 안내합니다.`} />
             <Reveal>
               <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-brown">신청 전 꼭 확인해주세요</p>
               <ol className="mt-3 space-y-3 text-[14.5px] leading-relaxed text-brown/90">
@@ -383,19 +383,19 @@ export default function StudyPage() {
             <div className="card p-7 md:p-9">
               <p className="eyebrow">Apply</p>
               <p className="mt-2 text-[22px] font-bold text-brown-dark">{STUDY.cohort}</p>
-              <p className="mt-1 text-[14px] text-brown/75">신청 마감 {STUDY.deadline} · 선정 결과 {STUDY.resultDate}</p>
+              <p className="mt-1 text-[14px] text-brown/75">{STUDY.dateLabel} 진행 · 얼리버드 예약 신청 중</p>
               <dl className="mt-6 grid grid-cols-2 gap-x-4 gap-y-3 border-y border-brown/10 py-5 text-[14px]">
                 <dt className="text-brown/70">참가비</dt>
-                <dd className="text-right font-bold text-brown-dark">{won(STUDY.price)}</dd>
-                <dt className="text-brown/70">지인할인</dt>
-                <dd className="text-right font-bold text-brown-dark">{won(STUDY.price - FRIEND_DISCOUNT)} <span className="text-[12px] font-semibold text-olive">(-{won(FRIEND_DISCOUNT)})</span></dd>
+                <dd className="text-right font-bold text-brown/50"><s>{won(STUDY.listPrice)}</s></dd>
+                <dt className="text-brown/70">얼리버드 특가</dt>
+                <dd className="text-right font-bold text-brown-dark">{won(STUDY.price)} <span className="text-[12px] font-semibold text-olive">(-{won(STUDY.listPrice - STUDY.price)})</span></dd>
                 <dt className="text-brown/70">4회 전부 참석</dt>
                 <dd className="text-right font-bold text-brown-dark">{won(STUDY.refund)} 환급</dd>
                 <dt className="text-brown/70">모집 인원</dt>
                 <dd className="text-right font-bold text-brown-dark">{STUDY.people}</dd>
               </dl>
-              <ApplyButton kind="study" className="btn-primary mt-6 w-full !py-4 text-[16px]">스터디 신청하기</ApplyButton>
-              <p className="mt-3 text-center text-[12.5px] text-brown/65">신청서는 2분이면 끝나요 · 1기 수강생·지인 추천이면 지인할인을 체크해 주세요</p>
+              <ApplyButton kind="study" className="btn-primary mt-6 w-full !py-4 text-[16px]">3기 예약 신청하기</ApplyButton>
+              <p className="mt-3 text-center text-[12.5px] text-brown/65">신청서는 2분이면 끝나요 · 지금 예약하면 얼리버드 특가가 적용돼요</p>
               <p className="mt-3 rounded-xl bg-paper px-4 py-3 text-center text-[13px] font-semibold text-brown-dark">📩 {ONEDAY.smsNotice}</p>
             </div>
           </Reveal>
@@ -408,7 +408,7 @@ export default function StudyPage() {
         <FAQ items={FAQS} />
       </section>
 
-      <FloatingCTA kind="study" primary="스터디 신청하기" secondary={{ label: "1화 교안 무료 받기", href: "#free-pdf" }} note={`${won(STUDY.price)} · ${STUDY.weeks}`} />
+      <FloatingCTA kind="study" primary="3기 예약 신청하기" secondary={{ label: "1화 교안 무료 받기", href: "#free-pdf" }} note={`얼리버드 ${won(STUDY.price)} (정가 ${won(STUDY.listPrice)}) · ${STUDY.dateLabel}`} />
       <ApplyModalHost kind="study" />
     </>
   );

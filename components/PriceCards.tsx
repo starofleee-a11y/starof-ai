@@ -30,6 +30,12 @@ export default function PriceCards() {
                 <p className={`mt-4 text-[17px] font-bold leading-snug ${t.name}`}>{p.hook}</p>
                 <p className={`mt-1.5 text-[14.5px] leading-relaxed ${t.summary}`}>{p.how}</p>
                 <div className="mt-7">
+                  {p.listPrice && (
+                    <p className={`mb-1.5 text-[14px] font-semibold ${t.unit}`}>
+                      <s>{p.listPrice.toLocaleString("ko-KR")}원</s>
+                      {p.priceNote && <span className="ml-2 rounded-full bg-brown-dark px-2 py-0.5 text-[12px] font-bold text-butter no-underline">{p.priceNote}</span>}
+                    </p>
+                  )}
                   <p className={`font-serif text-[42px] font-bold leading-none ${t.price}`}>{p.priceLabel}</p>
                   <p className={`mt-2 text-[13px] font-medium ${t.unit}`}>{p.unit}</p>
                 </div>

@@ -138,6 +138,12 @@ export default function CheckoutClient() {
             <p className="mt-1 text-[13px] text-butter-pale/75">{product.unit}</p>
             {product.access && <p className="mt-1 text-[13px] text-butter-pale/75">수강 가능 시점 · {product.access}</p>}
             <div className="my-6 h-px bg-butter/15" />
+            {product.listPrice && (
+              <div className="mb-3 flex items-baseline justify-between text-[13.5px] text-butter-pale/85">
+                <span>{product.priceNote ?? "할인"} · 정가 <s>{won(product.listPrice * qty)}</s></span>
+                <span className="font-semibold text-butter">-{won((product.listPrice - product.price) * qty)}</span>
+              </div>
+            )}
             {friend && (
               <div className="mb-3 flex items-baseline justify-between text-[13.5px] text-butter-pale/85">
                 <span>지인할인 · 추천 {friendName}</span>
