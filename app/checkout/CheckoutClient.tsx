@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Script from "next/script";
+import { SITE } from "@/lib/site";
 import { PRODUCTS, FRIEND_DISCOUNT, calcAmount, hasFriendDiscount, orderName, won, type ProductId } from "@/lib/products";
 import { TOSS_CLIENT_KEY, isTossTestMode } from "@/lib/toss";
 
-const BANK = process.env.NEXT_PUBLIC_BANK_ACCOUNT;
+const BANK = `${SITE.bank.name} ${SITE.bank.number} (예금주 ${SITE.bank.holder})`;
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
@@ -95,8 +96,8 @@ export default function CheckoutClient() {
       <h1 className="h-display mt-4 text-[32px] md:text-[44px]">결제하기</h1>
       {isTossTestMode() && (
         <div className="mt-5 rounded-xl border border-brown/15 bg-white/80 p-4 text-[14px] text-brown/90">
-          <p className="font-semibold text-brown-dark">카드 결제 준비 중 · 지금은 테스트 모드라 실제로 결제되지 않아요</p>
-          {BANK ? <p className="mt-1">계좌이체로 결제하실 수 있어요: <b className="text-brown-dark">{BANK}</b> (입금자명에 이름을 적어주세요)</p> : <p className="mt-1">결제는 신청 접수 후 메일로 안내드려요.</p>}
+          <p className="font-semibold text-brown-dark">카드 결제 준비 중 · 지금은 계좌이체로 결제해 주세요</p>
+          {BANK ? <p className="mt-1">계좌이체로 결제하실 수 있어요: <b className="text-brown-dark">{BANK}</b> (입금자명에 이름을 적어주세요 · 이체하시면 바로 신청 확정)</p> : <p className="mt-1">결제는 신청 접수 후 메일로 안내드려요.</p>}
         </div>
       )}
 

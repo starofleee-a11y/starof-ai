@@ -2,10 +2,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { STUDY } from "@/lib/study";
+import { SITE } from "@/lib/site";
+import { isTossTestMode } from "@/lib/toss";
 import { ONEDAY } from "@/lib/oneday";
 import { PRODUCTS, FRIEND_DISCOUNT, calcAmount, hasFriendDiscount, won } from "@/lib/products";
 
-const BANK = process.env.NEXT_PUBLIC_BANK_ACCOUNT; // 예: "카카오뱅크 3333-00-0000000 이경서"
+const BANK = SITE.bank; // 계좌이체 안내 (lib/site.ts)
 
 type Kind = "study" | "oneday" | "consulting";
 
@@ -23,7 +25,7 @@ const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLab
       { name: "schedule", text: "12월 중 4회 일정(확정 후 안내)에 모두 참여할 수 있어요." },
     ],
     submit: "3기 예약 신청하기",
-    done: `선정 결과는 ${STUDY.resultDate} 남겨주신 번호로 문자(SMS)로 알려드리고, 입금 안내와 톡방 초대도 문자로 보내드려요. 참가비는 지금 결제하거나, 선정 안내를 받은 뒤 결제하셔도 돼요.`,
+    done: `아래 계좌로 참가비를 이체하시면 바로 신청이 확정돼요. 12월 상세 일정과 톡방 초대는 남겨주신 번호로 문자(SMS)로 보내드려요.`,
   },
   oneday: {
     eyebrow: "Apply",
@@ -34,7 +36,7 @@ const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLab
     topicRequired: false,
     checks: [{ name: "schedule", text: `${ONEDAY.date} 오프라인 수업에 참여할 수 있고, 개인 노트북을 가져올 수 있어요.` }],
     submit: "원데이 신청하기",
-    done: "남겨주신 번호로 문자(SMS)로 입금 안내와 톡방 초대를 보내드려요. 툴 계정·사진 준비 안내는 톡방에서 이어집니다.",
+    done: "아래 계좌로 참가비를 이체하시면 바로 신청이 확정돼요. 톡방 초대는 남겨주신 번호로 문자(SMS)로 보내드리고, 툴 계정·사진 준비 안내는 톡방에서 이어집니다.",
   },
   consulting: {
     eyebrow: "Apply",
@@ -56,6 +58,7 @@ export default function ApplyForm({ product, bare = false }: { product: Kind; ba
   const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [err, setErr] = useState("");
   const [friend, setFriend] = useState(false);
+  const [copied, setCopied] = useState(false);
   const [friendName, setFriendName] = useState("");
   const discount = friend && hasFriendDiscount(product);
   const amount = calcAmount(product, 1, discount);
@@ -98,19 +101,32 @@ export default function ApplyForm({ product, bare = false }: { product: Kind; ba
         <p className="mt-3 text-[22px] font-bold text-brown-dark">신청이 접수됐어요.</p>
         <p className="mt-2 text-[15px] leading-relaxed text-brown/85">{c.done}</p>
         {p.payable ? (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            <Link href={checkoutHref} className="btn-primary !py-3.5">
-              {won(amount)} 결제하기
-            </Link>
-            {BANK ? (
-              <div className="rounded-xl bg-paper px-4 py-3 text-[13.5px] text-brown/90">
-                <p className="font-semibold text-brown-dark">계좌이체</p>
-                <p>{BANK}</p>
-              </div>
-            ) : (
-              <Link href="/#coffee-chat" className="btn-ghost !py-3.5">궁금한 점은 커피챗으로</Link>
+          <>
+            {/* 계좌이체 = 신청 확정 */}
+            <div className="mt-6 rounded-2xl border-2 border-brown bg-butter-pale p-5 text-brown-dark">
+              <p className="text-[13px] font-bold uppercase tracking-[0.15em] text-brown">계좌이체로 신청 확정</p>
+              <p className="mt-2 text-[24px] font-extrabold">{won(amount)}</p>
+              <p className="mt-2 text-[16px] font-bold">
+                {BANK.name} <span className="tabular-nums">{BANK.number}</span>
+              </p>
+              <p className="text-[14px]">예금주 {BANK.holder}</p>
+              <button
+                type="button"
+                onClick={() => navigator.clipboard?.writeText(BANK.number.replace(/-/g, "")).then(() => setCopied(true)).catch(() => {})}
+                className="btn-primary mt-4 w-full !py-3"
+              >
+                {copied ? "계좌번호를 복사했어요" : "계좌번호 복사"}
+              </button>
+              <p className="mt-3 text-[13.5px] leading-relaxed">
+                ✅ <b>이체하시면 바로 신청이 확정돼요.</b> 입금자명은 신청하신 이름으로 적어 주세요. 입금 후에는 환불이 불가합니다.
+              </p>
+            </div>
+            {!isTossTestMode() && (
+              <Link href={checkoutHref} className="btn-ghost mt-3 w-full !py-3.5">
+                카드 · 토스페이로 {won(amount)} 결제하기
+              </Link>
             )}
-          </div>
+          </>
         ) : (
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
             <Link href="/#coffee-chat" className="btn-primary !py-3.5">무료 커피챗 바로 예약</Link>
@@ -205,7 +221,7 @@ export default function ApplyForm({ product, bare = false }: { product: Kind; ba
           ) : (
             <b className="font-bold text-brown-dark">{won(p.price)}</b>
           )}
-          {product === "study" && <> · 4회 전부 참석 시 {won(STUDY.refund)} 환급</>}
+          {product === "study" && <> · 계좌이체 시 바로 확정</>}
           {product === "oneday" && <> · {ONEDAY.duration}</>}
         </p>
       )}

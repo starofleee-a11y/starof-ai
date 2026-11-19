@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { SITE } from "@/lib/site";
-import { PRODUCTS, STUDY_REFUND, won } from "@/lib/products";
+import { PRODUCTS, won } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "환불 정책",
@@ -17,8 +17,7 @@ const RULES = [
     name: PRODUCTS.study.name,
     sub: `${won(PRODUCTS.study.price)} · ${PRODUCTS.study.unit}`,
     items: [
-      "신청서 제출 후 선정 안내를 받은 뒤 결제합니다. 선정 안내 및 결제(입금) 이후에는 환불이 불가합니다.",
-      `4회 전부 참석하시면 마지막 회차 당일 ${won(STUDY_REFUND)}을 계좌이체로 환급해 드립니다. 한 번이라도 결석하면 환급 대상에서 제외됩니다.`,
+      "신청서 제출 후 계좌이체(입금)하시면 신청이 확정됩니다. 결제(입금) 이후에는 환불이 불가합니다.",
       "얼리버드 특가로 결제한 경우에도 같은 규정이 적용됩니다.",
       `수강 가능 시점: ${PRODUCTS.study.access}.`,
     ],

@@ -39,7 +39,7 @@ export const PRODUCTS: Record<ProductId, Product> = {
     summary: "클로드 코드 설치부터 내 업무 자동화 발표까지. 7~10명 소수 정원으로 함께하는 3주 스터디예요.",
     hook: "설치부터 막혀도 괜찮아요",
     how: "셋팅을 같이 끝내고, 3주 뒤엔 내 업무 자동화를 직접 완성해 발표해요.",
-    bullets: ["오프라인 2회 + 온라인 2회", "설치·터미널·권한 셋팅 동행", "내 업무 자동화 직접 완성·발표", "4회 전부 참석 시 30,000원 환급"],
+    bullets: ["오프라인 2회 + 온라인 2회", "설치·터미널·권한 셋팅 동행", "내 업무 자동화 직접 완성·발표", "1:1 자동화 컨설팅 포함"],
     payable: true,
     cta: "3기 예약 신청하기",
     access: "결제 후 확정된 기수 일정(3주 4회)에 수강 · 결제일로부터 12개월 이내",
@@ -99,7 +99,6 @@ export const PRODUCTS: Record<ProductId, Product> = {
   },
 };
 
-export const STUDY_REFUND = 30000; // 4회 전부 참석 시 환급액
 export const FRIEND_DISCOUNT = 20000; // 지인할인 — 3기 얼리버드 기간엔 중복 적용 안 함 (hasFriendDiscount)
 
 /** 지인할인이 적용되는 상품인지 */

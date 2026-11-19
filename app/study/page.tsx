@@ -16,6 +16,7 @@ import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_
 import { Voices } from "@/components/Deliverables";
 import Hl from "@/components/Hl";
 import { PRODUCTS, won } from "@/lib/products";
+import { SITE } from "@/lib/site";
 import { ONEDAY } from "@/lib/oneday";
 
 export const metadata: Metadata = {
@@ -31,9 +32,9 @@ const FAQS = [
   { q: "수업은 어디서 하나요?", a: `오프라인 2회(1·4회차)는 ${STUDY.place.offline}, 온라인 2회(2·3회차)는 ${STUDY.place.online}에서 진행해요.` },
   { q: "준비물이 있나요?", a: "클로드 Pro 구독과 개인 노트북이 필요해요. 회사 노트북은 설치·터미널 권한이 막혀 있는 경우가 많아 개인 노트북을 권장합니다. 윈도우·맥 모두 가능해요." },
   { q: "자동화할 주제가 아직 없어요.", a: "매주 반복하는 일 중 ‘입력이 있고 결과물이 있는 일’ 하나면 충분해요. 신청서에 적어주시면 1회차 전에 같이 다듬어 드립니다." },
-  { q: "수업에 빠지면 어떻게 하나요?", a: "교안과 실습 파일은 드리지만, 한 번이라도 빠지면 3만원 환급 대상에서는 제외돼요. 4회 일정을 꼭 확인하고 신청해 주세요." },
-  { q: "수료증을 받을 수 있나요?", a: "네. 4회 전부 참석하시면 4회차 당일 수료증을 드리고, 3만원 환급도 같은 날 계좌이체로 보내드려요." },
-  { q: "결제와 환불은 어떻게 되나요?", a: `신청서를 보내면 바로 결제할 수 있고, ${STUDY.resultDate} 선정 안내를 받은 뒤 결제하셔도 돼요. 선정 안내 및 입금 후에는 환불이 불가합니다.` },
+  { q: "수업에 빠지면 어떻게 하나요?", a: "교안과 실습 파일은 드리지만, 실습과 발표가 이어지는 구성이라 4회 일정을 꼭 확인하고 신청해 주세요." },
+  { q: "수료증을 받을 수 있나요?", a: "네. 4회차 최종 발표 날 수료증을 드리고, MVP 시상도 함께 진행해요." },
+  { q: "결제와 환불은 어떻게 되나요?", a: `신청서를 보낸 뒤 안내되는 계좌(${SITE.bank.name} ${SITE.bank.number} ${SITE.bank.holder})로 이체하시면 바로 신청이 확정돼요. 입금 후에는 환불이 불가합니다.` },
   { q: "일정이 안 맞거나, 회사 단위로 듣고 싶어요.", a: "일정이 안 맞으면 1:1 마케팅 자동화 컨설팅으로 내 업무 자동화를 같이 만들 수 있고, 팀·회사 단위는 기업 AX 강의로 진행해요. 무료 커피챗에서 어떤 쪽이 맞는지 같이 정해드립니다." },
 ];
 
@@ -69,7 +70,7 @@ export default function StudyPage() {
         {[["일정", "#schedule"], ["결과물", "#results"], ["현장", "#gallery"], ["커리큘럼", "#curriculum"], ["포함 사항", "#included"], ["강사", "#host"], ["후기", "#reviews"], ["신청", "#apply"], ["질문", "#faq"]].map(([t, h]) => (
           <a key={h} href={h} className="rounded-full border border-brown/20 bg-white px-4 py-2 text-[13px] font-bold text-brown-dark transition hover:border-brown-dark hover:bg-brown-dark hover:text-butter">{t}</a>
         ))}
-        <span className="ml-auto rounded-full bg-brown-dark px-4 py-2 text-[13px] font-bold text-butter">4회 전부 참석하면 {won(STUDY.refund)} 환급</span>
+        <span className="ml-auto rounded-full bg-brown-dark px-4 py-2 text-[13px] font-bold text-butter">3기 얼리버드 {won(STUDY.price)}</span>
       </div>
 
       {/* PROOF NUMBERS */}
@@ -105,9 +106,8 @@ export default function StudyPage() {
                     <span className={`text-[13px] font-extrabold ${dark ? "text-butter" : "text-brown"}`}>{x.no}</span>
                     <span className={`rounded-full px-2.5 py-1 text-[11.5px] font-bold ${dark ? "bg-butter text-brown-dark" : "bg-sage-pale text-brown-dark"}`}>{x.mode}</span>
                   </div>
-                  <p className={`mt-5 font-serif text-[24px] font-bold leading-tight ${dark ? "text-butter" : "text-brown-dark"}`}>{x.date.includes(" · ") ? x.date.split(" · ")[0] : x.date.split(" ")[0]}</p>
-                  <p className={`mt-1 text-[15px] font-semibold ${dark ? "text-butter-pale" : "text-brown-dark"}`}>{x.date.includes(" · ") ? x.date.split(" · ")[1] : x.date.split(" ").slice(1).join(" ")}</p>
-                  <p className={`mt-4 text-[14px] leading-relaxed ${dark ? "text-butter-pale/80" : "text-brown/85"}`}>{x.title}</p>
+                  <p className={`mt-5 break-keep text-[21px] font-extrabold leading-snug ${dark ? "text-butter" : "text-brown-dark"}`}>{x.title}</p>
+                  <p className={`mt-4 text-[13.5px] font-semibold ${dark ? "text-butter-pale/80" : "text-brown/75"}`}>{x.date}</p>
                 </div>
               </Reveal>
             );
@@ -115,7 +115,7 @@ export default function StudyPage() {
         </div>
         <Reveal>
           <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-brown/20 bg-white p-6 md:flex-row md:items-center">
-            <p className="text-[16px] text-brown-dark">참가비 <s className="text-brown/50">{won(STUDY.listPrice)}</s> <b className="font-extrabold">얼리버드 {won(STUDY.price)}</b> · 4회 전부 참석하면 {won(STUDY.refund)} 환급 · {STUDY.people} 소수 정원</p>
+            <p className="text-[16px] text-brown-dark">참가비 <s className="text-brown/50">{won(STUDY.listPrice)}</s> <b className="font-extrabold">얼리버드 {won(STUDY.price)}</b> · {STUDY.people} 소수 정원</p>
             <ApplyButton kind="study" className="btn-primary shrink-0">예약 신청하기</ApplyButton>
           </div>
         </Reveal>
@@ -365,7 +365,7 @@ export default function StudyPage() {
       <section id="apply" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
           <div>
-            <SectionHead eyebrow="Apply" title={<>얼리버드 {won(STUDY.price)} <s className="text-[0.55em] font-semibold text-brown/45">{won(STUDY.listPrice)}</s><br />4회 전부 참석하면 {won(STUDY.refund)} 환급</>} desc={`환급은 4회차 당일 계좌이체로 보내드려요. 모집 인원 ${STUDY.people}, 선정 결과는 ${STUDY.resultDate} 카카오톡으로 안내합니다.`} />
+            <SectionHead eyebrow="Apply" title={<>얼리버드 {won(STUDY.price)} <s className="text-[0.55em] font-semibold text-brown/45">{won(STUDY.listPrice)}</s><br />이체하면 바로 신청 확정</>} desc={`신청서를 보낸 뒤 ${SITE.bank.name} ${SITE.bank.number} (${SITE.bank.holder})로 이체하시면 신청이 확정돼요. 모집 인원 ${STUDY.people}, 12월 상세 일정은 확정되는 대로 문자로 안내합니다.`} />
             <Reveal>
               <p className="text-[12px] font-bold uppercase tracking-[0.2em] text-brown">신청 전 꼭 확인해주세요</p>
               <ol className="mt-3 space-y-3 text-[14.5px] leading-relaxed text-brown/90">
@@ -389,8 +389,8 @@ export default function StudyPage() {
                 <dd className="text-right font-bold text-brown/50"><s>{won(STUDY.listPrice)}</s></dd>
                 <dt className="text-brown/70">얼리버드 특가</dt>
                 <dd className="text-right font-bold text-brown-dark">{won(STUDY.price)} <span className="text-[12px] font-semibold text-olive">(-{won(STUDY.listPrice - STUDY.price)})</span></dd>
-                <dt className="text-brown/70">4회 전부 참석</dt>
-                <dd className="text-right font-bold text-brown-dark">{won(STUDY.refund)} 환급</dd>
+                <dt className="text-brown/70">결제</dt>
+                <dd className="text-right font-bold text-brown-dark">계좌이체 시 바로 확정</dd>
                 <dt className="text-brown/70">모집 인원</dt>
                 <dd className="text-right font-bold text-brown-dark">{STUDY.people}</dd>
               </dl>
