@@ -6,7 +6,6 @@ import Reveal from "@/components/Reveal";
 import FAQ from "@/components/FAQ";
 import Hl from "@/components/Hl";
 import CountUp from "@/components/CountUp";
-import Image from "next/image";
 import ReelVideo from "@/components/ReelVideo";
 import ReelsFlow from "@/components/ReelsFlow";
 import FitSpotlight from "@/components/FitSpotlight";
@@ -18,8 +17,8 @@ import { PRODUCTS, won } from "@/lib/products";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "AI 콘텐츠 제작 원데이 · AI로 릴스 제작 자동화 해보기",
-  description: `${ONEDAY.date} 3시간 원데이 클래스. 니온앤비욘 챌린지 얼굴 합성, 촬영 없는 AI 제품 홍보 영상, 릴스 후킹 스크립트, 릴스 자동화 워크플로우 구축까지. ${won(ONEDAY.price)}.`,
+  title: "AI 콘텐츠 제작 원데이 · 110만회 달성하는 릴스 만들기",
+  description: `광고비 0원으로 110만회를 넘긴 AI 릴스, 그 방법 그대로. ${ONEDAY.date} 3시간 원데이 클래스. 클로드코드로 레퍼런스 자동 탐색, 터지는 릴스 구조, 힉스필드 AI 영상, 편집·업로드 자동화까지. ${won(ONEDAY.price)}.`,
 };
 
 export default function OnedayPage() {
@@ -31,20 +30,20 @@ export default function OnedayPage() {
         en="AI Reels One-day"
         title={
           <>
-            AI로 릴스 제작,
-            <br className="hidden md:block" />
-            3시간 안에 자동화까지
+            <Hl>110만회</Hl> 달성하는
+            <br />
+            릴스 만들기
           </>
         }
         desc={
           <>
-            릴스 제작 어떻게 할지 막막하셨다구요? 릴스 누적 조회수 <b className="font-semibold text-brown-dark">50만회 이상</b>, 카드뉴스 조회수 <b className="font-semibold text-brown-dark">20만회 이상</b> 터뜨려본 AI 인플루언서인 제가, 책임지고 콘텐츠 기획부터 AI 자동화 노하우까지 가르쳐드립니다.
+            광고비 한 푼 없이 AI로 만든 영상 하나가 <b className="font-semibold text-brown-dark">조회수 110만회</b>를 넘겼어요. 저는 리서치, 기획, 편집까지 모든 영상을 자동화했어요.{" "}
             <br className="hidden md:block" />
-            11/29 원데이를 통해 AI를 활용해 콘텐츠 자동화를 돌리는 <b className="font-semibold text-brown-dark">전문 크리에이터</b>로 만들어 드립니다 :)
+            11/29 원데이 3시간으로 <b className="font-semibold text-brown-dark">100만 조회수 릴스</b>를 만드는 법, 영상 담당 직원 없이도 매일 영상이 올라가는 법을 현장에서 꾹꾹 눌러 담아 전해드려요 :)
           </>
         }
         chips={[ONEDAY.date, `${ONEDAY.mode} · 강남`, ONEDAY.duration, won(ONEDAY.price), ONEDAY.people]}
-        aside={<ChallengeCard />}
+        aside={<HitReelCard />}
       >
         <ApplyButton kind="oneday" className="btn-primary">원데이 신청하기</ApplyButton>
         <Link href="#curriculum" className="btn-ghost">커리큘럼 보기</Link>
@@ -62,10 +61,10 @@ export default function OnedayPage() {
       <section className="border-y border-brown/10">
         <div className="wrap grid grid-cols-2 md:grid-cols-4">
           {[
-            { v: 50, s: "만회+", l: ONEDAY.reels.totalLabel },
-            { v: 16, s: "만회", l: "최고 조회 릴스" },
-            { v: 15, s: "만회", l: "두 번째 히트 릴스" },
-            { v: 4, s: "편", l: "3시간 뒤 완성하는 결과물" },
+            { v: 110, s: "만회+", l: ONEDAY.reels.totalLabel },
+            { v: 0, s: "원", l: "들인 광고비" },
+            { v: 16, s: "만회", l: "두 번째 히트 릴스" },
+            { v: 4, s: "단계", l: "리서치부터 업로드까지 자동화" },
           ].map((x, i) => (
             <Reveal key={x.l} delay={i * 80} className="py-9 text-center">
               <p className="font-serif text-[40px] font-semibold leading-none text-brown md:text-[50px]">
@@ -80,7 +79,7 @@ export default function OnedayPage() {
 
       {/* CURRICULUM */}
       <section id="curriculum" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="Curriculum" title={<>{ONEDAY.date}<br /><Hl>4가지</Hl>를 직접 만들어요</>} desc={`${ONEDAY.place}. 편집 프로그램 없이 AI 툴과 자동화로 진행하고, 수업 안에서 릴스 2편과 내 워크플로우를 완성합니다.`} />
+        <SectionHead eyebrow="Curriculum" title={<>{ONEDAY.date}<br /><Hl>4가지</Hl>를 직접 만들어요</>} desc={`${ONEDAY.place}. 편집 프로그램 없이 AI 툴과 자동화로 진행하고, 리서치부터 업로드까지, 수업 안에서 내 릴스와 자동화 워크플로우를 완성합니다.`} />
         {/* 실습 주제 4개를 세로로 하나씩 — 영상은 원래 비율(9:16 / 16:9) 그대로, 글 옆에 붙어요. 스크롤하면 하나씩 나타나요. */}
         <div className="grid gap-5">
           {ONEDAY.curriculum.map((c, i) => {
@@ -132,9 +131,9 @@ export default function OnedayPage() {
         <div className="wrap grid gap-12 md:grid-cols-[1fr_1.15fr] md:gap-16">
           <Reveal className="min-w-0">
             <p className="eyebrow">Host · {SITE.instagramHandle}</p>
-            <h2 className="h-display mt-4 text-[30px] md:text-[40px]">릴스 <Hl>50만회+</Hl>를 직접 터뜨리고,<br />그 과정을 전부 자동화한 사람</h2>
+            <h2 className="h-display mt-4 text-[30px] md:text-[40px]">AI 릴스 <Hl>110만회</Hl>를 직접 터뜨리고,<br />그 과정을 전부 자동화한 사람</h2>
             <p className="mt-6 text-[16px] leading-relaxed text-brown/90">
-              <b className="font-bold text-brown-dark">여기 보이는 릴스 세 편은 모두 제가 직접 만든 영상이에요.</b> 16만·15만·7만회, 합쳐서 50만회 넘게 터뜨렸어요. AI 인물 릴스, AI 제품 릴스, 직접 촬영 + TTS 자막까지 세 가지 방식을 다 운영해 봤고, 지금은 노션 스크립트부터 제작까지 전부 자동으로 돌아가는 워크플로우를 만들고 있어요. 이 수업에서 그 방식을 그대로 넘겨드려요.
+              <b className="font-bold text-brown-dark">광고비 0원으로 만든 AI 영상 하나가 110만회를 넘겼어요.</b> 여기 보이는 릴스도 모두 제가 직접 만든 영상이에요. AI 인물 릴스, AI 제품 릴스, 직접 촬영 + TTS 자막까지 세 가지 방식을 다 운영해 봤고, 지금은 리서치·기획·편집·업로드까지 전부 자동으로 돌아가는 워크플로우로 매일 영상을 올려요. 이 수업에서 그 방식을 그대로 넘겨드려요.
             </p>
             <div className="mt-8 grid grid-cols-3 gap-3">
               {ONEDAY.reels.hits.map((h) => (
@@ -210,7 +209,7 @@ export default function OnedayPage() {
                 <dt className="text-brown/70">참가비</dt>
                 <dd className="text-right font-bold text-brown-dark">{won(ONEDAY.price)}</dd>
                 <dt className="text-brown/70">준비물</dt>
-                <dd className="text-right font-bold text-brown-dark">개인 노트북 · 내 사진 1장</dd>
+                <dd className="text-right font-bold text-brown-dark">개인 노트북</dd>
               </dl>
               <ApplyButton kind="oneday" className="btn-primary mt-6 w-full !py-4 text-[16px]">{p.cta}</ApplyButton>
               <p className="mt-3 text-center text-[12.5px] text-brown/65">신청서는 1분이면 끝나요 · 신청 후 바로 결제할 수 있어요</p>
@@ -232,20 +231,20 @@ export default function OnedayPage() {
   );
 }
 
-/** 히어로 오른쪽 — 니온앤비욘 챌린지 참고 이미지 (01 실습에서 내 얼굴을 넣어 만드는 영상) */
-function ChallengeCard() {
+/** 히어로 오른쪽 — 조회수 110만회를 넘긴 AI 릴스가 크게 자동 재생돼요 (03 실습에서 힉스필드로 만드는 영상) */
+function HitReelCard() {
   return (
-    <figure className="relative">
-      <div className="overflow-hidden rounded-3xl border border-white/70 bg-white shadow-[0_40px_80px_-40px_rgba(97,66,21,.6)]">
-        <Image src="/images/oneday/challenge.jpg" alt="니온앤비욘 챌린지 영상 장면 — 흰 옷을 입은 두 댄서" width={831} height={556} priority className="h-auto w-full" />
+    <figure className="relative mx-auto w-full max-w-[380px] md:mr-0">
+      <div className="relative aspect-[9/16] overflow-hidden rounded-3xl border border-white/70 bg-brown-dark shadow-[0_40px_80px_-40px_rgba(97,66,21,.6)]">
+        <ReelVideo src="/videos/reel110.mp4" poster="/images/oneday/reel110-poster.jpg" />
       </div>
       <figcaption className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-brown-dark/90 px-3 py-1.5 text-[12px] font-bold text-butter backdrop-blur">
         <span className="h-1.5 w-1.5 rounded-full bg-butter" />
-        01 · 니온앤비욘 챌린지에 내 얼굴 넣기
+        광고비 0원 · AI로 만든 릴스
       </figcaption>
       <div className="absolute -bottom-5 right-4 rounded-2xl border border-brown/10 bg-white px-4 py-3 shadow-[0_18px_40px_-20px_rgba(97,66,21,.5)]">
-        <p className="text-[10.5px] font-bold uppercase tracking-[0.15em] text-olive">촬영 없이</p>
-        <p className="text-[14px] font-bold text-brown-dark">내가 등장하는 챌린지 릴스 1편</p>
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.15em] text-olive">조회수</p>
+        <p className="font-serif text-[26px] font-semibold leading-none text-brown-dark">110만회+</p>
       </div>
     </figure>
   );

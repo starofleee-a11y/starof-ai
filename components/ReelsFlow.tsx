@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
  * 겹치는 반투명 원 5개가 가로로 이어지고, 단계가 차례로 켜져요. 원이나 오른쪽 항목에 올리거나 누르면 그 단계에 멈춰요.
  */
 const STEPS = [
-  { n: "01", t: "노션 스크립트", s: "후킹 서사·대본을 노션에서 자동 생성", fill: "#FFEB51" },
-  { n: "02", t: "AI 이미지", s: "인물·제품 컷을 AI로 생성", fill: "#DDE3B8" },
-  { n: "03", t: "AI 영상", s: "컷을 영상으로, 얼굴 합성까지", fill: "#FFC46B" },
-  { n: "04", t: "TTS · 자막", s: "음성과 자막을 자동으로 입히기", fill: "#FFEB51" },
+  { n: "01", t: "레퍼런스 탐색", s: "클로드코드가 터지는 채널·릴스를 자동으로 수집", fill: "#FFEB51" },
+  { n: "02", t: "릴스 대본", s: "터지는 구조에 맞춘 후킹 대본을 자동 생성", fill: "#DDE3B8" },
+  { n: "03", t: "AI 영상", s: "힉스필드로 촬영 없이 장면 영상 만들기", fill: "#FFC46B" },
+  { n: "04", t: "편집 · 자막", s: "컷 편집과 음성·자막을 자동으로 입히기", fill: "#FFEB51" },
   { n: "05", t: "릴스 업로드", s: "썸네일·캡션까지 완성해 업로드", fill: "#DDE3B8" },
 ];
 const CX = [70, 165, 260, 355, 450];
@@ -26,7 +26,7 @@ export default function ReelsFlow() {
 
   return (
     <div className="grid items-center gap-8 md:grid-cols-[1.1fr_1fr] md:gap-12">
-      <svg viewBox="0 0 520 220" className="mx-auto w-full max-w-[560px]" role="img" aria-label="노션 스크립트, AI 이미지, AI 영상, TTS·자막, 릴스 업로드로 이어지는 자동화 워크플로우">
+      <svg viewBox="0 0 520 220" className="mx-auto w-full max-w-[560px]" role="img" aria-label="레퍼런스 탐색, 릴스 대본, AI 영상, 편집·자막, 릴스 업로드로 이어지는 자동화 워크플로우">
         <defs>
           <filter id="rf-glow"><feGaussianBlur stdDeviation="6" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
         </defs>
