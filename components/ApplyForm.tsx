@@ -22,7 +22,7 @@ const COPY: Record<Kind, { eyebrow: string; title: string; sub: string; topicLab
     topicRequired: true,
     checks: [
       { name: "pro", text: "클로드 Pro 구독을 첫 세션 전까지 준비할 수 있어요." },
-      { name: "schedule", text: "12월 중 4회 일정(확정 후 안내)에 모두 참여할 수 있어요." },
+      { name: "schedule", text: "12/13(일) · 12/16(수) · 12/20(일) · 12/27(일) 4회 일정에 모두 참여할 수 있어요." },
     ],
     submit: "3기 예약 신청하기",
     done: `아래 계좌로 참가비를 이체하시면 바로 신청이 확정돼요. 12월 상세 일정과 톡방 초대는 남겨주신 번호로 문자(SMS)로 보내드려요.`,
