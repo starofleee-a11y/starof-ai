@@ -5,9 +5,9 @@ export const STUDY = {
   people: "7~10명", // 소수 정원
   price: 130000, // 3기 얼리버드 특가 (예약 신청)
   listPrice: 150000, // 정가 — 취소선으로 표시
-  dateLabel: "12월 중",
+  dateLabel: "12/13(일) ~ 12/27(일)",
   deadline: "정원 마감 시",
-  resultDate: "12월 일정 확정 후",
+  resultDate: "12/13(일) 1회차 시작",
   host: "starof_ai",
   place: {
     offline: "서울 (강남 인근 강의실에서 진행 예정)",
@@ -16,7 +16,7 @@ export const STUDY = {
   sessions: [
     {
       no: "1회차",
-      date: "12월 중 · 일정 추후 안내",
+      date: "12/13(일) 오후 2:30 ~ 5:00",
       mode: "오프라인",
       title: "클로드 코드 설치 및 AI 이론 학습",
       image: "/images/study/ep1-deck.jpg",
@@ -26,7 +26,7 @@ export const STUDY = {
     },
     {
       no: "2회차",
-      date: "12월 중 · 일정 추후 안내",
+      date: "12/16(수) 오후 8:00 ~ 10:00",
       mode: "온라인",
       title: "카드뉴스 자동화 & 뉴스레터 메일 자동화 실습",
       image: "/images/study/ep2-deck.jpg",
@@ -36,7 +36,7 @@ export const STUDY = {
     },
     {
       no: "3회차",
-      date: "12월 중 · 일정 추후 안내",
+      date: "12/20(일) 오후 8:00 ~ 10:00",
       mode: "온라인",
       title: "1:1 자동화 컨설팅",
       image: "/images/study/ep3-flow.jpg",
@@ -46,7 +46,7 @@ export const STUDY = {
     },
     {
       no: "4회차",
-      date: "12월 중 · 일정 추후 안내",
+      date: "12/27(일) 오후 4:30 ~ 6:00",
       mode: "오프라인",
       title: "최종 프로젝트 발표 및 MVP 시상식",
       image: "/images/study/ep4-deck.jpg",

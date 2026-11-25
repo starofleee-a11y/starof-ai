@@ -95,7 +95,7 @@ export default function StudyPage() {
 
       {/* SCHEDULE */}
       <section id="schedule" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 2회는 {STUDY.place.offline}, 온라인 2회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">{STUDY.dateLabel} 진행, 상세 일정은 확정되는 대로 안내드려요. 지금은 얼리버드 예약 신청 기간이에요.</b></>} />
+        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 2회는 {STUDY.place.offline}, 온라인 2회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">{STUDY.dateLabel} 진행, 회차별 일정은 아래와 같아요. 지금은 얼리버드 예약 신청 기간이에요.</b></>} />
         <div className="grid gap-3 md:grid-cols-4">
           {STUDY.sessions.map((x, i) => {
             const dark = x.mode === "오프라인";
