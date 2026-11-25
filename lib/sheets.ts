@@ -12,6 +12,8 @@ export interface ApplicationRow {
   price?: string;
   status?: string; // 입금 대기 · 결제 완료 · 상담 대기 …
   note?: string;
+  /** 진행일 YYYY-MM-DD — 시트 정렬 기준 */
+  classDate?: string;
 }
 
 export async function logApplication(row: ApplicationRow): Promise<boolean> {
