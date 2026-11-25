@@ -4,6 +4,7 @@ import { STUDY } from "@/lib/study";
 import { ONEDAY } from "@/lib/oneday";
 import { SITE } from "@/lib/site";
 import { PRODUCTS, FRIEND_DISCOUNT, calcAmount, hasFriendDiscount, won } from "@/lib/products";
+import { logApplication } from "@/lib/sheets";
 
 export const runtime = "nodejs";
 
@@ -78,7 +79,19 @@ export async function POST(req: NextRequest) {
   const priceLine = p.payable
     ? `<p style="font-size:14px">참가비는 <b>${won(amount)}</b>${friend ? ` (지인할인 적용, 추천: ${escapeHtml(f.friendName)})` : ""}이에요.</p>`
     : "";
+  const sheetRow = {
+    course: { study: "자동화 스터디", oneday: "AI 콘텐츠 원데이", consulting: "1:1 마케팅 자동화 컨설팅" }[product],
+    cohort: product === "study" ? `${STUDY.cohort} · ${STUDY.dateLabel}` : product === "oneday" ? `${ONEDAY.cohort} · ${ONEDAY.date}` : "",
+    name: f.name,
+    phone: f.phone,
+    email: f.email,
+    job: f.job,
+    topic: f.topic,
+    price: p.payable ? (friend ? `${won(amount)} (지인할인 · 추천 ${f.friendName})` : won(amount)) : "",
+    status: p.payable ? "입금 대기" : "상담 대기",
+  };
   await Promise.all([
+    logApplication(sheetRow),
     notifySlack(notice),
     sendMail({ to: OWNER_EMAIL(), subject: `[${m.label}] ${f.name} · ${f.job || f.email}`, html: noticeToHtml(notice), replyTo: f.email }),
     sendMail({
