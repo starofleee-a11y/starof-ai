@@ -82,6 +82,7 @@ export async function POST(req: NextRequest) {
   const sheetRow = {
     course: { study: "자동화 스터디", oneday: "AI 콘텐츠 원데이", consulting: "1:1 마케팅 자동화 컨설팅" }[product],
     cohort: product === "study" ? `${STUDY.cohort} · ${STUDY.dateLabel}` : product === "oneday" ? `${ONEDAY.cohort} · ${ONEDAY.date}` : "",
+    classDate: product === "study" ? STUDY.startDate : product === "oneday" ? ONEDAY.startDate : "",
     name: f.name,
     phone: f.phone,
     email: f.email,

@@ -3,6 +3,7 @@ export const ONEDAY = {
   cohort: "AI 콘텐츠 제작 원데이 1기",
   title: "AI로 릴스 제작 자동화 해보기",
   date: "11월 29일(일) 16:00–19:00",
+  startDate: "2026-11-29", // 시트 '진행일' 칸 (YYYY-MM-DD)
   dateShort: "11/29(일)",
   time: "16:00–19:00",
   duration: "3시간 원데이",

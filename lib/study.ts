@@ -6,6 +6,7 @@ export const STUDY = {
   price: 130000, // 3기 얼리버드 특가 (예약 신청)
   listPrice: 150000, // 정가 — 취소선으로 표시
   dateLabel: "12/13(일) ~ 12/27(일)",
+  startDate: "2026-12-13", // 시트 '진행일' 칸 (YYYY-MM-DD)
   deadline: "정원 마감 시",
   resultDate: "12/13(일) 1회차 시작",
   host: "starof_ai",
