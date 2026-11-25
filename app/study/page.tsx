@@ -408,7 +408,7 @@ export default function StudyPage() {
         <FAQ items={FAQS} />
       </section>
 
-      <FloatingCTA kind="study" primary="3기 예약 신청하기" secondary={{ label: "1화 교안 무료 받기", href: "#free-pdf" }} note={`얼리버드 ${won(STUDY.price)} (정가 ${won(STUDY.listPrice)}) · ${STUDY.dateLabel}`} />
+      <FloatingCTA kind="study" primary="3기 예약 신청하기" secondary={{ label: "1화 교안 무료 받기", href: "#free-pdf" }} note={`얼리버드 ${won(STUDY.price)} · 12/13(일) 개강`} />
       <ApplyModalHost kind="study" />
     </>
   );

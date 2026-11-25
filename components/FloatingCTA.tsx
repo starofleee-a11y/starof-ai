@@ -35,8 +35,8 @@ export default function FloatingCTA({
   return (
     <div className={`fixed inset-x-0 bottom-0 z-40 px-3 pb-3 transition-all duration-500 sm:bottom-5 sm:pb-0 ${visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0"}`}>
       <div className="mx-auto flex max-w-[640px] items-center gap-2 rounded-[22px] border border-brown/30 bg-brown-dark/95 p-2 pl-2 shadow-[0_24px_60px_-20px_rgba(46,31,8,.75)] backdrop-blur-xl sm:rounded-full sm:pl-5">
-        {note && <p className="hidden shrink-0 text-[13px] font-semibold text-butter-pale/85 sm:block">{note}</p>}
-        <div className="grid flex-1 grid-cols-[1.1fr_1fr] gap-2 sm:flex sm:justify-end">
+        {note && <p className="hidden min-w-0 truncate text-[13px] font-semibold text-butter-pale/85 sm:block">{note}</p>}
+        <div className="grid flex-1 grid-cols-[1.1fr_1fr] gap-2 sm:flex sm:shrink-0 sm:justify-end">
           <button type="button" onClick={() => openApply(kind)} className="btn-yellow relative whitespace-nowrap !px-4 !py-3.5 text-[15px] font-bold shadow-[0_0_0_0_rgba(255,235,81,.6)] animate-[cta-pulse_2.4s_ease-out_infinite] sm:!px-7">
             {primary}
           </button>
