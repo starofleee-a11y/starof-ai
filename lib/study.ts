@@ -28,7 +28,7 @@ export const STUDY = {
     {
       no: "2회차",
       date: "12/16(수) 오후 8:00 ~ 10:00",
-      mode: "온라인",
+      mode: "오프라인",
       title: "카드뉴스 자동화 & 뉴스레터 메일 자동화 실습",
       image: "/images/study/ep2-deck.jpg",
       imageAlt: "2회차 교안 — 실무 자동화 사례 해부",
@@ -96,8 +96,17 @@ export const LECTURE_PHOTOS = [
   { src: "/images/lectures/study1-lead.jpg", alt: "스터디장 Winter의 강의 모습", w: 1200, h: 622 },
 ];
 
-// 1기 수강생이 노션 스터디 페이지에 직접 남긴 후기 원문 (이름은 뺐어요)
+// 1·2기 수강생이 노션 스터디 페이지에 직접 남긴 후기 원문 (이름은 뺐어요)
 export const STUDY_REVIEWS = [
+  {
+    quote: "**다양한 커넥터를 연결하고, 스킬을 활용하면** 업무를 쉽고 빠르게 자동화하고 또 **고도화할 수 있다는 점**이 되게 유용하게 느껴졌습니다.",
+    who: "2기 수강생 · 보도자료 메일 배포 자동화",
+    featured: true,
+  },
+  {
+    quote: "**자동화에 대해 다시 생각하는 시간**이었고, 빠르게 발전하는 상황에 **따라가야겠다는 생각**",
+    who: "2기 수강생 · 제약 기사 요약 · 교육 메일 자동화",
+  },
   {
     quote: "AI 사용 해야겠다는 생각은 오랫동안 해왔지만 엄두를 못 내고 있었는데, 이번 스터디를 통해 **첫걸음을 뗄 수 있어** 너무 감사하고 좋았습니다. **선생님이 있다는 생각만으로도 든든해요.**",
     who: "1기 수강생 · 채용·개인 업무 자동화",
@@ -151,14 +160,16 @@ export const INCLUDED = [
   { k: "수료 · 시상", t: "수료증 + MVP 시상", d: "4회차 최종 발표에서 MVP를 시상하고, 완주하신 분께 수료증을 드려요." },
 ];
 
-// 강의 현장 갤러리 (불규칙 레이아웃). span: 그리드에서 차지하는 칸
+// 강의 현장 갤러리 (가로로 넘겨 보는 띠). 2기 → 1기 순서. w/h = 원본 비율
 export const GALLERY = [
-  { src: "/images/lectures/study1-class.jpg", alt: "1기 1회차 강의 현장", caption: "1회차 · 설치부터 같이 하는 첫 수업", span: "md:col-span-2 md:row-span-2" },
-  { src: "/images/lectures/study1-lead2.jpg", alt: "스터디장이 슬라이드를 보며 강의하는 모습", caption: "1회차 · 스터디장 강의", span: "" },
-  { src: "/images/lectures/study1-class2.jpg", alt: "수강생들이 노트북으로 실습하는 모습", caption: "2회차 · 실습", span: "" },
-  { src: "/images/lectures/study1-present-a.jpg", alt: "1기 수강생 발표 현장", caption: "4회차 · 내 자동화 발표", span: "md:col-span-2" },
-  { src: "/images/lectures/study1-lead.jpg", alt: "스터디장이 화면을 보며 진행하는 모습", caption: "3회차 · 기획안 피드백", span: "" },
-  { src: "/images/lectures/study1-present-b.jpg", alt: "1기 수강생이 자동화를 시연하는 모습", caption: "4회차 · 라이브 시연", span: "" },
+  { src: "/images/lectures/study2-class.jpg", alt: "2기 1회차 — 수강생들이 노트북으로 실습하는 모습", caption: "2기 · 1회차 실습", w: 1400, h: 787 },
+  { src: "/images/lectures/study2-present.jpg", alt: "2기 4회차 — 수강생이 만든 데일리 브리핑 자동화 발표 화면", caption: "2기 · 4회차 최종 발표", w: 1100, h: 873 },
+  { src: "/images/lectures/study1-class.jpg", alt: "1기 1회차 강의 현장", caption: "1기 · 설치부터 같이 하는 첫 수업", w: 1080, h: 1080 },
+  { src: "/images/lectures/study1-lead2.jpg", alt: "스터디장이 슬라이드를 보며 강의하는 모습", caption: "1기 · 스터디장 강의", w: 1600, h: 900 },
+  { src: "/images/lectures/study1-class2.jpg", alt: "수강생들이 노트북으로 실습하는 모습", caption: "1기 · 2회차 실습", w: 1600, h: 1200 },
+  { src: "/images/lectures/study1-present-a.jpg", alt: "1기 수강생 발표 현장", caption: "1기 · 내 자동화 발표", w: 480, h: 640 },
+  { src: "/images/lectures/study1-lead.jpg", alt: "스터디장이 화면을 보며 진행하는 모습", caption: "1기 · 기획안 피드백", w: 1080, h: 560 },
+  { src: "/images/lectures/study1-present-b.jpg", alt: "1기 수강생이 자동화를 시연하는 모습", caption: "1기 · 라이브 시연", w: 480, h: 640 },
 ];
 
 // 수강생이 보낸 손편지 (이름은 가렸어요)

@@ -14,6 +14,7 @@ import CountUp from "@/components/CountUp";
 import { SURVEY } from "@/lib/proof";
 import { STUDY, LECTURE_PHOTOS, STUDENT_PROJECTS, STUDY_MATERIALS, FIT_FOR, NOT_FOR, INCLUDED, GALLERY, MESSAGES, LETTER } from "@/lib/study";
 import { Voices } from "@/components/Deliverables";
+import GalleryStrip from "@/components/GalleryStrip";
 import Hl from "@/components/Hl";
 import { PRODUCTS, won } from "@/lib/products";
 import { SITE } from "@/lib/site";
@@ -29,7 +30,7 @@ const FAQS = [
   { q: "코딩을 전혀 몰라도 되나요?", a: "네. 1기 수강생의 64%가 클로드 코드를 처음 접한 분들이었어요. 터미널 설치부터 화면을 같이 보며 진행하고, 막히는 부분은 그 자리에서 해결합니다." },
   { q: "무엇을 배우나요?", a: "클로드 코드 설치·셋팅, 스킬·커넥터·토큰 개념, 실무 자동화 사례 해부, 그리고 내 업무 하나를 직접 자동화해서 발표하는 것까지예요. 이론보다 실습 비중이 큽니다." },
   { q: "유튜브나 온라인 강의와 뭐가 다른가요?", a: "에러에서 멈추지 않는다는 점이에요. 소수 정원이라 막힌 화면을 한 명씩 같이 보고, 내 업무에 맞춰 기획안 피드백까지 받습니다." },
-  { q: "수업은 어디서 하나요?", a: `오프라인 2회(1·4회차)는 ${STUDY.place.offline}, 온라인 2회(2·3회차)는 ${STUDY.place.online}에서 진행해요.` },
+  { q: "수업은 어디서 하나요?", a: `오프라인 3회(1·2·4회차)는 ${STUDY.place.offline}, 온라인 1회(3회차)는 ${STUDY.place.online}에서 진행해요.` },
   { q: "준비물이 있나요?", a: "클로드 Pro 구독과 개인 노트북이 필요해요. 회사 노트북은 설치·터미널 권한이 막혀 있는 경우가 많아 개인 노트북을 권장합니다. 윈도우·맥 모두 가능해요." },
   { q: "자동화할 주제가 아직 없어요.", a: "매주 반복하는 일 중 ‘입력이 있고 결과물이 있는 일’ 하나면 충분해요. 신청서에 적어주시면 1회차 전에 같이 다듬어 드립니다." },
   { q: "수업에 빠지면 어떻게 하나요?", a: "교안과 실습 파일은 드리지만, 실습과 발표가 이어지는 구성이라 4회 일정을 꼭 확인하고 신청해 주세요." },
@@ -52,7 +53,7 @@ export default function StudyPage() {
           </>
         }
         desc={<>설치와 셋팅을 같이 해보고, 마지막엔 본인 업무 자동화를 실제로 만들어 발표합니다. <b className="font-semibold text-brown-dark">{STUDY.people} 소수 정원</b>으로 한 분씩 막히는 곳을 바로 풀어드려요.</>}
-        chips={["강남 오프라인 2회 + 줌 2회", STUDY.weeks, `${STUDY.people} 소수 정원`, `얼리버드 ${won(STUDY.price)} (정가 ${won(STUDY.listPrice)})`, `${STUDY.dateLabel} 진행 · 예약 신청 중`]}
+        chips={["강남 오프라인 3회 + 줌 1회", STUDY.weeks, `${STUDY.people} 소수 정원`, `얼리버드 ${won(STUDY.price)} (정가 ${won(STUDY.listPrice)})`, `${STUDY.dateLabel} 진행 · 예약 신청 중`]}
         aside={
           /* 히어로 사진은 한 장만 — 발표 장면을 크게 크롭해서 칸을 꽉 채워요 */
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/70 shadow-[0_30px_60px_-40px_rgba(97,66,21,.6)] md:aspect-[5/6]">
@@ -95,7 +96,7 @@ export default function StudyPage() {
 
       {/* SCHEDULE */}
       <section id="schedule" className="wrap scroll-mt-20 py-24 md:py-32">
-        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 2회는 {STUDY.place.offline}, 온라인 2회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">{STUDY.dateLabel} 진행, 회차별 일정은 아래와 같아요. 지금은 얼리버드 예약 신청 기간이에요.</b></>} />
+        <SectionHead eyebrow="Schedule" title={<>{STUDY.cohort}<br />수강 일정</>} desc={<>오프라인 3회는 {STUDY.place.offline}, 온라인 1회는 {STUDY.place.online}. <b className="font-bold text-brown-dark">{STUDY.dateLabel} 진행, 회차별 일정은 아래와 같아요. 지금은 얼리버드 예약 신청 기간이에요.</b></>} />
         <div className="grid gap-3 md:grid-cols-4">
           {STUDY.sessions.map((x, i) => {
             const dark = x.mode === "오프라인";
@@ -149,17 +150,10 @@ export default function StudyPage() {
       {/* GALLERY */}
       <section id="gallery" className="scroll-mt-20 bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="강의 현장" title={<>1기 <Hl>현장 사진</Hl></>} desc="1회차 설치 수업부터 4회차 발표까지, 1기 수업 현장이에요. 수강생 얼굴과 이름은 가렸습니다." />
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:auto-rows-[220px] md:gap-4">
-            {GALLERY.map((g, i) => (
-              <Reveal key={g.src} delay={i * 70} className={`${g.span} min-h-[160px]`}>
-                <figure className="relative h-full overflow-hidden rounded-2xl border border-brown/20 bg-white">
-                  <Image src={g.src} alt={g.alt} fill sizes="(min-width:768px) 50vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-[1.03]" />
-                  <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brown-dark/85 to-transparent px-4 pb-3 pt-10 text-[12.5px] font-bold text-butter-pale">{g.caption}</figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
+          <SectionHead eyebrow="강의 현장" title={<>1 · 2기 <Hl>현장 사진</Hl></>} desc="설치 수업부터 최종 발표까지, 1·2기 수업 현장이에요. 옆으로 넘겨 보세요. 수강생 얼굴은 가렸습니다." />
+        </div>
+        <GalleryStrip items={GALLERY} />
+        <div className="wrap">
           <Reveal>
             <p className="mt-14 mb-5 text-[12px] font-bold uppercase tracking-[0.2em] text-brown">수강생이 보낸 메시지</p>
           </Reveal>
@@ -338,7 +332,7 @@ export default function StudyPage() {
       {/* REVIEWS */}
       <section id="reviews" className="scroll-mt-20 overflow-hidden bg-paper py-24 md:py-32">
         <div className="wrap">
-          <SectionHead eyebrow="Reviews" title={<><Hl>먼저 들은 분들</Hl>의 이야기</>} desc="1기 수강생이 스터디 페이지에 직접 남긴 후기예요." />
+          <SectionHead eyebrow="Reviews" title={<><Hl>먼저 들은 분들</Hl>의 이야기</>} desc="1·2기 수강생이 스터디 페이지에 직접 남긴 후기예요." />
           <Voices />
           <p className="mt-16 text-[12px] font-semibold uppercase tracking-[0.2em] text-brown/55">{SURVEY.source} · 추천 의향 평균 {SURVEY.recommend}점</p>
         </div>
