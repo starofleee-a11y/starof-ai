@@ -163,13 +163,12 @@ export const INCLUDED = [
 // 강의 현장 갤러리 (가로로 넘겨 보는 띠). 2기 → 1기 순서. w/h = 원본 비율
 export const GALLERY = [
   { src: "/images/lectures/study2-class.jpg", alt: "2기 1회차 — 수강생들이 노트북으로 실습하는 모습", caption: "2기 · 1회차 실습", w: 1400, h: 787 },
+  { src: "/images/lectures/study2-online.jpg", alt: "2기 2회차 온라인 수업 — 자동화 플로우와 스터디장 피드백 화면", caption: "2기 · 2회차 온라인 수업", w: 1400, h: 779 },
   { src: "/images/lectures/study2-present.jpg", alt: "2기 4회차 — 수강생이 만든 데일리 브리핑 자동화 발표 화면", caption: "2기 · 4회차 최종 발표", w: 1100, h: 873 },
   { src: "/images/lectures/study1-class.jpg", alt: "1기 1회차 강의 현장", caption: "1기 · 설치부터 같이 하는 첫 수업", w: 1080, h: 1080 },
   { src: "/images/lectures/study1-lead2.jpg", alt: "스터디장이 슬라이드를 보며 강의하는 모습", caption: "1기 · 스터디장 강의", w: 1600, h: 900 },
-  { src: "/images/lectures/study1-class2.jpg", alt: "수강생들이 노트북으로 실습하는 모습", caption: "1기 · 2회차 실습", w: 1600, h: 1200 },
   { src: "/images/lectures/study1-present-a.jpg", alt: "1기 수강생 발표 현장", caption: "1기 · 내 자동화 발표", w: 480, h: 640 },
-  { src: "/images/lectures/study1-lead.jpg", alt: "스터디장이 화면을 보며 진행하는 모습", caption: "1기 · 기획안 피드백", w: 1080, h: 560 },
-  { src: "/images/lectures/study1-present-b.jpg", alt: "1기 수강생이 자동화를 시연하는 모습", caption: "1기 · 라이브 시연", w: 480, h: 640 },
+  { src: "/images/lectures/study1-feedback.jpg", alt: "1기 기획안 피드백 — 카드뉴스 기획안 작성 화면", caption: "1기 · 기획안 피드백", w: 1400, h: 791 },
 ];
 
 // 수강생이 보낸 손편지 (이름은 가렸어요)
