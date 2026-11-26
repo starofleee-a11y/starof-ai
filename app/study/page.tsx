@@ -349,7 +349,7 @@ export default function StudyPage() {
             file="/downloads/starofai-claude-code-study-ep1.pdf"
             fileName="StarofAI_클로드코드스터디_1화교안.pdf"
             title="1화 강의 교안, 무료로 먼저 보세요"
-            desc="1회차 ‘설치부터 첫 배포까지’ 교안 36페이지 전체를 드려요. 이름과 메일만 남기면 바로 다운로드됩니다."
+            desc="1회차 ‘설치부터 첫 배포까지’ 교안 36페이지 전체를 드려요. 이름, 휴대폰 번호, 메일을 남기면 바로 다운로드됩니다."
             cover={<Image src="/images/study-ep1-cover.jpg" alt="1화 강의 교안 표지" width={1600} height={900} className="rounded-xl" />}
           />
         </Reveal>
